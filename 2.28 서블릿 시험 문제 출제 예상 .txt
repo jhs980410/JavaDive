@@ -1,0 +1,52 @@
+JSP servlet 시험 
+
+객관식   1~ 7번은 다 객관식
+1.  4지선다
+
+
+2.  JsTL (JSP Standard Tag Library)
+
+
+3. include 액션 태그
+기본문법 :  <jsp:include page="포함할파일.jsp" />
+
+
+4. form 태그  
+get ,post방식 뭐..이런거
+
+<form action="/search" method="GET">
+    <input type="text" name="query">
+    <input type="submit" value="검색">
+</form>
+
+
+5.  form 태그  
+get ,post방식 뭐..이런거
+
+
+<form action="/search" method="GET">
+    <input type="text" name="query">
+    <input type="submit" value="검색">
+</form>
+
+
+6. JDBC 	
+JDBC(Java Database Connectivity)는 Java에서 데이터베이스와 연결하고 SQL을 실행할 수 있도록 도와주는 API입니다.
+6단계   
+1. 드라이버 로드   			Class.forName("com.mysql.cj.jdbc.Driver");
+2. 데이터베이스연결		Connection conn = DriverManager.getConnection(url, user, password); 
+3. SQL 실행객체 생성  		PreparedStatement pstmt = conn.prepareStatement(sql);
+4. 실행결과 및 결과처리  		ResultSet rs = pstmt.executeQuery();
+5. 결과활용 			while (rs.next()) { System.out.println(rs.getString("name")); }
+6. 자원해제    			rs.close(); pstmt.close(); conn.close(); 
+
+
+7. DB 객체
+
+서술형
+
+
+8.배열과 JSTL  
+
+
+
