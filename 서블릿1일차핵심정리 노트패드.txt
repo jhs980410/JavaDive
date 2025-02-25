@@ -533,5 +533,81 @@ session.invalidate(); // 세션 삭제 (로그아웃)
 ✔ 쿠키보다 보안이 강력하며, 서버에서 관리됨
 ✔ 로그아웃 시 session.invalidate();를 사용하여 세션 삭제 가능
 
-이제 세션을 활용하면 사용자 인증 및 상태 유지를 쉽게 구현할 수 있습니다! 🚀
 
+
+📌 JSP 개발에서 중요한 개념 정리
+✅ 1. 액션 태그 (JSP Action Tag)
+JSP에서 제공하는 기본 태그로, 자바 코드 삽입을 최소화하고 유지보수를 쉽게 하기 위해 사용됨.
+객체 생성, 공유, 페이지 이동, 데이터 전달 등의 기능을 제공.
+대표적인 액션 태그
+<jsp:useBean> : 자바 빈 객체를 생성하거나 참조
+<jsp:setProperty> : 자바 빈 객체의 값을 설정
+<jsp:getProperty> : 자바 빈 객체의 값을 가져오기
+<jsp:include> : 다른 JSP 페이지 포함
+<jsp:forward> : 페이지 이동
+
+
+✅ 2. 자바 빈 (JavaBean)
+재사용 가능한 자바 컴포넌트로, JSP에서 데이터를 저장하고 처리하는 객체.
+특징
+기본 생성자(인자 없는 생성자) 필수
+멤버 변수는 private, 접근은 getter/setter 사용
+직렬화 가능 (implements Serializable)
+
+public class MemberDto implements Serializable {
+    private int no;
+    private String name;
+    
+    public MemberDto() {}  // 기본 생성자
+
+    public int getNo() { return no; }
+    public void setNo(int no) { this.no = no; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+}
+
+<jsp:useBean id="memberDto" class="com.example.MemberDto" scope="request"/>
+
+
+✅ 3. useBean 액션 태그
+JSP에서 자바 빈 객체를 생성하거나 가져올 때 사용
+주요 속성
+id : 사용할 변수명 (보관소에서 객체를 가져올 때 사용)
+class : 패키지명을 포함한 클래스명 (객체 생성)
+scope : 저장 범위 (page, request, session, application)
+type : 참조할 클래스 타입 (추상 클래스/인터페이스 가능)
+
+
+✅ 4. JSTL (JSP Standard Tag Library)
+JSP에서 자바 코드를 사용하지 않고 조건문, 반복문을 처리하는 표준 태그 라이브러리
+JSTL 종류
+Core (c 태그) : 조건문, 반복문, 변수 설정 (c:if, c:forEach, c:set)
+XML, 데이터베이스, 함수 기능도 있으나 주로 Core 사용됨.
+
+
+예제
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:forEach var="member" items="${memberList}">
+    <p>${member.name}</p>
+</c:forEach>
+
+
+✅ 5. EL (Expression Language)
+JSP에서 변수, 객체 속성, 리스트/배열 값을 쉽게 가져올 수 있도록 지원
+객체 속성 접근
+${memberDto.no}  
+${memberDto["no"]}
+보관소(Scope) 명시 방법
+
+
+${requestScope.memberDto.no}  
+${sessionScope.memberDto.name}
+보관소를 명시하지 않으면 page -> request -> session -> application 순서대로 찾음.
+🎯 최종 요약
+개념	설명
+액션 태그	 : JSP에서 객체 생성, 페이지 이동, 데이터 전달을 쉽게 하기 위한 태그
+자바 빈		 : 재사용 가능한 데이터 객체, 기본 생성자 & getter/setter 필요
+useBean 태그	 : 자바 빈 객체를 JSP에서 생성/참조하는 액션 태그
+JSTL		 : JSP에서 자바 코드 없이 조건문, 반복문 등을 사용할 수 있는 태그 라이브러리
+EL(표현 언어):	JSP에서 데이터를 쉽게 가져오고 연산할 수 있는 표현 방식
