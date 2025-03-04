@@ -16,11 +16,11 @@
    </context-param>
    <context-param>
       <param-name>user</param-name>
-      <param-value>edu</param-value>
+      <param-value>ctube</param-value>
    </context-param>
    <context-param>
       <param-name>password</param-name>
-      <param-value>edu12</param-value>
+      <param-value>ctube123</param-value>
    </context-param>
 
    <welcome-file-list>
