@@ -6,8 +6,8 @@ import java.sql.DriverManager;
 public class DBConnectionTest {
     public static void main(String[] args) {
         String url = "jdbc:oracle:thin:@localhost:1521:xe"; // DB 주소 확인
-        String user = "edu"; // Oracle 계정
-        String password = "edu12"; // Oracle 비밀번호
+        String user = "ctube"; // Oracle 계정
+        String password = "ctube123"; // Oracle 비밀번호
 
         try {
             Class.forName("oracle.jdbc.OracleDriver");
