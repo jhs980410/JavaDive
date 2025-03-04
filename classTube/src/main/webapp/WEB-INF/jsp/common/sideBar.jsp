@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>사이드바</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sideBar.css"> <!-- CSS 적용 -->
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/common/sideBar.css">
+
 </head>
 <body>
     <div class="sidebar">
