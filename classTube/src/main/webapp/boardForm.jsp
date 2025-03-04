@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시판글쓰기</title>
 <style type="text/css">
 body {
     font-family: Arial, sans-serif;
@@ -53,6 +53,7 @@ label {
 
 input[type="text"], textarea {
     width: 100%;
+    height:55%;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 5px;
