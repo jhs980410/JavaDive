@@ -1,79 +1,95 @@
 package JavaDive.dto.board;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class BoardDto {
 
-	private int noteNo;    //게시글번호
-	private String title;  // 게시글 제목 
-	private String writer; // 게시글작성자
-	private Date createDate; //게시글 작성일 
-	private Date updaDate;  // 게시글 수정일 
-	private String content; //게시글 내용 
-	private String category; //게시글 카테고리 (말머리)
-	private String categoryNo; //게시글 카테고리번호 fk;
+	private int noteNo; // 게시글 번호
+	private String title; // 제목
+	private String writer; // 작성자
+	private Timestamp createDate; // 작성일
+	private Timestamp updateDate; // 수정일
+	private String content; // 내용
+	private String category; // 카테고리 (말머리)
+	private int categoryNo; // 카테고리 번호 (외래키)
+
 	public BoardDto() {
-		super();
 	}
-	public BoardDto(int noteNo, String title, String writer, Date createDate, Date updaDate, String content,
-			String category) {
-		super();
+
+	public BoardDto(int noteNo, String title, String writer, Timestamp createDate, Timestamp updateDate, String content,
+			String category, int categoryNo) {
 		this.noteNo = noteNo;
 		this.title = title;
 		this.writer = writer;
 		this.createDate = createDate;
-		this.updaDate = updaDate;
+		this.updateDate = updateDate;
 		this.content = content;
 		this.category = category;
+		this.categoryNo = categoryNo;
 	}
+
+	// Getters & Setters
 	public int getNoteNo() {
 		return noteNo;
 	}
-	public String getCategoryNo() {
-		return categoryNo;
-	}
-	public void setCategoryNo(String categoryNo) {
-		this.categoryNo = categoryNo;
-	}
+
 	public void setNoteNo(int noteNo) {
 		this.noteNo = noteNo;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getWriter() {
 		return writer;
 	}
+
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	public Date getCreateDate() {
+
+	public Timestamp getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+
+	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
-	public Date getUpdaDate() {
-		return updaDate;
+
+	public Timestamp getUpdateDate() {
+		return updateDate;
 	}
-	public void setUpdaDate(Date updaDate) {
-		this.updaDate = updaDate;
+
+	public void setUpdateDate(Timestamp updateDate) {
+		this.updateDate = updateDate;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public String getCategory() {
 		return category;
 	}
+
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
-	
+
+	public int getCategoryNo() {
+		return categoryNo;
+	}
+
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
+	}
 }
