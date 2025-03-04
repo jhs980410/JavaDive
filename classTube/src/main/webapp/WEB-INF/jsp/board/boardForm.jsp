@@ -117,7 +117,7 @@ button[type="submit"] {
     <div class="container">
           
         <h2>게시판 글쓰기</h2>
-        <form action="boardWrite" method="post">
+        <form action="./boardSubmit" method="post">
         <div class="form-group">
                 
                 <select name="category" class = "select">

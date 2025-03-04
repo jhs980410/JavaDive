@@ -11,6 +11,7 @@ public class BoardDto {
 	private Date updaDate;  // 게시글 수정일 
 	private String content; //게시글 내용 
 	private String category; //게시글 카테고리 (말머리)
+	private String categoryNo; //게시글 카테고리번호 fk;
 	public BoardDto() {
 		super();
 	}
@@ -27,6 +28,12 @@ public class BoardDto {
 	}
 	public int getNoteNo() {
 		return noteNo;
+	}
+	public String getCategoryNo() {
+		return categoryNo;
+	}
+	public void setCategoryNo(String categoryNo) {
+		this.categoryNo = categoryNo;
 	}
 	public void setNoteNo(int noteNo) {
 		this.noteNo = noteNo;

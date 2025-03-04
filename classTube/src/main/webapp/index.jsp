@@ -1,18 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>게시판</title>
+    <meta charset="UTF-8">
+    <title>메인 페이지</title>
 </head>
 <body>
-	<h2>게시판</h2>
 
-	<!-- 게시판 글쓰기 버튼 -->
-	<form action="<%=request.getContextPath()%>/boardForm" method="get">
-		<button type="submit">게시판 글쓰기</button>
-	</form>
+    <h2>게시판 페이지로 이동</h2>
+    <form action="boardForm" method="GET">
+        <button type="submit">게시글 작성하기</button>
+    </form>
 
 </body>
 </html>
