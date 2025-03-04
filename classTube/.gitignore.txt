@@ -1,0 +1,41 @@
+# Eclipse 관련 설정 파일
+.classpath
+.project
+.settings/
+
+# 빌드 및 컴파일 결과물 제외
+bin/
+target/
+out/
+
+# Maven 및 Gradle 빌드 폴더
+.mvn/
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE(통합 개발 환경) 관련 파일
+.idea/
+.vscode/
+
+# OS(운영체제) 관련 불필요한 파일
+.DS_Store
+Thumbs.db
+
+# 로그 및 환경설정 파일
+logs/
+*.log
+.env
+*.iml
+
+# 테스트 커버리지 및 결과 파일
+test-output/
+coverage/
+*.lcov
+
+# Java 관련 파일 제외
+*.class
+*.war
+*.jar
+*.ear
+hs_err_pid*

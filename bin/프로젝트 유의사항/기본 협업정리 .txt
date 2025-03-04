@@ -1,0 +1,67 @@
+프로젝트을 구성하는 모든 문서들
+DOC 폴더에 넣는다
+
+서블릿 패키지 구조?
+
+팀명.기능명
+	.MVC
+
+spms.MEMBER.dao
+spms.MEMBER.dto
+spms.MEMBER.dao
+
+spms.freeBoard.dao
+spms.freeboard.controller
+spms.freeboard.dto
+
+
+
+
+화면단
+서블릿의 기능명으로 폴더명 만듬
+
+
+
+
+서버는 : 워크스페이스 , 안에 위치 
+
+
+1.  	이클립스
+
+2. 	새로운 워크스페이스를 맞춘다(workspaceAws)  
+
+3. 	톰캣 10.1버전을 워크스페이스에 넣는다. (톰캣 포트 9080) 
+3.1 	톰캣위치:   C:\AWSIntel4\workspaceAws\tomcat10_1
+
+4. 	jdk 17    /  위치:  C:\Program Files\Java\jdk-17  
+
+5. 	오라클 위치 통일 :C:oracle  기본포트는 1521 
+5.1        web.xml 의 초기설정은 통일 
+5.2 	필터 ,  index.jsp, 드라이버 연결 ,
+	ex:
+	 user: edu
+  	pw :edu12  
+	jdbc8
+5.3	본인 오라클 테이블 만들것 
+	(연결될 수 있도록  user 생성후 password 설정할것) 
+
+
+6. 	프로젝트 생성시  jakarta.servlet.jsp.jstl-2.0.0 ,jakarta.servlet.jsp.jstl-api-2.0.0 
+	jdbc8둘다 옮겨둘예정 
+
+7.  
+
+
+
+
+
+
+5. 이클립스 tern 플러그인설치(js 자동 완성)  
+ 
+
+
+
+
+
+
+
