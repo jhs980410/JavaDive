@@ -6,6 +6,7 @@
     <title>사이드바</title>
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/common/sideBar.css">
 
+
 </head>
 <body>
     <div class="sidebar">
