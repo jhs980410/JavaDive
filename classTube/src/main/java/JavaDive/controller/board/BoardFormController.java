@@ -16,7 +16,7 @@ public class BoardFormController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/board/boardForm.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/jsp/board/boardForm.jsp");
 		rd.forward(req, res);
 	}
 
