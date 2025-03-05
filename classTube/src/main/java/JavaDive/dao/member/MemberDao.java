@@ -1,4 +1,5 @@
-package spms.dao;
+package JavaDive.dao.member;
+import JavaDive.dto.member.MemberDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

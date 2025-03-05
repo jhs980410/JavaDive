@@ -1,4 +1,4 @@
-package spms.dto;
+package JavaDive.dto.member;
 
 public class MemberDto {
 
@@ -11,9 +11,25 @@ public class MemberDto {
 	private String priv;
 	private String create_at;
 	
+	
+	
+	public MemberDto(int no, String email, String pwd, String name, String rrn, String tel, String priv,
+			String create_at) {
+		super();
+		this.no = no;
+		this.email = email;
+		this.pwd = pwd;
+		this.name = name;
+		this.rrn = rrn;
+		this.tel = tel;
+		this.priv = priv;
+		this.create_at = create_at;
+	}
+
 	public MemberDto() {
 		super();
 	}
+	
 	public int getNo() {
 		return no;
 	}
@@ -62,19 +78,7 @@ public class MemberDto {
 	public void setCreate_at(String create_at) {
 		this.create_at = create_at;
 	}
-	public MemberDto(int no, String email, String pwd, String name, String rrn, String tel, String priv,
-			String create_at) {
-		super();
-		
-		this.no = no;
-		this.email = email;
-		this.pwd = pwd;
-		this.name = name;
-		this.rrn = rrn;
-		this.tel = tel;
-		this.priv = priv;
-		this.create_at = create_at;
-	}
+
 	@Override
 	public String toString() {
 		return "MemberDto [no=" + no + ", email=" + email + ", pwd=" + pwd + ", name=" + name + ", rrn=" + rrn
