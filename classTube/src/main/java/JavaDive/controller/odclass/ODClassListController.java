@@ -4,16 +4,20 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import JavaDive.dao.odclass.ODClassDao;
+import JavaDive.dto.odclass.ODClassDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import spms.dao.MemberDao;
 import spms.dto.MemberDto;
 
-public class odClassListController  extends HttpServlet {
+@WebServlet("/class/list")
+public class ODClassListController  extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -28,32 +32,31 @@ public class odClassListController  extends HttpServlet {
 			
 			ODClassDao odClassDao = new ODClassDao();
 //			주입
-			ODClassDao.setConnection(conn);
+			odClassDao.setConnection(conn);
 			
-			ArrayList<ODClassDto> memberList = null;
+			ArrayList<ODClassDto> odClassList = null;
 			
-			memberList = (ArrayList<MemberDto>)memberDao.selectList();
+			odClassList = (ArrayList<ODClassDto>)odClassDao.selectClassList();
 			
-			request.setAttribute("memberList", memberList);
+			req.setAttribute("odClassList", odClassList);
 			
 			RequestDispatcher dispatcher = 
-				request.getRequestDispatcher("./MemberListView.jsp");
+				req.getRequestDispatcher("./MemberListView.jsp");
 			
-			dispatcher.include(request, response);
+			dispatcher.forward(req, res);
 			
 		} catch (Exception e) {
 //			throw new ServletException(e);
 			System.out.println("회원 목록에서 예외 발생");
 			e.printStackTrace();
 			
-			request.setAttribute("error", e);
+			req.setAttribute("error", e);
 			
 			RequestDispatcher dispatcher =
-				request.getRequestDispatcher("/Error.jsp");
-			dispatcher.forward(request, response);
+					req.getRequestDispatcher("/Error.jsp");
+			dispatcher.forward(req, res);
 		}
 	
-	}
 	}
 	
 	@Override
