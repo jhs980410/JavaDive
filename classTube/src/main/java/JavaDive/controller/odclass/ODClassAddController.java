@@ -30,19 +30,19 @@ public class ODClassAddController extends HttpServlet {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 
-		String className = req.getParameter("className");
-		int price = Integer.parseInt(req.getParameter("price"));
-		String desc = req.getParameter("desc");
-		String instructor = req.getParameter("instructor");
-		int limit = Integer.parseInt(req.getParameter("limit"));
+		String classNameStr = req.getParameter("className");
+		int priceStr = Integer.parseInt(req.getParameter("price"));
+		String descStr = req.getParameter("desc");
+		String instructorStr = req.getParameter("instructor");
+		int limitStr = Integer.parseInt(req.getParameter("limit"));
 
 		ODClassDto odClassDto = new ODClassDto();
 
-		odClassDto.setClassName(className);
-		odClassDto.setPrice(price);
-		odClassDto.setDesc(desc);
-		odClassDto.setInstructor(instructor);
-		odClassDto.setClassLimit(limit);
+		odClassDto.setClassName(classNameStr);
+		odClassDto.setPrice(priceStr);
+		odClassDto.setDesc(descStr);
+		odClassDto.setInstructor(instructorStr);
+		odClassDto.setClassLimit(limitStr);
 
 		try {
 			ServletContext sc = this.getServletContext();
