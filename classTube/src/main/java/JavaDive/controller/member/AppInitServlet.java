@@ -1,4 +1,4 @@
-package spms.servlets;
+package JavaDive.controller.member;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

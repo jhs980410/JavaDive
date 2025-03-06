@@ -1,4 +1,4 @@
-package spms.dao;
+package JavaDive.dao.member;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import spms.dto.MemberDto;
+import javax.print.DocFlavor.STRING;
+
+import JavaDive.dto.member.MemberDto;
 
 public class MemberDao {
 
@@ -227,6 +229,7 @@ public class MemberDao {
 		return memberDto;
 	}
 	
+	// 회원 정보 변경
 	public int memberUpdate(MemberDto memberDto) throws SQLException{
 		int result = 0;
 		
@@ -260,20 +263,63 @@ public class MemberDao {
 		return result;
 	}
 	
+	// 가입정보 없으면 null 리턴
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public MemberDto memberExist(String member_email, String member_pwd)
+		throws SQLException {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "";
+		sql += "SELECT MEMBER_NAME, MEMBER_EMAIL";
+		sql += " FROM MEMBER";
+		sql += " WHERE MEMBER_EMAIL = ? AND MEMBER_PWD = ?";
+		
+		String member_name = "";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			
+			int colIndex = 1;
+			pstmt.setString(colIndex++, member_email);
+			pstmt.setString(colIndex, member_pwd);
+			
+			rs = pstmt.executeQuery();
+			
+			MemberDto memberDto = new MemberDto();
+			if (rs.next()) {
+				member_email = rs.getString("member_email");
+				member_name = rs.getString("member_name");
+				
+				memberDto.setEmail(member_email);
+				memberDto.setName(member_name);
+				
+				// 회원 정보 조회 확인
+				return memberDto;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		// 회원이 조회가 안된다면
+		return null;
+	}
+		
 }

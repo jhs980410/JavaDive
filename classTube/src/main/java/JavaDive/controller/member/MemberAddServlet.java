@@ -1,16 +1,16 @@
-package spms.servlets;
+package JavaDive.controller.member;
 
 import java.io.IOException;
 import java.sql.Connection;
 
+import JavaDive.dao.member.MemberDao;
+import JavaDive.dto.member.MemberDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import spms.dao.MemberDao;
-import spms.dto.MemberDto;
 
 public class MemberAddServlet extends HttpServlet {
 @Override

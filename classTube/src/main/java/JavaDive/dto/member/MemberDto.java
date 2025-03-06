@@ -1,4 +1,4 @@
-package spms.dto;
+package JavaDive.dto.member;
 
 import java.sql.Date;
 
