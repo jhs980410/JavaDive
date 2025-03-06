@@ -8,16 +8,18 @@ public class ODClassDto {
 	private String desc;
 	private String instructor;
 	private String createAt;
-	private int field;
+	private int views;
 	private int classLimit;
 	private String img;
+	private String region;
+	private int categoryNo;
 	
 	public ODClassDto() {
 		super();
 	}
-	
+
 	public ODClassDto(int classNo, String className, int price, String desc, String instructor, String createAt,
-			int field, int classLimit, String img) {
+			int views, int classLimit, String img, String region, int categoryNo) {
 		super();
 		this.classNo = classNo;
 		this.className = className;
@@ -25,9 +27,11 @@ public class ODClassDto {
 		this.desc = desc;
 		this.instructor = instructor;
 		this.createAt = createAt;
-		this.field = field;
+		this.views = views;
 		this.classLimit = classLimit;
 		this.img = img;
+		this.region = region;
+		this.categoryNo = categoryNo;
 	}
 
 	public int getClassNo() {
@@ -78,12 +82,12 @@ public class ODClassDto {
 		this.createAt = createAt;
 	}
 
-	public int getField() {
-		return field;
+	public int getViews() {
+		return views;
 	}
 
-	public void setField(int field) {
-		this.field = field;
+	public void setViews(int views) {
+		this.views = views;
 	}
 
 	public int getClassLimit() {
@@ -102,14 +106,27 @@ public class ODClassDto {
 		this.img = img;
 	}
 
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public int getCategoryNo() {
+		return categoryNo;
+	}
+
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
+	}
+
 	@Override
 	public String toString() {
 		return "ODClassDto [classNo=" + classNo + ", className=" + className + ", price=" + price + ", desc=" + desc
-				+ ", instructor=" + instructor + ", createAt=" + createAt + ", field=" + field + ", classLimit="
-				+ classLimit + ", img=" + img + "]";
+				+ ", instructor=" + instructor + ", createAt=" + createAt + ", views=" + views + ", classLimit="
+				+ classLimit + ", img=" + img + ", region=" + region + ", categoryNo=" + categoryNo + "]";
 	}
-	
-	
-	
 	
 }

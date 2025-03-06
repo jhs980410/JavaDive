@@ -67,6 +67,8 @@ public class ODClassUpdateController extends HttpServlet {
 		String descStr = req.getParameter("desc");
 		String instructorStr  = req.getParameter("instructor");
 		String imgStr = req.getParameter("img");
+		String regionStr = req.getParameter("region");
+		int categoryNoStr = Integer.parseInt(req.getParameter("category"));
 		
 		ODClassDto odClassDto = new ODClassDto();
 		
@@ -76,6 +78,8 @@ public class ODClassUpdateController extends HttpServlet {
 		odClassDto.setDesc(descStr);
 		odClassDto.setInstructor(instructorStr);
 		odClassDto.setImg(imgStr);
+		odClassDto.setRegion(regionStr);
+		odClassDto.setCategoryNo(categoryNoStr);
 		
 		try {
 			ServletContext sc = this.getServletContext();

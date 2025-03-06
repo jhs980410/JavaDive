@@ -34,7 +34,9 @@ public class ODClassAddController extends HttpServlet {
 		String descStr = req.getParameter("desc");
 		String instructorStr = req.getParameter("instructor");
 		int limitStr = Integer.parseInt(req.getParameter("limit"));
-
+		String regionStr = req.getParameter("region");
+		int categoryNo = Integer.parseInt("category");
+		
 		ODClassDto odClassDto = new ODClassDto();
 
 		odClassDto.setClassName(classNameStr);
@@ -42,6 +44,8 @@ public class ODClassAddController extends HttpServlet {
 		odClassDto.setDesc(descStr);
 		odClassDto.setInstructor(instructorStr);
 		odClassDto.setClassLimit(limitStr);
+		odClassDto.setRegion(regionStr);
+		odClassDto.setCategoryNo(categoryNo);
 
 		try {
 			ServletContext sc = this.getServletContext();
