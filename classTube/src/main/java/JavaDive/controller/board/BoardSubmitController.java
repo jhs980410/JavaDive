@@ -10,17 +10,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.security.Timestamp;
+import java.sql.Timestamp;
+
 import java.sql.Connection;
 
 import JavaDive.dao.board.BoardDao;
 import JavaDive.dto.board.BoardDto;
 
 
-public class BoardSubmit extends HttpServlet {
+public class BoardSubmitController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public BoardSubmit() {
+	public BoardSubmitController() {
 		super();
 	}
 	
@@ -66,37 +67,33 @@ public class BoardSubmit extends HttpServlet {
 			boardDto.setContent(content);
 			boardDto.setCategory(category);
 			boardDto.setCategoryNo(categoryNo);
+
 			
-			System.out.println(title);
-			System.out.println(content);
-			System.out.println(category);
-			System.out.println(categoryNo);
 			System.out.println();
 			int recentPostId = 0;
 			// 5️ DAO를 통한 DB 저장
 			BoardDao boardDao = new BoardDao();
 			boardDao.setConnection(conn);
-			recentPostId = boardDao.boardInsert(boardDto);
-			System.out.println(recentPostId);
+			recentPostId = boardDao.boardInsert(boardDto); // 게시글 저장
+			System.out.println("recentPostId: " + recentPostId);
+
 			if (recentPostId > 0) {
 			    System.out.println("게시글 등록 성공 게시글id: " + recentPostId);
-
-			    //  세션 생성 및 데이터 저장
-			    HttpSession session = req.getSession(); // 세션 가져오기 (없으면 새로 생성)
-			    System.out.println(boardDto.getCreateDate());
-			    session.setAttribute("boardDto", boardDto); // 게시글 데이터 저장
-			    session.setAttribute("recentPostId", recentPostId); // 게시글 번호 저장
-			    //회원가입 완성시 세션 수정 및 쿼리수정예정 
-			    System.out.println("세션 boardDto: " + session.getAttribute("boardDto"));
-			    System.out.println("세션 recentPostId: " + session.getAttribute("recentPostId")); 
 			    
-			    //  boardView.jsp로 이동
-				/* res.sendRedirect("board/boardView.jsp?postId=" + recentPostId); */
+			    // 📌 DB에서 다시 조회하여 `createDate` 가져오기
+			    boardDto = boardDao.getBoardById(recentPostId);
+			    
+			    HttpSession session = req.getSession(); // 세션 가져오기
+			    session.setAttribute("boardDto", boardDto); // 최신 데이터로 세션 업데이트
+			    
+			    System.out.println("업데이트된 세션 boardDto: " + session.getAttribute("boardDto"));
+			    /* res.sendRedirect("board/boardView.jsp?postId=" + recentPostId); */
 			    RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardView.jsp");
 			    dispatcher.forward(req, res);  //세션유지 서버내부이동  //
 
 			    
 			    return;
+				
 			} else {
 			    System.out.println("게시글 등록 실패");
 			    res.getWriter().println("<script>alert('게시글 등록 실패!'); history.back();</script>");

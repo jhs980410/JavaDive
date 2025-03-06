@@ -13,8 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import spms.dao.MemberDao;
-import spms.dto.MemberDto;
+
 
 @WebServlet("/class/list")
 public class ODClassListController  extends HttpServlet {

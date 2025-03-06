@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.xml.crypto.Data;
+import java.sql.Date;
 import JavaDive.dto.board.BoardDto;
 import jakarta.servlet.ServletContext;
 
@@ -109,7 +113,7 @@ public class BoardDao {
 	            boardDto.setContent(rs.getString("CONTENT"));
 	            boardDto.setCategory(rs.getString("CATEGORY"));
 	            boardDto.setCategoryNo(rs.getInt("CATEGORY_NO"));
-	            boardDto.setCreateDate(rs.getDate("createDate"));
+	            boardDto.setCreateDate(rs.getDate("CREATE_AT"));
 
 
 	        }
@@ -125,7 +129,63 @@ public class BoardDao {
 	    }
 	    return boardDto; // 게시글 정보를 담은 DTO 반환
 	}
+	
+	public List<BoardDto> selectList() throws Exception{
+		PreparedStatement pstmt = null; //쿼리실행준비  
+		ResultSet rs = null;  // sql 실행결과 객체담을 그릇 준비 
+		
+		ArrayList<BoardDto> boardList = new ArrayList<BoardDto>(); //
 
+		String sql = "SELECT NOTE_NO, NOTE_TITLE, NOTE_WRITER, CREATE_AT FROM (SELECT NOTE_NO, NOTE_TITLE, NOTE_WRITER, CREATE_AT FROM NOTE WHERE CATEGORY_NO != 1 ORDER BY NOTE_NO DESC) WHERE ROWNUM <= 8";
+
+
+
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			int noteNo = 0;
+			String title = "";
+			String writer = "";
+			Date createDate = null;
+			
+			while (rs.next()) {
+				noteNo = rs.getInt("NOTE_NO");
+				title = rs.getString("NOTE_TITLE");
+				writer = rs.getString("NOTE_WRITER");
+				createDate = rs.getDate("CREATE_AT");
+				
+				BoardDto boardDto = new BoardDto();
+				boardDto.setCreateDate(createDate);
+				boardDto.setNoteNo(noteNo);
+				boardDto.setTitle(title);
+				boardDto.setWriter(writer);
+				
+				boardList.add(boardDto);
+				//리스트에 담았음 // 
+				//컨트롤러에서 수신예정//
+			
+				
+				
+				
+			}
+			
+			return boardList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			// 자원 해제 (PreparedStatement가 열려 있다면 닫기)
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return boardList;
+	}
 	
 	
 

@@ -1,0 +1,121 @@
+.sidebar {
+    width: 250px;
+    background-color: #2C3E50;
+    padding: 20px;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    color: white;
+    
+}
+
+/* 📌 전체 레이아웃 조정 */
+.container {
+    width: 75%;
+    margin-left: 20%;  /* 사이드바 고려한 레이아웃 조정 */
+    padding: 30px;
+    background-color: #ffffff; /* 배경색 화이트 */
+}
+
+/* 📌 제목 스타일 */
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* 📌 검색창 스타일 */
+.search-box {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.search-box input {
+    width: 220px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-box button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.search-box button:hover {
+    background-color: #0056b3;
+}
+
+/* 📌 테이블 스타일 */
+.board-list {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+.board-list th, .board-list td {
+    padding: 14px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.board-list th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+
+.board-list tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.board-list tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* 📌 카테고리 링크 스타일 */
+.board-list td a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.board-list td a:hover {
+    text-decoration: underline;
+}
+.boardHeader{
+	text-align: center !important;
+	
+}
+
+/* 📌 게시글 작성 버튼 */
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}/* div 그룹 생성후  */
+
+
+.button {
+    text-align: right;
+    margin-top: 15px;
+    background-color: #0080ff;  
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    justify-content: flex-end;
+}
+
+

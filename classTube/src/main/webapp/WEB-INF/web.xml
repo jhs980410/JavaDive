@@ -28,7 +28,7 @@
    </welcome-file-list>
 	<servlet>
     <servlet-name>BoardSubmit</servlet-name>
-    <servlet-class>JavaDive.controller.board.BoardSubmit</servlet-class>
+    <servlet-class>JavaDive.controller.board.BoardSubmitController</servlet-class>
 </servlet>
 
 <servlet-mapping>

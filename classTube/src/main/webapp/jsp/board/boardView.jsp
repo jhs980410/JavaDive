@@ -41,8 +41,7 @@
 			<span>내용</span> <span class="content">${boardDto.content}</span>
 		</div>
 
-		<c:remove var="boardDto" scope="session" />
-		<c:remove var="recentPostId" scope="session" />
+
 		<!-- ✅ 댓글 영역 추가 -->
 		<div class="comment-section">
 			<h3>댓글</h3>
@@ -54,11 +53,11 @@
 
 		<!-- ✅ 버튼 그룹 -->
 		<div class="button-group">
-			<button class="but-view" onclick="location.href='boardList.jsp'">게시글
-				목록</button>
+			<button class="but-view" onclick="location.href='jsp/board/boardList.jsp'">게시글 목록</button>
+
 		</div>
 
-
+	
 		
 	</div>
 

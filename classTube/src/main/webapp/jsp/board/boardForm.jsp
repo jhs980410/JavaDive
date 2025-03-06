@@ -38,13 +38,14 @@
             </div>
             <div class="button-group">
                 <button type="reset" class="cancel">취소</button>
-                <button type="submit">등록</button>
+                <button id="SubBtu"type="submit" >등록</button>
             </div>
         </form>
       <div>
     	
     </div>
     </div>
-
+	<script src="${pageContext.request.contextPath}/js/boardForm.js"></script>
+	<!--온클릭이벤트 생성예정 , 생성시 주석삭제 / -->
 </body>
 </html>
