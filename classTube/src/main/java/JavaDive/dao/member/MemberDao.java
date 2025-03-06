@@ -246,6 +246,7 @@ public class MemberDao {
 			pstmt.setString(1, memberDto.getPwd());
 			pstmt.setString(2, memberDto.getName());
 			pstmt.setString(3, memberDto.getTel());
+			pstmt.setInt(4, memberDto.getNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
