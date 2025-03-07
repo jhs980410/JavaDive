@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.Connection;
 
@@ -32,7 +34,11 @@ public class BoardViewController extends HttpServlet {
             return;
         }
 
-        req.setAttribute("boardDto", boardDto);
+        HttpSession session = req.getSession();
+        session.setAttribute("boardDto", boardDto);
+
+        System.out.println("✅ 업데이트된 세션 boardDto: " + session.getAttribute("boardDto"));
+
         RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardView.jsp");
         dispatcher.forward(req, res);
     }

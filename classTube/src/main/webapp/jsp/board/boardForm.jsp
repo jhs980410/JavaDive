@@ -15,8 +15,8 @@
     <div class="container">
           
         <h2>게시판 글쓰기</h2>
-<form action="boardSubmit" method="post">
-
+	<form action="${pageContext.request.contextPath}/boardSubmit" method="post">
+		<!--버튼을 누를때만 요청이 받음.-->
         <div class="form-group">
                 
                 <select name="category" class = "select">

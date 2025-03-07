@@ -20,15 +20,12 @@
 
 		<c:set var="boardDto" value="${sessionScope.boardDto}" />
 		<c:set var="recentPostId" value="${sessionScope.recentPostId}" />
+		<div class="form-group"></div>
 		<div class="form-group">
-	
-		</div>
-		<div class="form-group">
-			<div class="member">작성자 :  ${boardDto.writer}
+			<div class="member">
+				작성자 : ${boardDto.writer}
 				<c:if test="${not empty boardDto.createDate}">
-					<span class="date"> 
-							작성일 : ${boardDto.createDate}
-					</span>
+					<span class="date"> 작성일 : ${boardDto.createDate} </span>
 				</c:if>
 
 			</div>
@@ -53,12 +50,13 @@
 
 		<!-- ✅ 버튼 그룹 -->
 		<div class="button-group">
-			<button class="but-view" onclick="location.href='jsp/board/boardList.jsp'">게시글 목록</button>
+			<button class="but-view"
+				onclick="location.href='/classTube/boardList'">게시글 목록</button>
 
 		</div>
 
-	
-		
+
+
 	</div>
 
 

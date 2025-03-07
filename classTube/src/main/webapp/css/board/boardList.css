@@ -119,3 +119,29 @@ h2 {
 }
 
 
+.search-container {
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    margin-top: 20px; /* 게시판 목록과 간격 조정 */
+}
+
+.search {
+    width: 100%; /* 가로 너비를 부모 요소에 맞춤 */
+    max-width: 400px; /* 최대 너비 제한 */
+}
+
+.ui.icon.input {
+    width: 100%; /* 검색 입력창을 꽉 차게 */
+    display: flex;
+    align-items: center;
+}
+
+.ui.icon.input input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+

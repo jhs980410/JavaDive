@@ -40,6 +40,8 @@ public class BoardSubmitController extends HttpServlet {
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
 			// 2️ 카테고리 번호 매핑
+			
+
 			int categoryNo = 0;
 			if ("categoryNo1".equals(category)) {
 				categoryNo = 1;

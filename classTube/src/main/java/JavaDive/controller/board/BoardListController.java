@@ -40,13 +40,10 @@ public class BoardListController extends HttpServlet {
         boardDao.setConnection(conn);
 
         try {
-            List<BoardDto> boardList = boardDao.selectList();
-            if (boardList == null) {
-				/*
-				 * System.out.println(); boardList = new ArrayList<>();
-				 */
-            	            	
-			}
+        	 System.out.println("컨트롤러 진입 ,"); // 로그 추가
+             List<BoardDto> boardList = boardDao.selectList();
+  
+			
             req.setAttribute("boardList", boardList);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardList.jsp");
             dispatcher.forward(req, res);
