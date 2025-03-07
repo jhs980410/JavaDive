@@ -8,26 +8,37 @@ import JavaDive.dto.member.MemberDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) 
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		super.doGet(req, res);
 		
-		RequestDispatcher rd = req.getRequestDispatcher("");
+		
+		String MemberShip = req.getParameter("MemberShip");
+
+        if ("register".equals(MemberShip)) { // 회원가입 버튼이 눌렸을 때
+            RequestDispatcher rd = req.getRequestDispatcher("/MemberShip.jsp");
+            rd.forward(req, res);
+            return;
+        }
+		
+		RequestDispatcher rd = req.getRequestDispatcher("/LoginPage.jsp");
 		rd.forward(req, res);
 	}
 	
 	
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		
@@ -46,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 			
 			// 회원이 없다면 실패 페이지로
 			if (memberDto == null) {
-				RequestDispatcher rd = req.getRequestDispatcher("");
+				RequestDispatcher rd = req.getRequestDispatcher("./LoginPage.jsp");
 				
 				rd.forward(req, res);
 			}
@@ -54,7 +65,7 @@ public class LoginServlet extends HttpServlet {
 			// 로그인 성공시 세션에 담고 로그인 완료 페이지로 이동
 			HttpSession session = req.getSession();
 			session.setAttribute("member", memberDto);
-			
+			System.out.println("성공");
 			res.sendRedirect("");
 		} catch (Exception e) {
 			e.printStackTrace();

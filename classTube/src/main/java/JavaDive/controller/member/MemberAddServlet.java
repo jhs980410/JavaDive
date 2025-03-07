@@ -8,15 +8,18 @@ import JavaDive.dto.member.MemberDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+@WebServlet("/join")
 public class MemberAddServlet extends HttpServlet {
 @Override
 protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 	// TODO Auto-generated method stub
-	super.doGet(req, res);
+	
+	RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
+	dispatcher.forward(req, res);
 	
 	
 }
