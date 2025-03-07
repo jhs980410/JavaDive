@@ -23,7 +23,7 @@
 				</c:if>	
 				<c:forEach var="odClassDto" items="${odClassList}">
 					<div class="classObj">
-						<a href="" style="text-decoration:none;">
+						<a href="./update?classNo=${odClassDto.getClassNo()}" style="text-decoration:none;">
 							<div class="cssClass">
 								<img src="${odClassDto.getImg()}"> 이미지 대신
 							</div>

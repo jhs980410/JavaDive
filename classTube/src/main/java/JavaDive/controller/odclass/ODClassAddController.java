@@ -20,10 +20,10 @@ public class ODClassAddController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String contextPath = req.getContextPath();
-		System.out.println("됨????");
-		res.sendRedirect(contextPath + "/jsp/category/ClassAddForm.jsp");
-
+		RequestDispatcher dispatcher =
+				req.getRequestDispatcher("/jsp/category/ClassUpdateForm.jsp");
+		
+		dispatcher.forward(req, res);
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class ODClassAddController extends HttpServlet {
 			result = odClassDao.classInsert(odClassDto);
 
 			if (result == 0) {
-				System.out.println("회원가입 실패");
+				System.out.println("클래스 추가 실패");
 			}
 
 			res.sendRedirect("");

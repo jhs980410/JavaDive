@@ -168,7 +168,7 @@ public class ODClassDao {
 			String classDesc = "";
 			String instructor = "";
 			Date createAt = null;
-			int limit = 0;
+			int classLimit = 0;
 			String img = "";
 			String region = "";
 			int categoryNo = 0;
@@ -176,10 +176,10 @@ public class ODClassDao {
 			if (rs.next()) {
 				className = rs.getString("CLASS_NAME");
 				price = rs.getInt("PRICE");
-				classDesc = rs.getString("classDesc");
+				classDesc = rs.getString("CLASS_DESC");
 				instructor = rs.getString("INSTRUCTOR");
 				createAt = rs.getDate("CREATE_AT");
-				limit = rs.getInt("LIMIT");
+				classLimit = rs.getInt("CLASS_LIMIT");
 				img = rs.getString("IMG");
 				region = rs.getString("REGION");
 				categoryNo = rs.getInt("CATEGORY_NO");
@@ -191,6 +191,7 @@ public class ODClassDao {
 				odClassDto.setPrice(price);
 				odClassDto.setClassDesc(classDesc);
 				odClassDto.setInstructor(instructor);
+				odClassDto.setClassLimit(classLimit);
 				odClassDto.setImg(img);
 				odClassDto.setRegion(region);
 				odClassDto.setCategoryNo(categoryNo);
