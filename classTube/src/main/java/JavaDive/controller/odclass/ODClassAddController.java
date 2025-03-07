@@ -13,14 +13,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/class/add")
+@WebServlet("/category/add")
 public class ODClassAddController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		res.sendRedirect("");
+		
+		String contextPath = req.getContextPath();
+		System.out.println("됨????");
+		res.sendRedirect(contextPath + "/jsp/category/ClassAddForm.jsp");
 
 	}
 
@@ -31,9 +33,9 @@ public class ODClassAddController extends HttpServlet {
 
 		String classNameStr = req.getParameter("className");
 		int priceStr = Integer.parseInt(req.getParameter("price"));
-		String descStr = req.getParameter("desc");
+		String descStr = req.getParameter("classDesc");
 		String instructorStr = req.getParameter("instructor");
-		int limitStr = Integer.parseInt(req.getParameter("limit"));
+		int limitStr = Integer.parseInt(req.getParameter("classLimit"));
 		String regionStr = req.getParameter("region");
 		int categoryNo = Integer.parseInt("category");
 		
@@ -41,7 +43,7 @@ public class ODClassAddController extends HttpServlet {
 
 		odClassDto.setClassName(classNameStr);
 		odClassDto.setPrice(priceStr);
-		odClassDto.setDesc(descStr);
+		odClassDto.setClassDesc(descStr);
 		odClassDto.setInstructor(instructorStr);
 		odClassDto.setClassLimit(limitStr);
 		odClassDto.setRegion(regionStr);

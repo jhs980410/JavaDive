@@ -10,7 +10,6 @@
 </head>
 
 <body>
-	<%@ include file="../common/sideBar.jsp"%>
 
 	<div class="container">
 
@@ -18,17 +17,29 @@
 
 		<div class="listWrap">
 			<div class="list">
+			
+				<c:if test="${empty odClassList}">
+					<p>클래스 목록이 비어 있습니다.</p>
+				</c:if>	
 				<c:forEach var="odClassDto" items="${odClassList}">
 					<div class="classObj">
-						<a href="">
+						<a href="" style="text-decoration:none;">
 							<div class="cssClass">
-								<img src="${odClassDto.getImg()}">
+								<img src="${odClassDto.getImg()}"> 이미지 대신
 							</div>
 							<div>
-								<div><p>${odClassDto.getClassName()}</p></div>
-								<div><p>${odClassDto.getInstructor()}</p></div>
-								<div><p>${odClassDto.getRegion()}</p></div>
-								<div><p>${odClassDto.getPrice()}</p></div>
+								<div>
+									<p>${odClassDto.getClassName()}</p>
+								</div>
+								<div>
+									<p>${odClassDto.getInstructor()}</p>
+								</div>
+								<div>
+									<p>${odClassDto.getRegion()}</p>
+								</div>
+								<div>
+									<p>${odClassDto.getPrice()}</p>
+								</div>
 							</div>
 						</a>
 					</div>

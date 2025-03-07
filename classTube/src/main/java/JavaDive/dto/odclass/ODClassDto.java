@@ -1,13 +1,15 @@
 package JavaDive.dto.odclass;
 
+import java.util.Date;
+
 public class ODClassDto {
 	
 	private int classNo;
 	private String className;
 	private int price;
-	private String desc;
+	private String classDesc;
 	private String instructor;
-	private String createAt;
+	private Date createAt;
 	private int views;
 	private int classLimit;
 	private String img;
@@ -18,13 +20,13 @@ public class ODClassDto {
 		super();
 	}
 
-	public ODClassDto(int classNo, String className, int price, String desc, String instructor, String createAt,
+	public ODClassDto(int classNo, String className, int price, String classDesc, String instructor, Date createAt,
 			int views, int classLimit, String img, String region, int categoryNo) {
 		super();
 		this.classNo = classNo;
 		this.className = className;
 		this.price = price;
-		this.desc = desc;
+		this.classDesc = classDesc;
 		this.instructor = instructor;
 		this.createAt = createAt;
 		this.views = views;
@@ -58,12 +60,12 @@ public class ODClassDto {
 		this.price = price;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getClassDesc() {
+		return classDesc;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setClassDesc(String classDesc) {
+		this.classDesc = classDesc;
 	}
 
 	public String getInstructor() {
@@ -74,11 +76,11 @@ public class ODClassDto {
 		this.instructor = instructor;
 	}
 
-	public String getCreateAt() {
+	public Date getCreateAt() {
 		return createAt;
 	}
 
-	public void setCreateAt(String createAt) {
+	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
 
@@ -124,7 +126,7 @@ public class ODClassDto {
 
 	@Override
 	public String toString() {
-		return "ODClassDto [classNo=" + classNo + ", className=" + className + ", price=" + price + ", desc=" + desc
+		return "ODClassDto [classNo=" + classNo + ", className=" + className + ", price=" + price + ", classDesc=" + classDesc
 				+ ", instructor=" + instructor + ", createAt=" + createAt + ", views=" + views + ", classLimit="
 				+ classLimit + ", img=" + img + ", region=" + region + ", categoryNo=" + categoryNo + "]";
 	}

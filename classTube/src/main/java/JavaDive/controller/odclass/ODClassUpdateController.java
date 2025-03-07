@@ -75,7 +75,7 @@ public class ODClassUpdateController extends HttpServlet {
 		odClassDto.setClassNo(classNoStr);
 		odClassDto.setClassName(classNameStr);
 		odClassDto.setPrice(priceStr);
-		odClassDto.setDesc(descStr);
+		odClassDto.setClassDesc(descStr);
 		odClassDto.setInstructor(instructorStr);
 		odClassDto.setImg(imgStr);
 		odClassDto.setRegion(regionStr);

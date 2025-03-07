@@ -27,10 +27,10 @@ public class ODClassDao {
 
 		String sql = "";
 
-		sql += "SELECT CLASS_NO, CLASS_NAME, PRICE, DESC, INSTRUCTOR, "
-				+ " CREATE_AT, VIEWS, LIMIT, IMG, REGION, CATEGORY_NO";
+		sql += "SELECT CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR,"
+				+ " CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO";
 		sql += " FROM ODCLASS";
-		sql += " ORDER BY CLASS_NO ASC";
+		sql += " ORDER BY CLASS_NO";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -40,7 +40,7 @@ public class ODClassDao {
 			int classNo = 0;
 			String className = "";
 			int price = 0;
-			String desc = "";
+			String classDesc = "";
 			String instructor = "";
 			Date create_at;
 			int views = 0;
@@ -53,16 +53,16 @@ public class ODClassDao {
 				classNo = rs.getInt("CLASS_NO");
 				className = rs.getString("CLASS_NAME");
 				price = rs.getInt("PRICE");
-				desc = rs.getString("DESC");
+				classDesc = rs.getString("CLASS_DESC");
 				instructor = rs.getString("INSTRUCTOR");
 				create_at = rs.getDate("CREATE_AT");
 				views = rs.getInt("VIEWS");
-				limit = rs.getInt("LIMIT");
+				limit = rs.getInt("CLASS_LIMIT");
 				img = rs.getString("IMG");
 				region = rs.getString("REGION");
 				categoryNo = rs.getInt("CATEGORY_NO");
 
-				ODClassDto odClassDto = new ODClassDto(classNo, className, price, desc, instructor, instructor, views, limit, img, region, categoryNo);
+				ODClassDto odClassDto = new ODClassDto(classNo, className, price, classDesc, instructor, create_at, views, limit, img, region, categoryNo);
 
 				odClassList.add(odClassDto);
 
@@ -100,7 +100,7 @@ public class ODClassDao {
 		try {
 			String className = odClassDto.getClassName();
 			int price = odClassDto.getPrice();
-			String desc = odClassDto.getDesc();
+			String classDesc = odClassDto.getClassDesc();
 			String instructor = odClassDto.getInstructor();
 			int limit = odClassDto.getClassLimit();
 			String img = odClassDto.getImg();
@@ -109,14 +109,14 @@ public class ODClassDao {
 			
 			String sql = "";
 			sql += "INSERT INTO ODCLASS";
-			sql += " (CLASS_NO, CLASS_NAME, PRICE, DESC, INSTRUCTOR, CREATE_AT, VIEWS, LIMIT, IMG, REGION, CATEGORY_NO)";
+			sql += " (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)";
 			sql += " VALUES(CLASS_SEQ.NEXTVAL(), ?, ?, ?, ?, SYSDATE, 0, ?, ?, ?";
 			
 			pstmt = connection.prepareStatement(sql);
 			
 			pstmt.setString(1, className);
 			pstmt.setInt(2, price);
-			pstmt.setString(3, desc);
+			pstmt.setString(3, classDesc);
 			pstmt.setString(4, instructor);
 			pstmt.setInt(5, limit);
 			pstmt.setString(6, img);
@@ -152,7 +152,7 @@ public class ODClassDao {
 
 		String sql = "";
 
-		sql = "SELECT CLASS_NO, CLASS_NAME, PRICE, DESC, INSTRUCTOR, CREATE_AT, VIEWS, LIMIT, IMG, REGION, CATEGORY_NO";
+		sql = "SELECT CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO";
 		sql += " FROM ODCLASS";
 		sql += " WHERE CLASS_NO =?";
 		
@@ -165,7 +165,7 @@ public class ODClassDao {
 			
 			String className = "";
 			int price = 0;
-			String desc = "";
+			String classDesc = "";
 			String instructor = "";
 			Date createAt = null;
 			int limit = 0;
@@ -176,7 +176,7 @@ public class ODClassDao {
 			if (rs.next()) {
 				className = rs.getString("CLASS_NAME");
 				price = rs.getInt("PRICE");
-				desc = rs.getString("DESC");
+				classDesc = rs.getString("classDesc");
 				instructor = rs.getString("INSTRUCTOR");
 				createAt = rs.getDate("CREATE_AT");
 				limit = rs.getInt("LIMIT");
@@ -189,7 +189,7 @@ public class ODClassDao {
 				odClassDto.setClassNo(classNo);
 				odClassDto.setClassName(className);
 				odClassDto.setPrice(price);
-				odClassDto.setDesc(desc);
+				odClassDto.setClassDesc(classDesc);
 				odClassDto.setInstructor(instructor);
 				odClassDto.setImg(img);
 				odClassDto.setRegion(region);
@@ -234,7 +234,7 @@ public class ODClassDao {
 
 		String sql = "";
 		sql = "UPDATE ODCLASS";
-		sql += " SET CLASS_NAME=?, PRICE=?, DESC=?, INSTRUCTOR=?, LIMIT=?, IMG=?, REGION=?, CATEGORY_NO=?";
+		sql += " SET CLASS_NAME=?, PRICE=?, classDesc=?, INSTRUCTOR=?, LIMIT=?, IMG=?, REGION=?, CATEGORY_NO=?";
 		sql += " WHERE CLASS_NO=?";
 		
 		try {
@@ -242,7 +242,7 @@ public class ODClassDao {
 
 			pstmt.setString(1, odClassDto.getClassName());
 			pstmt.setInt(2, odClassDto.getPrice());
-			pstmt.setString(3, odClassDto.getDesc());
+			pstmt.setString(3, odClassDto.getClassDesc());
 			pstmt.setString(4, odClassDto.getInstructor());
 			pstmt.setInt(5, odClassDto.getClassLimit());
 			pstmt.setString(6, odClassDto.getImg());
