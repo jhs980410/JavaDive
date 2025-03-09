@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
-
+	<form action="login" method="post">
 	<div class="container">
 	    <div class="logo-box">
 	        <span class="logo-text">로고</span>
@@ -28,6 +28,7 @@
 	    <button class="google-login">구글 로그인</button>
 	    <button class="naver-login">네이버 로그인</button>
 	</div>
+	</form>
 
 </body>
 </html>

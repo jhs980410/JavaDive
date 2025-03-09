@@ -32,7 +32,7 @@ public class BoardDao {
 			String content = boardDto.getContent();
 			String category = boardDto.getCategory();
 
-			sql = "INSERT INTO NOTE (NOTE_NO, NOTE_TITLE, NOTE_WRITER, CREATE_AT, MODIFY_AT, CONTENT, CATEGORY, CATEGORY_NO)\r\n"
+			sql = "INSERT INTO NOTE (NOTE_NO, NOTE_TITLE, NOTE_WRITER, CREATE_AT, MODIFY_AT, NOTE_CONTENT, CATEGORY, CATEGORY_NO)\r\n"
 					+ "VALUES (NOTE_SEQ.NEXTVAL, ?, ?, SYSDATE, SYSDATE, ?, ?, ?)";
 
 			pstmt = connection.prepareStatement(sql);

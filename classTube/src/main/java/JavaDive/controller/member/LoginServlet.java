@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("로그인 컨트롤러 진입");
 		Connection conn = null;
 		
 		try {
@@ -55,18 +55,14 @@ public class LoginServlet extends HttpServlet {
 			
 			MemberDto memberDto = memberDao.memberExist(email, pwd);
 			
-			// 회원이 없다면 실패 페이지로
-			if (memberDto == null) {
-				RequestDispatcher rd = req.getRequestDispatcher("./LoginPage.jsp");
-				
-				rd.forward(req, res);
-			}
-			
+
 			// 로그인 성공시 세션에 담고 로그인 완료 페이지로 이동
 			HttpSession session = req.getSession();
 			session.setAttribute("member", memberDto);
 			System.out.println("성공");
-			res.sendRedirect("");
+			RequestDispatcher rd = req.getRequestDispatcher("/jsp/common/classTubeMain.jsp");
+			rd.forward(req, res);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ServletException(e);
