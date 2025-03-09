@@ -205,7 +205,7 @@ public class BoardDao {
 				keyword = "%" + keyword.trim() + "%"; // 앞뒤에 % 추가
 			
 			}
-
+			pstmt.setString(1, keyword);
 			rs = pstmt.executeQuery();
 			int noteNo = 0;
 			String title = "";

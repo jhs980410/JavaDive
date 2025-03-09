@@ -44,7 +44,7 @@ public class BoardListController extends HttpServlet {
              List<BoardDto> boardList = boardDao.selectList();
   
 			
-            req.setAttribute("boardList", boardList);
+            session.setAttribute("boardList", boardList);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardList.jsp");
             dispatcher.forward(req, res);
         } catch (Exception e) {
