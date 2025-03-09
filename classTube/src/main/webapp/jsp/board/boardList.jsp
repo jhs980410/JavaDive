@@ -77,6 +77,12 @@
 					onclick="location.href='jsp/board/boardForm.jsp'">글쓰기</button>
 			</div>
 		</form>
+			<div class="button-group">
+			<button class="but-view"
+				onclick="location.href='/classTube/boardList'">게시글 목록</button>
+
+		</div>
+		
 		<p>
 		<form action="boardSearch" method="get">
 		<div class="search-container">
@@ -84,14 +90,14 @@
 				<div class="ui icon input">
 					<input class="prompt" type="text" name="keyword" placeholder="검색"> 
 					<i class="search icon"></i>
-				</div>
+			 </div>
 				<div class="results">
-				<button>검색</button>
+				
 				</div>
 			</div>			
 		</div>
 		</form>
-	</div>
+	</div> 
 
 
 </body>

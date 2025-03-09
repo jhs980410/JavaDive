@@ -119,6 +119,8 @@ h2 {
 }
 
 
+
+
 .search-container {
     display: flex;
     justify-content: center; /* 가로 중앙 정렬 */
@@ -143,5 +145,24 @@ h2 {
     border-radius: 5px;
     border: 1px solid #ccc;
 }
+
+.but-view-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.but-view {
+    background-color: #c0c0c0;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
 
 
