@@ -18,10 +18,10 @@ import JavaDive.dao.board.BoardDao;
 import JavaDive.dto.board.BoardDto;
 
 
-public class BoardSubmitController extends HttpServlet {
+public class BoardAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public BoardSubmitController() {
+	public BoardAddController() {
 		super();
 	}
 	

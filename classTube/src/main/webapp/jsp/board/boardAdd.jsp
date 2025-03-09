@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판글쓰기</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/board/boardForm.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/board/boardAdd.css">
 
 
 </head>
@@ -15,7 +15,7 @@
     <div class="container">
           
         <h2>게시판 글쓰기</h2>
-	<form action="${pageContext.request.contextPath}/boardSubmit" method="post">
+	<form action="${pageContext.request.contextPath}/boardAdd" method="post">
 		<!--버튼을 누를때만 요청이 받음.-->
         <div class="form-group">
                 
@@ -45,7 +45,7 @@
     	
     </div>
     </div>
-	<script src="${pageContext.request.contextPath}/js/boardForm.js"></script>
+	<script src="${pageContext.request.contextPath}/js/boardAdd.js"></script>
 	<!--온클릭이벤트 생성예정 , 생성시 주석삭제 / -->
 </body>
 </html>

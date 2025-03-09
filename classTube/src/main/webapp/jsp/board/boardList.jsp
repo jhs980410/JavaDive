@@ -74,7 +74,7 @@
 
 			<div class="button-group">
 				<button type="button" class="button"
-					onclick="location.href='jsp/board/boardForm.jsp'">글쓰기</button>
+					onclick="location.href='jsp/board/boardAdd.jsp'">글쓰기</button>
 			</div>
 		</form>
 			<div class="button-group">
