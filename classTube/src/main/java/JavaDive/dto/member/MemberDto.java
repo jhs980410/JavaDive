@@ -1,5 +1,9 @@
 package JavaDive.dto.member;
 
+
+import java.sql.Date;
+
+
 public class MemberDto {
 
 	private int no;
@@ -9,13 +13,13 @@ public class MemberDto {
 	private String rrn;
 	private String tel;
 	private String priv;
-	private String create_at;
+	private Date create_at;
 	
-	
-	
+
 	public MemberDto(int no, String email, String pwd, String name, String rrn, String tel, String priv,
-			String create_at) {
+			Date create_at) {
 		super();
+
 		this.no = no;
 		this.email = email;
 		this.pwd = pwd;
@@ -26,8 +30,13 @@ public class MemberDto {
 		this.create_at = create_at;
 	}
 
-	public MemberDto() {
-		super();
+
+	public MemberDto(int no, String email, String name, String tel, Date creDate) {
+		this.no = no;
+		this.email = email;
+		this.name = name;
+		this.tel = tel;
+		this.create_at = creDate;
 	}
 	
 	public int getNo() {
@@ -72,18 +81,23 @@ public class MemberDto {
 	public void setPriv(String priv) {
 		this.priv = priv;
 	}
-	public String getCreate_at() {
+	public Date getCreate_at() {
 		return create_at;
 	}
-	public void setCreate_at(String create_at) {
+
+	public void setCreate_at(Date create_at) {
+
 		this.create_at = create_at;
 	}
 
 	@Override
 	public String toString() {
-		return "MemberDto [no=" + no + ", email=" + email + ", pwd=" + pwd + ", name=" + name + ", rrn=" + rrn
-				+ ", tel=" + tel + ", priv=" + priv + ", create_at=" + create_at + "]";
+		return "MemberDto [no=" + no + ", email=" + email + ", pwd=" 
+				+ pwd + ", name=" + name + ", rrn=" + rrn
+				+ ", tel=" + tel + ", priv=" + priv 
+				+ ", create_at=" + create_at + "]";
 	}
+	
 	
 	
 }

@@ -1,0 +1,132 @@
+/* ✅ 기본 스타일 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ✅ 전체 페이지 정렬 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* ✅ 로그인 컨테이너 (크기 조정) */
+.container {
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ✅ 로고 박스 크기 고정 */
+.logo-box {
+    width: 180px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: bold;
+    border: 2px solid black;
+    margin-bottom: 20px;
+}
+
+/* ✅ "로고" 글자 정렬 */
+.logo-text {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* ✅ 입력 필드 */
+.input-box {
+    width: 90%;
+    padding: 12px;
+    margin: 8px 0;
+    font-size: 16px;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* ✅ 로그인 버튼 */
+.login-button-box {
+    margin-top: 10px;
+    width: 350px;
+}
+
+.login-button-text {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #1967d2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button-text:hover {
+    background-color: #1351a5;
+}
+
+/* ✅ 아이디/비밀번호 찾기 & 회원가입 버튼 가로 정렬 */
+.find-signup-box {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 100%;
+    gap: 10px;
+}
+
+.find-id-password, .signup {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #1967d2;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+.find-id-password:hover, .signup:hover {
+    background-color: #1351a5;
+}
+
+/* ✅ 소셜 로그인 버튼 */
+.google-login, .naver-login {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    border: 2px solid black;
+    background-color: white;
+}
+
+.google-login:hover, .naver-login:hover {
+    background-color: #e6e6e6;
+}
