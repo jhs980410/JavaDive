@@ -16,6 +16,7 @@ import java.sql.Connection;
 
 import JavaDive.dao.board.BoardDao;
 import JavaDive.dto.board.BoardDto;
+import JavaDive.dto.member.MemberDto;
 
 
 public class BoardAddController extends HttpServlet {
@@ -39,9 +40,16 @@ public class BoardAddController extends HttpServlet {
 			String category = req.getParameter("category");
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
+			HttpSession session = req.getSession();
+			MemberDto memberDto = (MemberDto)session.getAttribute("member"); //세션값 memberdto값 /
+			System.out.println("boardAdd 세션의 memberDto: " + memberDto);
 			// 2️ 카테고리 번호 매핑
+			if (memberDto == null) {
+	            System.out.println("오류: 세션에서 memberDto를 찾을 수 없음. 로그인 필요.");
+	            res.sendRedirect(req.getContextPath() + "/LoginPage.jsp"); // 로그인 페이지로 이동
+	            return;
+	        }
 			
-
 			int categoryNo = 0;
 			if ("categoryNo1".equals(category)) {
 				categoryNo = 1;
@@ -65,7 +73,7 @@ public class BoardAddController extends HttpServlet {
 			// 4️ BoardDto 객체 생성 및 데이터 세팅
 			BoardDto boardDto = new BoardDto();
 			boardDto.setTitle(title);
-			boardDto.setWriter("user02");   // 로그인 구현 시 세션에서 가져오도록 수정 필요
+			boardDto.setMemberno(memberDto.getNo());
 			boardDto.setContent(content);
 			boardDto.setCategory(category);
 			boardDto.setCategoryNo(categoryNo);
@@ -76,20 +84,20 @@ public class BoardAddController extends HttpServlet {
 			// 5️ DAO를 통한 DB 저장
 			BoardDao boardDao = new BoardDao();
 			boardDao.setConnection(conn);
-			recentPostId = boardDao.boardInsert(boardDto); // 게시글 저장
+			recentPostId = boardDao.boardInsert(boardDto, req); // 게시글 저장
 			System.out.println("recentPostId: " + recentPostId);
-
+			
 			if (recentPostId > 0) {
 			    System.out.println("게시글 등록 성공 게시글id: " + recentPostId);
 			    
 			    // 📌 DB에서 다시 조회하여 `createDate` 가져오기
 			    boardDto = boardDao.getBoardById(recentPostId);
 			    
-			    HttpSession session = req.getSession(); // 세션 가져오기
+			    session = req.getSession(); // 세션 가져오기
 			    session.setAttribute("boardDto", boardDto); // 최신 데이터로 세션 업데이트
 			    
 			    System.out.println("업데이트된 세션 boardDto: " + session.getAttribute("boardDto"));
-			    /* res.sendRedirect("board/boardView.jsp?postId=" + recentPostId); */
+
 			    RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardView.jsp");
 			    dispatcher.forward(req, res);  //세션유지 서버내부이동  //
 

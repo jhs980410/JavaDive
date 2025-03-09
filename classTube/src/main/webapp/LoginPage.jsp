@@ -7,19 +7,19 @@
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
-	<form action="login" method="post">
+	<
 	<div class="container">
 	    <div class="logo-box">
 	        <span class="logo-text">로고</span>
 	    </div>
-	
-	    <input type="text" class="input-box" placeholder="아이디">
-	    <input type="password" class="input-box" placeholder="비밀번호">
+	<form action="login" method="post">
+	    <input type="text" class="input-box" placeholder="아이디" name="member_email">
+	    <input type="password" class="input-box" placeholder="비밀번호" name="member_password">
 	
 	    <div class="login-button-box">
 	        <button class="login-button-text">로그인</button>
 	    </div>
-	
+	</form>
 	    <div class="find-signup-box">
 	        <button class="find-id-password">아이디/비밀번호 찾기</button>
 	        <button class="signup" type="button" class="small-btn" onclick="location.href='./join'">회원가입</button>
@@ -28,7 +28,7 @@
 	    <button class="google-login">구글 로그인</button>
 	    <button class="naver-login">네이버 로그인</button>
 	</div>
-	</form>
+	
 
 </body>
 </html>

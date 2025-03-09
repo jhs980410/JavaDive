@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.print.DocFlavor.STRING;
 
 import JavaDive.dto.member.MemberDto;
 
@@ -271,31 +270,40 @@ public class MemberDao {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+		MemberDto memberDto= null;
 		String sql = "";
-		sql += "SELECT MEMBER_NAME, MEMBER_EMAIL";
+		sql += "SELECT MEMBER_NAME, MEMBER_EMAIL, MEMBER_NO";
 		sql += " FROM MEMBER";
-		sql += " WHERE MEMBER_EMAIL = ? AND MEMBER_PWD = ?";
+		sql += " WHERE LOWER(MEMBER_EMAIL) = LOWER(?) AND LOWER(MEMBER_PWD) = LOWER(?)";
 		
+
 		String member_name = "";
+		int memberNo;
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
 			
-			int colIndex = 1;
-			pstmt.setString(colIndex++, member_email);
-			pstmt.setString(colIndex, member_pwd);
-			
+
+			pstmt.setString(1, member_email);
+			pstmt.setString(2, member_pwd);
+			System.out.println("Executing SQL: " + sql);
 			rs = pstmt.executeQuery();
+			if (rs == null) {
+			    System.out.println("ResultSet이 null입니다!");
+			} else {
+			    System.out.println("ResultSet이 생성되었습니다.");
+			}
 			
-			MemberDto memberDto = new MemberDto();
+			memberDto = new MemberDto();
 			if (rs.next()) {
-				member_email = rs.getString("member_email");
-				member_name = rs.getString("member_name");
+				member_email = rs.getString("MEMBER_EMAIL");
+				member_name = rs.getString("MEMBER_NAME");
+				memberNo = rs.getInt("MEMBER_NO");
 				
 				memberDto.setEmail(member_email);
 				memberDto.setName(member_name);
-				
+				memberDto.setNo(memberNo);
+			
 				// 회원 정보 조회 확인
 				return memberDto;
 			}

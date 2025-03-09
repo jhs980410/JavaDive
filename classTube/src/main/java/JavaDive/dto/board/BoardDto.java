@@ -7,21 +7,37 @@ public class BoardDto {
 
 	private int noteNo; // 게시글 번호
 	private String title; // 제목
-	private String writer; // 작성자
+	private int memberno;// 멤버번호
 	private Date createDate; // 작성일
 	private Date updateDate; // 수정일
 	private String content; // 내용
 	private String category; // 카테고리 (말머리)
 	private int categoryNo; // 카테고리 번호 (외래키)
+	private String Writer;
 
 	public BoardDto() {
 	}
 
-	public BoardDto(int noteNo, String title, String writer, Date createDate, Date updateDate, String content,
+
+	public String getWriter() {
+		return Writer;
+	}
+
+
+	public void setWriter(String writer) {
+		Writer = writer;
+	}
+
+
+	public int getMemberno() {
+		return memberno;
+	}
+
+	public BoardDto(int noteNo, String title, int memberno, Date createDate, Date updateDate, String content,
 			String category, int categoryNo) {
 		this.noteNo = noteNo;
 		this.title = title;
-		this.writer = writer;
+		this.memberno = memberno;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 		this.content = content;
@@ -46,12 +62,12 @@ public class BoardDto {
 		this.title = title;
 	}
 
-	public String getWriter() {
-		return writer;
+	public int getMemberNo() {
+		return memberno;
 	}
 
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setMemberno(int memberno) {
+		this.memberno = memberno;
 	}
 
 	public Date getCreateDate() {
@@ -93,5 +109,7 @@ public class BoardDto {
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
 	}
+
+
 }
 

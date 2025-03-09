@@ -1,5 +1,6 @@
 package JavaDive.dao.board;
 
+import java.lang.reflect.Member;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +11,10 @@ import java.util.List;
 import javax.xml.crypto.Data;
 import java.sql.Date;
 import JavaDive.dto.board.BoardDto;
+import JavaDive.dto.member.MemberDto;
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 public class BoardDao {
 
@@ -20,25 +24,28 @@ public class BoardDao {
 		this.connection = connection;
 	}
 
-	public int boardInsert(BoardDto boardDto) throws Exception {
+	public int boardInsert(BoardDto boardDto, HttpServletRequest req) throws Exception {
 		PreparedStatement pstmt = null; // 객체준비 //
 		ResultSet rs = null;
 		int generatedNoteNo = 0;
+		HttpSession session = req.getSession(); //요청온곳의 세션값 담기 
+		MemberDto memberDto = (MemberDto) session.getAttribute("member");
 		String sql = "";
 		try {
+			 int memberNo = memberDto.getNo();
 			String title = boardDto.getTitle();
-			String noteWriter = boardDto.getWriter();
+			String noteWriter = memberDto.getName();
 			int categoryNo = boardDto.getCategoryNo();
 			String content = boardDto.getContent();
 			String category = boardDto.getCategory();
-
-			sql = "INSERT INTO NOTE (NOTE_NO, NOTE_TITLE, NOTE_WRITER, CREATE_AT, MODIFY_AT, NOTE_CONTENT, CATEGORY, CATEGORY_NO)\r\n"
+			
+			sql = "INSERT INTO NOTE (NOTE_NO, NOTE_TITLE, MEMBER_NO, CREATE_AT, MODIFY_AT, NOTE_CONTENT, CATEGORY, CATEGORY_NO)\r\n"
 					+ "VALUES (NOTE_SEQ.NEXTVAL, ?, ?, SYSDATE, SYSDATE, ?, ?, ?)";
-
+			
 			pstmt = connection.prepareStatement(sql);
 
 			pstmt.setString(1, title);
-			pstmt.setString(2, noteWriter);
+			pstmt.setInt(2,memberNo);
 			pstmt.setString(3, content);
 			pstmt.setString(4, category);
 			pstmt.setInt(5, categoryNo);
@@ -108,7 +115,7 @@ public class BoardDao {
 				boardDto = new BoardDto();
 				boardDto.setNoteNo(rs.getInt("NOTE_NO"));
 				boardDto.setTitle(rs.getString("NOTE_TITLE"));
-				boardDto.setWriter(rs.getString("NOTE_WRITER"));
+				boardDto.setMemberno(rs.getInt("MEMBER_NO"));
 				boardDto.setContent(rs.getString("CONTENT"));
 				boardDto.setCategory(rs.getString("CATEGORY"));
 				boardDto.setCategoryNo(rs.getInt("CATEGORY_NO"));
@@ -133,26 +140,31 @@ public class BoardDao {
 	public List<BoardDto> selectList() throws Exception {
 		PreparedStatement pstmt = null; // 쿼리실행준비
 		ResultSet rs = null; // sql 실행결과 객체담을 그릇 준비
-
+		
 		ArrayList<BoardDto> boardList = new ArrayList<BoardDto>(); //
 
 		String sql = "";
 
 		try {
-			sql = "SELECT NOTE_NO, NOTE_TITLE, NOTE_WRITER, CREATE_AT,CATEGORY  FROM (SELECT NOTE_NO, NOTE_TITLE, NOTE_WRITER, CREATE_AT,CATEGORY  FROM NOTE WHERE CATEGORY_NO != 1 ORDER BY NOTE_NO DESC) WHERE ROWNUM <= 8";
+			sql = "SELECT N.NOTE_NO, N.NOTE_TITLE, M.MEMBER_NAME AS WRITER, N.CREATE_AT, N.CATEGORY " +
+	                 "FROM (SELECT NOTE_NO, NOTE_TITLE, MEMBER_NO, CREATE_AT, CATEGORY " +
+	                 "      FROM NOTE WHERE CATEGORY_NO != 1 ORDER BY NOTE_NO DESC) N " +
+	                 "JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO " +
+	                 "WHERE ROWNUM <= 8";
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			int noteNo = 0;
 
 			String title = "";
-			String writer = "";
+			String name = "";
 			Date createDate = null;
 			String category = "";
+			
 
 			while (rs.next()) {
 				noteNo = rs.getInt("NOTE_NO");
 				title = rs.getString("NOTE_TITLE");
-				writer = rs.getString("NOTE_WRITER");
+				name = rs.getString("M.MEMBER_NAME");
 				createDate = rs.getDate("CREATE_AT");
 				category = rs.getString("CATEGORY");
 
@@ -160,7 +172,6 @@ public class BoardDao {
 				boardDto.setCreateDate(createDate);
 				boardDto.setNoteNo(noteNo);
 				boardDto.setTitle(title);
-				boardDto.setWriter(writer);
 				boardDto.setCategory(category);
 				boardList.add(boardDto);
 				// 리스트에 담았음 //
@@ -185,15 +196,20 @@ public class BoardDao {
 		return boardList;
 	}
 
-	public List<BoardDto> searchBoard(String keyword) {
+	public List<BoardDto> searchBoard(String keyword, HttpServletRequest req) {
 		PreparedStatement pstmt = null; // 쿼리실행준비
 		ResultSet rs = null; // sql 실행결과 객체담을 그릇 준비
 
 		ArrayList<BoardDto> boardList = new ArrayList<BoardDto>(); //
+		HttpSession session = req.getSession();
+		MemberDto memberDto = (MemberDto) session.getAttribute("member");
 		String sql = "";
 
 		try {
-			sql = "SELECT * FROM NOTE WHERE LOWER(NOTE_TITLE) LIKE LOWER(?)";
+			 sql = "SELECT N.NOTE_NO, N.NOTE_TITLE, M.MEMBER_NAME AS WRITER, N.CREATE_AT, N.CATEGORY " +
+	                 "FROM NOTE N " +
+	                 "JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO " +
+	                 "WHERE LOWER(N.NOTE_TITLE) LIKE LOWER(?)";
 			pstmt = connection.prepareStatement(sql);
 			
 			if (keyword == null || keyword.trim().isEmpty()) {
@@ -216,7 +232,7 @@ public class BoardDao {
 			while (rs.next()) {
 				noteNo = rs.getInt("NOTE_NO");
 				title = rs.getString("NOTE_TITLE");
-				writer = rs.getString("NOTE_WRITER");
+				writer = rs.getString("M.MEMBER_NAME");
 				createDate = rs.getDate("CREATE_AT");
 				category = rs.getString("CATEGORY");
 

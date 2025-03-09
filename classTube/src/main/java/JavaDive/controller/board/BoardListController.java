@@ -16,6 +16,7 @@ import java.util.List;
 
 import JavaDive.dao.board.BoardDao;
 import JavaDive.dto.board.BoardDto;
+import JavaDive.dto.member.MemberDto;
 
 /**
  * Servlet implementation class boardListController
@@ -33,7 +34,8 @@ public class BoardListController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
         BoardDao boardDao = new BoardDao();
-
+        MemberDto memberDto = (MemberDto)session.getAttribute("member");
+        System.out.println("boardlist 세션의 memberDto: " + memberDto);
         // 📌 DB 연결 가져오기
         ServletContext sc = this.getServletContext();
         Connection conn = (Connection) sc.getAttribute("conn");

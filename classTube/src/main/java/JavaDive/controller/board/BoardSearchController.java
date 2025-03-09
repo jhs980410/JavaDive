@@ -40,7 +40,7 @@ public class BoardSearchController extends HttpServlet {
 		try {
 			System.out.println("Search 컨트롤러진입"); 
 			String keyword = req.getParameter("keyword");
-			boardList = boardDao.searchBoard(keyword); 
+			boardList = boardDao.searchBoard(keyword, req); 
 		session.setAttribute("boardList", boardList);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardList.jsp");
         dispatcher.forward(req, res);
