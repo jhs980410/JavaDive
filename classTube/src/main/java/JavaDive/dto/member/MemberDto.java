@@ -15,6 +15,10 @@ public class MemberDto {
 	private String priv;
 	private Date create_at;
 	
+	public MemberDto() {
+		super();
+	}
+
 
 	public MemberDto(int no, String email, String pwd, String name, String rrn, String tel, String priv,
 			Date create_at) {
@@ -39,6 +43,8 @@ public class MemberDto {
 		this.create_at = creDate;
 	}
 	
+
+
 	public int getNo() {
 		return no;
 	}

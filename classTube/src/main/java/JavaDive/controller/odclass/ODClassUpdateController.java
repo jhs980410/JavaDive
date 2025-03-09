@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/class/update")
+@WebServlet("/category/update")
 public class ODClassUpdateController extends HttpServlet {
 	
 	@Override
@@ -22,7 +22,7 @@ public class ODClassUpdateController extends HttpServlet {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		
-		int classNo = Integer.parseInt(req.getParameter(""));
+		int classNo = Integer.parseInt(req.getParameter("classNo"));
 
 		try {
 			ServletContext sc = this.getServletContext();
@@ -37,7 +37,7 @@ public class ODClassUpdateController extends HttpServlet {
 			req.setAttribute("odClassDto", odClassDto);
 			
 			RequestDispatcher dispatcher =
-					req.getRequestDispatcher("");
+					req.getRequestDispatcher("/jsp/category/ClassUpdateForm.jsp");
 			
 			dispatcher.forward(req, res);
 			
@@ -45,7 +45,7 @@ public class ODClassUpdateController extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 //			throw new ServletException(e);
-			System.out.println("회원 업데이트에서 예외 발생");
+			System.out.println("클래스 업데이트에서 예외 발생");
 			e.printStackTrace();
 			
 			req.setAttribute("error", e);
@@ -64,18 +64,22 @@ public class ODClassUpdateController extends HttpServlet {
 		int classNoStr = Integer.parseInt(req.getParameter("classNo"));
 		String classNameStr = req.getParameter("className");
 		int priceStr = Integer.parseInt(req.getParameter("price"));
-		String descStr = req.getParameter("desc");
+		String descStr = req.getParameter("classDesc");
 		String instructorStr  = req.getParameter("instructor");
 		String imgStr = req.getParameter("img");
+		String regionStr = req.getParameter("region");
+		int categoryNoStr = Integer.parseInt(req.getParameter("categoryNo"));
 		
 		ODClassDto odClassDto = new ODClassDto();
 		
 		odClassDto.setClassNo(classNoStr);
 		odClassDto.setClassName(classNameStr);
 		odClassDto.setPrice(priceStr);
-		odClassDto.setDesc(descStr);
+		odClassDto.setClassDesc(descStr);
 		odClassDto.setInstructor(instructorStr);
 		odClassDto.setImg(imgStr);
+		odClassDto.setRegion(regionStr);
+		odClassDto.setCategoryNo(categoryNoStr);
 		
 		try {
 			ServletContext sc = this.getServletContext();
@@ -90,7 +94,7 @@ public class ODClassUpdateController extends HttpServlet {
 			result = odClassDao.odClassUpdate(odClassDto);
 			
 			if(result == 0) {
-				System.out.println("회원 정보 변경 실패");
+				System.out.println("클래스 정보 변경 실패");
 			}
 			
 			res.sendRedirect("./list");

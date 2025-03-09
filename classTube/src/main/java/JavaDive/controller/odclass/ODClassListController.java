@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/class/list")
+@WebServlet("/category/list")
 public class ODClassListController  extends HttpServlet {
 
 	@Override
@@ -31,8 +31,8 @@ public class ODClassListController  extends HttpServlet {
 			
 			ODClassDao odClassDao = new ODClassDao();
 //			주입
-			odClassDao.setConnection(conn);
-			
+				odClassDao.setConnection(conn);
+				
 			ArrayList<ODClassDto> odClassList = null;
 			
 			odClassList = (ArrayList<ODClassDto>)odClassDao.selectClassList();
@@ -40,7 +40,7 @@ public class ODClassListController  extends HttpServlet {
 			req.setAttribute("odClassList", odClassList);
 			
 			RequestDispatcher dispatcher = 
-				req.getRequestDispatcher("./MemberListView.jsp");
+				req.getRequestDispatcher("/jsp/category/ClassListView.jsp");
 			
 			dispatcher.forward(req, res);
 			
