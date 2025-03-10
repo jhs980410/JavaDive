@@ -15,6 +15,7 @@
 
 		<h1>클래스 수정</h1>
 		<form action='./update' method='post'>
+			클래스 번호: <input type='text' name='classNo' value="${odClassDto.getClassNo()}" readonly><br>
 			클래스명: <input type='text' name='className' value="${odClassDto.getClassName()}"><br> 
 			가격: <input type='text' name='price' value="${odClassDto.getPrice()}"><br> 
 			설명: <input type='text' name='classDesc' value="${odClassDto.getClassDesc()}"><br>
@@ -28,7 +29,7 @@
                     	<option value="4">핸드메이드</option>
                     	<option value="5">쿠킹</option>
                 </select> 
-			<input type='submit' value='변경'> <input type='reset' value='취소'>
+			<input type='submit' value='변경'> <input type='button' value='삭제' onclick='location.href="./delete?classNo=${odClassDto.getClassNo()}";'>
 			
 		</form>
 	</div>

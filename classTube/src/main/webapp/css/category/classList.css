@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.classObj {
+	display: inline-block;
+	width: 280px; height: 400px;
+	min-width: 280px;
+	padding: 20px;	
+	margin: 5px;
+
+}
+
+.classImg {
+	width: 270px;
+	height: 200px;
+}
+
+h2 {
+	text-align: center;
+}
+
+.logo {
+	width: 250px;
+	height: 130px;
+}
+
+.listWrap {
+	margin-left: 150px; 
+}
+
+.cssClass {
+	text-align: center;
+}
+
+.name {
+	height: 50px;
+	font-weight: bold;	
+}
+
+.region, .price {
+	text-align: right;
+}
+
+.list {
+	margin-left: 300px;
+	margin-right: 300px;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}

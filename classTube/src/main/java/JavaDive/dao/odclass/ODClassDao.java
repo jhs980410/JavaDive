@@ -235,7 +235,7 @@ public class ODClassDao {
 
 		String sql = "";
 		sql = "UPDATE ODCLASS";
-		sql += " SET CLASS_NAME=?, PRICE=?, classDesc=?, INSTRUCTOR=?, LIMIT=?, IMG=?, REGION=?, CATEGORY_NO=?";
+		sql += " SET CLASS_NAME=?, PRICE=?, CLASS_DESC=?, INSTRUCTOR=?, CLASS_LIMIT=?, IMG=?, REGION=?";
 		sql += " WHERE CLASS_NO=?";
 		
 		try {
@@ -251,7 +251,6 @@ public class ODClassDao {
 			pstmt.setInt(8, odClassDto.getCategoryNo());
 			
 			
-			pstmt.setInt(9, odClassDto.getClassNo());
 
 			result = pstmt.executeUpdate();
 			

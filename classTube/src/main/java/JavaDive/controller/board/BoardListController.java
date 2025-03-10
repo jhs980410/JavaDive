@@ -42,9 +42,11 @@ public class BoardListController extends HttpServlet {
         boardDao.setConnection(conn);
 
         try {
-        	 System.out.println("컨트롤러 진입 ,"); // 로그 추가
+        	 System.out.println("boardList컨트롤러 진입"); // 로그 추가
              List<BoardDto> boardList = boardDao.selectList();
-  
+             for (BoardDto board : boardList) {
+            	    System.out.println("게시글 번호: " + board.getNoteNo() + ", 작성자: " + board.getWriter());
+            	}
 			
             session.setAttribute("boardList", boardList);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardList.jsp");
