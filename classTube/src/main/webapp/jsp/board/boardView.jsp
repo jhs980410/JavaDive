@@ -27,7 +27,20 @@
 				<c:if test="${not empty boardDto.createDate}">
 					<span class="date"> 작성일 : ${boardDto.createDate} </span>
 				</c:if>
+				<c:set var="boardDto" value="${sessionScope.boardDto}" />
+				<c:set var="memberDto" value="${sessionScope.member}" />
 
+				<!-- 현재 로그인한 유저가 게시글 작성자인 경우 -->
+				<c:if
+					test="${not empty memberDto and memberDto.no == boardDto.memberNo}">
+					<button class="updatebutton"
+						onclick="location.href='/classTube/boardUpdate?postId=${boardDto.noteNo}'">
+						수정</button>
+					<button class="deletebutton"
+						onclick="location.href='/classTube/boardDelete?postId=${boardDto.noteNo}'">
+						삭제</button>
+
+				</c:if>
 			</div>
 		</div>
 		<div class="form-group">
@@ -58,7 +71,6 @@
 
 
 	</div>
-
 
 
 </body>

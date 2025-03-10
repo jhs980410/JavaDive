@@ -30,7 +30,11 @@ public class BoardViewController extends HttpServlet {
         
         if (boardDto == null) {
             System.out.println("❌ postId " + postId + "에 해당하는 게시글이 존재하지 않습니다.");
-            res.sendRedirect("boardList.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/common/error.jsp"); 
+            dispatcher.forward(req, res);
+
+
+
             return;
         }
 
