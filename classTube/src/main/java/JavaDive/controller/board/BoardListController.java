@@ -58,7 +58,6 @@ public class BoardListController extends HttpServlet {
 
             List<BoardDto> boardList = boardDao.selectList(page, pageSize);
             System.out.println("현재 페이지: " + page);
-            System.out.println("가져온 게시글 개수: " + boardList.size());
 
             req.setAttribute("boardList", boardList);
             req.setAttribute("currentPage", page);

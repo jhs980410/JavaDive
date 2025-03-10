@@ -317,5 +317,13 @@ public class BoardDao {
 
 		return totalCount;
 	}
+	public void name() {
+		
+	}
+
+	public void updateBoard(int postId, String title, String content) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
