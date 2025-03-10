@@ -1,4 +1,4 @@
-package JavaDive.controller.odclass;
+package admin.controller.odclass;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/category/add")
+@WebServlet("/admin/category/add")
 public class ODClassAddController extends HttpServlet {
 
 	@Override
@@ -22,7 +22,7 @@ public class ODClassAddController extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		RequestDispatcher dispatcher =
-				req.getRequestDispatcher("/jsp/category/ClassUpdateForm.jsp");
+				req.getRequestDispatcher("/jsp/admin/category/ClassUpdateForm.jsp");
 		
 		dispatcher.forward(req, res);
 	}

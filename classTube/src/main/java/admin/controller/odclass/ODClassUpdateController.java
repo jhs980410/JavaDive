@@ -1,4 +1,4 @@
-package JavaDive.controller.odclass;
+package admin.controller.odclass;
 
 import java.io.IOException;
 import java.lang.reflect.Member;
@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/category/update")
+@WebServlet("/admin/category/update")
 public class ODClassUpdateController extends HttpServlet {
 	
 	@Override
@@ -37,7 +37,7 @@ public class ODClassUpdateController extends HttpServlet {
 			req.setAttribute("odClassDto", odClassDto);
 			
 			RequestDispatcher dispatcher =
-					req.getRequestDispatcher("/jsp/category/ClassUpdateForm.jsp");
+					req.getRequestDispatcher("/jsp/admin/category/ClassUpdateForm.jsp");
 			
 			dispatcher.forward(req, res);
 			

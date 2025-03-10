@@ -1,4 +1,4 @@
-package JavaDive.controller.odclass;
+package admin.controller.odclass;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/class/delete")
+@WebServlet("/admin/class/delete")
 public class ODClassDeleteController extends HttpServlet {
 	
 	@Override
