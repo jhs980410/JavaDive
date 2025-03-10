@@ -13,7 +13,7 @@
 <body>
 
 	<h2>게시판 페이지로 이동</h2>
-	<form action="/classTube/boardList" method="GET">
+	<form action="/classTube/boardList" method="get">
 		<button type="submit">게시판 이동</button>
 	</form>
 
