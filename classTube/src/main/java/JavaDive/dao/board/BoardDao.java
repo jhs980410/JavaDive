@@ -321,9 +321,39 @@ public class BoardDao {
 		
 	}
 
-	public void updateBoard(int postId, String title, String content) {
-		// TODO Auto-generated method stub
-		
+	public void updateBoard(int postId, String title, String content , String category) throws SQLException {
+	    PreparedStatement pstmt = null;
+	    String sql = "UPDATE NOTE " +
+	             "SET NOTE_TITLE = ?, " +
+	             "NOTE_CONTENT = ?,	 " +
+	             "MODIFY_AT = SYSDATE, " +
+	             "CATEGORY = ?" +
+	             "WHERE NOTE_NO = ?";
+
+
+	    try {
+	        pstmt = connection.prepareStatement(sql);
+	        pstmt.setString(1, title);
+	        pstmt.setString(2, content);
+	        pstmt.setString(3, category);
+	        pstmt.setInt(4, postId);
+	       
+	        int rowsUpdated = pstmt.executeUpdate();  // ✅ 영향을 받은 행 개수 반환
+	        System.out.println("수정된 행 개수: " + rowsUpdated);
+
+	    } finally {
+	        if (pstmt != null) pstmt.close();
+	    }
 	}
+	
+	public void deleteBoard(int postId) throws SQLException{
+	    String sql = "DELETE FROM NOTE WHERE NOTE_NO = ?";
+
+	    try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+	        pstmt.setInt(1, postId);
+	        pstmt.executeUpdate();
+	    }
+	}
+
 
 }

@@ -23,34 +23,33 @@ import JavaDive.dto.board.BoardDto;
 public class BoardSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public BoardSearchController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public BoardSearchController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		BoardDao boardDao = new BoardDao();
 		ServletContext sc = this.getServletContext();
-		Connection conn = (Connection)sc.getAttribute("conn");
+		Connection conn = (Connection) sc.getAttribute("conn");
 		boardDao.setConnection(conn);
-		List<BoardDto> boardList = null; // dao에서 , keyword 입력예정 
+		List<BoardDto> boardList = null; // dao에서 , keyword 입력예정
 		String keyWord = "";
 		try {
-			System.out.println("Search 컨트롤러진입"); 
+			System.out.println("Search 컨트롤러진입");
 			String keyword = req.getParameter("keyword");
-			boardList = boardDao.searchBoard(keyword, req); 
-		session.setAttribute("boardList", boardList);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardList.jsp");
-        dispatcher.forward(req, res);
-			
-			 
+			boardList = boardDao.searchBoard(keyword, req);
+			session.setAttribute("boardList", boardList);
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardList.jsp");
+			dispatcher.forward(req, res);
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/common/error.jsp");
+			dispatcher.forward(req, res);
 		}
 	}
-
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
