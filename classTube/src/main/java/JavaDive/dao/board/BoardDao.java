@@ -40,7 +40,7 @@ public class BoardDao {
 			
 			
 			sql = "INSERT INTO NOTE (NOTE_NO, NOTE_TITLE, MEMBER_NO, CREATE_AT, MODIFY_AT, NOTE_CONTENT, CATEGORY_NO)\r\n"
-					+ "VALUES (NOTE_SEQ.NEXTVAL, ?, ?, SYSDATE, SYSDATE, ?, ?)";
+					+ "VALUES (SEQ_NOTE_NO.NEXTVAL, ?, ?, SYSDATE, SYSDATE, ?, ?)";
 			
 			String categoryValue = req.getParameter("category");
 		
