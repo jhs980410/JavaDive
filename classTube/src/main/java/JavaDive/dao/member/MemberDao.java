@@ -65,6 +65,8 @@ public class MemberDao {
 		return result;
 	}
 	
+	
+	
 	//회원목록
 	public List<MemberDto> selectList() throws Exception {
 		PreparedStatement pstmt = null;

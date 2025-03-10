@@ -61,7 +61,7 @@ public class BoardAddController extends HttpServlet {
 				categoryNo = 3;
 				category = "정보";
 			}
-
+			
 			// 3️ DB 연결 가져오기
 			ServletContext sc = this.getServletContext();
 			conn = (Connection) sc.getAttribute("conn");
@@ -77,7 +77,7 @@ public class BoardAddController extends HttpServlet {
 			boardDto.setContent(content);
 			boardDto.setCategory(category);
 			boardDto.setCategoryNo(categoryNo);
-
+			
 			
 			System.out.println();
 			int recentPostId = 0;
