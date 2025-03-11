@@ -71,9 +71,6 @@ import JavaDive.dto.member.MemberDto;
 	    	}
 
 
-	        // JSP로 포워딩
-	        RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/admin/adminMain.jsp");
-	        dispatcher.forward(req, res);
 	    }
 
 	    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
