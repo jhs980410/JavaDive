@@ -52,7 +52,7 @@ public class ODClassListController  extends HttpServlet {
 			req.setAttribute("error", e);
 			
 			RequestDispatcher dispatcher =
-					req.getRequestDispatcher("/Error.jsp");
+					req.getRequestDispatcher("/jsp/common/error.jsp");
 			dispatcher.forward(req, res);
 		}
 	

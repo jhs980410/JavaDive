@@ -8,9 +8,8 @@
   <nav class="nav-menu">
     <a href="#" class="nav-link active">회원목록</a>
     <a href="#" class="nav-link">회원관리</a>
-    <a href="#" class="nav-link">클래스관리</a>
+    <a href="../category/list" class="nav-link">클래스관리</a>
     <a href="#" class="nav-link">게시판관리</a>
-    <a href="#" class="nav-link">메인페이지</a>
 </nav>
 
 </header>
