@@ -12,7 +12,8 @@
 <div class="frame">
     <h2 class="title">회원가입</h2>
 
-    <div class="form-container">
+	<form action="join" method="post">
+     <div class="form-container">
         <div class="input-group">
             <label for="name">이름</label>
             <input type="text" id="name" placeholder="이름 입력">
@@ -20,7 +21,7 @@
 
         <div class="input-group">
             <label for="email">이메일</label>
-            <input type="email" id="email" placeholder="이메일 입력">
+            <input type="email" id="email" name="email" placeholder="이메일 입력" required>
             <button class="small-btn">중복확인</button>
         </div>
 
@@ -63,7 +64,8 @@
             <button class="main-btn">가입완료</button>
             <button class="main-btn cancel">뒤로</button>
         </div>
-    </div>
+   	 </div>
+    </form>
 
 </div>
 

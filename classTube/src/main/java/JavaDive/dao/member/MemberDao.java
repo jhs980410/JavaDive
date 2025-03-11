@@ -24,6 +24,7 @@ public class MemberDao {
 	public int memberInsert(MemberDto memberDto) throws Exception{
 		int result = 0;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null; // 추가: 중복 검사용
 		
 		try {
 			String emailStr = memberDto.getEmail();
@@ -31,6 +32,18 @@ public class MemberDao {
 			String nameStr = memberDto.getName();
 			String rrnStr = memberDto.getRrn();
 			String telStr = memberDto.getTel();
+			
+			// 추가: 이메일 중복 검사 쿼리
+	        String checkEmailSql = "SELECT COUNT(*) FROM MEMBER WHERE MEMBER_EMAIL = ?";
+	        pstmt = connection.prepareStatement(checkEmailSql);
+	        pstmt.setString(1, emailStr);
+	        rs = pstmt.executeQuery();
+	        
+	     // 이메일 중복 불가 
+	        if (rs.next() && rs.getInt(1) > 0) {
+	            System.out.println("이미 존재하는 이메일입니다.");
+	            return 0;
+	        }
 			
 			String sql = "";
 			sql += "INSERT INTO MEMBER";
@@ -40,10 +53,10 @@ public class MemberDao {
 			pstmt = connection.prepareStatement(sql);
 			
 			pstmt.setString(1, emailStr);
-			pstmt.setString(2, emailStr);
-			pstmt.setString(3, emailStr);
-			pstmt.setString(4, emailStr);
-			pstmt.setString(5, emailStr);
+			pstmt.setString(2, pwdStr);
+			pstmt.setString(3, nameStr);
+			pstmt.setString(4, rrnStr);
+			pstmt.setString(5, telStr);
 			
 			result = pstmt.executeUpdate();
 			
@@ -53,9 +66,10 @@ public class MemberDao {
 		}finally {
 			
 			try {
-				if (pstmt != null) {
+				if (pstmt != null) 
 					pstmt.close();
-				}
+				if (rs != null) 
+					rs.close();
 			} catch (SQLException e) {
 				// TODO: handle exception
 				e.printStackTrace();
