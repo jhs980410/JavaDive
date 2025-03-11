@@ -1,4 +1,4 @@
-package JavaDive.controller.board;
+package JavaDive.controller.admin.board;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -15,11 +15,12 @@ import JavaDive.dao.board.BoardDao;
 import JavaDive.dto.board.BoardDto;
 
 /**
-
+ * Servlet implementation class AdminBoardView
  */
-
-@WebServlet("/boardView") 
-public class BoardViewController extends HttpServlet {
+@WebServlet("/admin/board/AdminBoardView")
+public class AdminBoardView extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String postIdParam = req.getParameter("postId");
         int postId = (postIdParam != null) ? Integer.parseInt(postIdParam) : -1;
@@ -40,10 +41,21 @@ public class BoardViewController extends HttpServlet {
 
         HttpSession session = req.getSession();
         session.setAttribute("boardDto", boardDto);
-
+        System.out.println("관리자 세션 업데이트 접근");
         System.out.println("✅ 업데이트된 세션 boardDto: " + session.getAttribute("boardDto"));
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/admin/board/AdminBoardView.jsp");
         dispatcher.forward(req, res);
+        
+
     }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
 }

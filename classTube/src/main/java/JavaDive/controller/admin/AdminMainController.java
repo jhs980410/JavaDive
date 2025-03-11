@@ -55,11 +55,13 @@ import JavaDive.dto.member.MemberDto;
 	    	    List<MemberDto> memberList = memberDao.selectList();
 
 	    	    // JSP에서 사용할 데이터 저장
-	    	    req.setAttribute("boardList", boardList);
-	    	    req.setAttribute("memberList", memberList);
-	    	    req.setAttribute("currentPage", page);
-	    	    req.setAttribute("pageSize", pageSize);
-	    	    req.setAttribute("totalPage", totalPage);
+	    	 // 관리자 페이지에서 세션을 유지해야 하므로 session에 저장
+	    	    session.setAttribute("boardList", boardList);
+	    	    session.setAttribute("memberList", memberList);
+	    	    session.setAttribute("currentPage", page);
+	    	    session.setAttribute("pageSize", pageSize);
+	    	    session.setAttribute("totalPage", totalPage);
+
 
 	    	    // 관리자 페이지로 포워딩
 	    	    RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/admin/adminMain.jsp");

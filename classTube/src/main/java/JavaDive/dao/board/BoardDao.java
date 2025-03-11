@@ -179,16 +179,14 @@ public class BoardDao {
 			// ⚡ OFFSET & LIMIT 계산
 			int startRow = (page - 1) * pageSize + 1; // 시작 행 번호
 			int endRow = page * pageSize; // 끝 행 번호
-				
+
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			
-			
+
 			System.out.println("dao 현재 페이지: " + page);
 			System.out.println("dao startRow: " + startRow);
 			System.out.println("dao endRow: " + endRow);
-			
-			
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -222,6 +220,89 @@ public class BoardDao {
 		return boardList;
 	}
 
+	public List<BoardDto> adminSelectList(int page, int pageSize) throws Exception {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<BoardDto> boardList = new ArrayList<>();
+
+		String sql = "";
+
+		try {
+			sql += "SELECT * FROM ( ";
+			sql += "    SELECT ";
+			sql += "        N.NOTE_NO, ";
+			sql += "        N.NOTE_TITLE, ";
+			sql += "        M.MEMBER_NAME AS WRITER, ";
+			sql += "        N.CREATE_AT, ";
+			sql += "        C.CATEGORY_NAME AS CATEGORY, ";
+			sql += "        0 AS RNUM ";
+			sql += "    FROM NOTE N ";
+			sql += "    JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO ";
+			sql += "    JOIN BOARD_CATEGORY C ON N.CATEGORY_NO = C.CATEGORY_NO ";
+			sql += "    WHERE N.CATEGORY_NO = 1 ";
+			sql += "    AND ROWNUM <= 2 ";
+			sql += ") ";
+			sql += "UNION ALL ";
+			sql += "SELECT * FROM ( ";
+			sql += "    SELECT ";
+			sql += "        N.NOTE_NO, ";
+			sql += "        N.NOTE_TITLE, ";
+			sql += "        M.MEMBER_NAME AS WRITER, ";
+			sql += "        N.CREATE_AT, ";
+			sql += "        C.CATEGORY_NAME AS CATEGORY, ";
+			sql += "        ROW_NUMBER() OVER (ORDER BY N.NOTE_NO DESC) AS RNUM ";
+			sql += "    FROM NOTE N ";
+			sql += "    JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO ";
+			sql += "    JOIN BOARD_CATEGORY C ON N.CATEGORY_NO = C.CATEGORY_NO ";
+			sql += "    WHERE N.CATEGORY_NO != 1 ";
+			sql += ") ";
+			sql += "WHERE RNUM BETWEEN ? AND ?"; // 🔥 페이지네이션 추가 (범위 지정)
+
+			pstmt = connection.prepareStatement(sql);
+
+			int startRow = (page - 1) * pageSize + 1; // 시작 행 번호
+			int endRow = page * pageSize; // 끝 행 번호
+
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			System.out.println("관리자 dao 현재 페이지: " + page);
+			System.out.println("관리자 dao startRow: " + startRow);
+			System.out.println("관리자 dao endRow: " + endRow);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				BoardDto boardDto = new BoardDto();
+				boardDto.setNoteNo(rs.getInt("NOTE_NO"));
+				boardDto.setTitle(rs.getString("NOTE_TITLE"));
+				boardDto.setWriter(rs.getString("WRITER"));
+				boardDto.setCreateDate(rs.getDate("CREATE_AT"));
+				boardDto.setCategory(rs.getString("CATEGORY"));
+
+				boardList.add(boardDto);
+				System.out.println("관리자가 가져온 게시글 개수: " + boardList.size());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+
+		return boardList;
+	}
+
 	public List<BoardDto> searchBoard(String keyword, HttpServletRequest req) {
 		PreparedStatement pstmt = null; // 쿼리실행준비
 		ResultSet rs = null; // sql 실행결과 객체담을 그릇 준비
@@ -232,8 +313,8 @@ public class BoardDao {
 		String sql = "";
 
 		try {
-			sql = "SELECT N.NOTE_NO, N.NOTE_TITLE, M.MEMBER_NAME AS WRITER, N.CREATE_AT, B.CATEGORY_NAME " + "FROM NOTE N "
-					+ "JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO "
+			sql = "SELECT N.NOTE_NO, N.NOTE_TITLE, M.MEMBER_NAME AS WRITER, N.CREATE_AT, B.CATEGORY_NAME "
+					+ "FROM NOTE N " + "JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO "
 					+ "JOIN BOARD_CATEGORY B ON N.CATEGORY_NO = B.CATEGORY_NO "
 					+ "WHERE LOWER(N.NOTE_TITLE) LIKE LOWER(?)";
 			pstmt = connection.prepareStatement(sql);
@@ -318,44 +399,34 @@ public class BoardDao {
 
 		return totalCount;
 	}
-	
-	
-
-	
-	
-	
 
 	public void updateBoard(int postId, String title, String content) throws SQLException {
-	    PreparedStatement pstmt = null;
-	    String sql = "UPDATE NOTE " +
-	             "SET NOTE_TITLE = ?, " +
-	             "NOTE_CONTENT = ?,	 " +
-	             "MODIFY_AT = SYSDATE " +
-	             "WHERE NOTE_NO = ?";
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE NOTE " + "SET NOTE_TITLE = ?, " + "NOTE_CONTENT = ?,	 " + "MODIFY_AT = SYSDATE "
+				+ "WHERE NOTE_NO = ?";
 
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, postId);
 
-	    try {
-	        pstmt = connection.prepareStatement(sql);
-	        pstmt.setString(1, title);
-	        pstmt.setString(2, content);
-	        pstmt.setInt(3, postId);
-	       
-	        int rowsUpdated = pstmt.executeUpdate();  // ✅ 영향을 받은 행 개수 반환
-	        System.out.println("수정된 행 개수: " + rowsUpdated);
+			int rowsUpdated = pstmt.executeUpdate(); // ✅ 영향을 받은 행 개수 반환
+			System.out.println("수정된 행 개수: " + rowsUpdated);
 
-	    } finally {
-	        if (pstmt != null) pstmt.close();
-	    }
-	}
-	
-	public void deleteBoard(int postId) throws SQLException{
-	    String sql = "DELETE FROM NOTE WHERE NOTE_NO = ?";
-
-	    try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-	        pstmt.setInt(1, postId);
-	        pstmt.executeUpdate();
-	    }
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+		}
 	}
 
+	public void deleteBoard(int postId) throws SQLException {
+		String sql = "DELETE FROM NOTE WHERE NOTE_NO = ?";
+
+		try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+			pstmt.setInt(1, postId);
+			pstmt.executeUpdate();
+		}
+	}
 
 }
