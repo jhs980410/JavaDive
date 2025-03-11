@@ -4,6 +4,10 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
+.addClass {
+	text-align: right;
+}
+
 .classObj {
 	display: inline-block;
 	width: 280px; height: 400px;
@@ -24,7 +28,7 @@ h2 {
 
 .logo {
 	width: 250px;
-	height: 130px;
+	height: 200px;
 }
 
 .listWrap {
