@@ -232,8 +232,10 @@ public class BoardDao {
 		String sql = "";
 
 		try {
-			sql = "SELECT N.NOTE_NO, N.NOTE_TITLE, M.MEMBER_NAME AS WRITER, N.CREATE_AT, N.CATEGORY " + "FROM NOTE N "
-					+ "JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO " + "WHERE LOWER(N.NOTE_TITLE) LIKE LOWER(?)";
+			sql = "SELECT N.NOTE_NO, N.NOTE_TITLE, M.MEMBER_NAME AS WRITER, N.CREATE_AT, B.CATEGORY_NAME " + "FROM NOTE N "
+					+ "JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO "
+					+ "JOIN BOARD_CATEGORY B ON N.CATEGORY_NO = B.CATEGORY_NO "
+					+ "WHERE LOWER(N.NOTE_TITLE) LIKE LOWER(?)";
 			pstmt = connection.prepareStatement(sql);
 
 			if (keyword == null || keyword.trim().isEmpty()) {
@@ -258,7 +260,7 @@ public class BoardDao {
 				title = rs.getString("NOTE_TITLE");
 				writer = rs.getString("WRITER");
 				createDate = rs.getDate("CREATE_AT");
-				category = rs.getString("CATEGORY");
+				category = rs.getString("CATEGORY_NAME");
 
 				BoardDto boardDto = new BoardDto();
 				boardDto.setCreateDate(createDate);
