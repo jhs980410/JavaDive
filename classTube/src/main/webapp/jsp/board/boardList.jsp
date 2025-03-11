@@ -137,6 +137,6 @@
 		</form>
 	</div>
 
-
+<script src="${pageContext.request.contextPath}/js/board/boardList.js"></script>
 </body>
 </html>
