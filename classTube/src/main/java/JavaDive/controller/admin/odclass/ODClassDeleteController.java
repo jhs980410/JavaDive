@@ -1,4 +1,4 @@
-package admin.controller.odclass;
+package JavaDive.controller.admin.odclass;
 
 import java.io.IOException;
 import java.sql.Connection;
