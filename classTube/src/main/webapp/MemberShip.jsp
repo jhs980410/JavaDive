@@ -6,13 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
     <link rel="stylesheet" href="css/MemberShip.css">
+    
+    <script>
+        function validateFormFnc() {
+            var password = document.getElementById("password").value;
+            var passwordConfirm = document.getElementById("password-confirm").value;
+
+            if (password !== passwordConfirm) {
+                alert("비밀번호가 다릅니다. 다시 입력해주세요.");
+                return false; // 폼 제출 막기
+            }
+            return true; // 폼 제출 허용
+        }
+    </script>
+    
 </head>
 <body>
 
 <div class="frame">
     <h2 class="title">회원가입</h2>
 
-	<form action="join" method="post">
+	<form action="join" method="post" onsubmit="return validateForm();">
      <div class="form-container">
         <div class="input-group">
             <label for="name">이름</label>
@@ -40,29 +54,16 @@
             <input type="text" id="id-number" placeholder="예: 900101-1234567">
         </div>
 
-        <div class="input-group">
-            <label for="telecom">통신사</label>
-            <select id="telecom">
-                <option value="SKT">SKT</option>
-                <option value="KT">KT</option>
-                <option value="LGU+">LGU+</option>
-            </select>
-        </div>
 
         <div class="input-group">
             <label for="phone">휴대폰 번호</label>
             <input type="text" id="phone" placeholder="010-1234-5678">
-            <button class="small-btn">인증요청</button>
-        </div>
-
-        <div class="input-group">
-            <label for="verify-code">인증번호 입력</label>
-            <input type="text" id="verify-code" placeholder="인증번호 입력">
+            
         </div>
 
         <div class="button-group">
-            <button class="main-btn">가입완료</button>
-            <button class="main-btn cancel">뒤로</button>
+             <button type="submit" class="main-btn">가입완료</button>
+             <button type="button" class="main-btn cancel" onclick="history.back();">뒤로</button>
         </div>
    	 </div>
     </form>

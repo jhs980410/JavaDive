@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
-	<
+	
 	<div class="container">
 	    <div class="logo-box">
 	        <span class="logo-text">로고</span>
