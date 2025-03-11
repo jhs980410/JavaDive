@@ -6,13 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>InsertTitle</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/classList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/category/classList.css">
 </head>
 
 <body>
 
 	<div class="container">
-	<img class="logo" src="../images/ctube.jpg">
+	<img class="logo" src="/images/ctube_logo.jpg">
 		<h2>클래스 목록</h2>
 
 		<div class="listWrap">

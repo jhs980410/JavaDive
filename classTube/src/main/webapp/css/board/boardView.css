@@ -93,6 +93,17 @@ button {
     cursor: pointer;
     margin: 0 10px;
 }
+
+.deletebutton {
+    background-color: #DC3545 !important;
+    color: white !important;
+     float: right;
+}
+.updatebutton{
+	 background-color: #007BFF !important;
+    color: white !important;
+    float: right;
+}
 .button-group {
     position: fixed; /* 화면 하단에 고정 */
     bottom: 20px; /* 화면 아래에서 20px 위로 배치 */
@@ -110,6 +121,14 @@ button.but-view {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+/* 버튼을 감싸는 div를 오른쪽 정렬 */
+
+/* 버튼 스타일 */
+
+/* ✅ 버튼 간격 조정 */
+.update-delete-group button {
+    margin-left: 10px;
 }
 
 .category{

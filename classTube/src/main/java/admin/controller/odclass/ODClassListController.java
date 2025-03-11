@@ -1,4 +1,4 @@
-package JavaDive.controller.odclass;
+package admin.controller.odclass;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/category/list")
+@WebServlet("/admin/category/list")
 public class ODClassListController  extends HttpServlet {
 
 	@Override
@@ -40,13 +40,13 @@ public class ODClassListController  extends HttpServlet {
 			req.setAttribute("odClassList", odClassList);
 			
 			RequestDispatcher dispatcher = 
-				req.getRequestDispatcher("/jsp/category/ClassListView.jsp");
+				req.getRequestDispatcher("/jsp/admin/category/ClassListView.jsp");
 			
 			dispatcher.forward(req, res);
 			
 		} catch (Exception e) {
 //			throw new ServletException(e);
-			System.out.println("회원 목록에서 예외 발생");
+			System.out.println("클래스 목록에서 예외 발생");
 			e.printStackTrace();
 			
 			req.setAttribute("error", e);

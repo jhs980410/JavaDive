@@ -1,5 +1,6 @@
 package JavaDive.controller.member;
 
+import java.io.Console;
 import java.io.IOException;
 import java.sql.Connection;
 
@@ -55,10 +56,18 @@ public class LoginServlet extends HttpServlet {
 			
 			MemberDto memberDto = memberDao.memberExist(email, pwd);
 			
+			if(memberDto == null) {
+				System.out.println("로그인 실패");
+				
+				RequestDispatcher rd = req.getRequestDispatcher("/LoginPage.jsp");
+				rd.forward(req, res);
+				return;
+			}
 			
 			// 로그인 성공시 세션에 담고 로그인 완료 페이지로 이동
 			HttpSession session = req.getSession();
-			session.setAttribute("member", memberDto);
+			session.setAttribute("member", memberDto); // 기존 memberdto 
+ 
 			System.out.println("로그인 컨트롤러에서 의 memberdto : " + memberDto);
 			System.out.println("성공");
 			RequestDispatcher rd = req.getRequestDispatcher("/jsp/common/classTubeMain.jsp");

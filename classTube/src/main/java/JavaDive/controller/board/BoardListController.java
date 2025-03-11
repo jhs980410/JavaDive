@@ -30,32 +30,49 @@ public class BoardListController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
         BoardDao boardDao = new BoardDao();
-        MemberDto memberDto = (MemberDto)session.getAttribute("member");
-        System.out.println("boardlist 세션의 memberDto: " + memberDto);
-        // 📌 DB 연결 가져오기
+
         ServletContext sc = this.getServletContext();
         Connection conn = (Connection) sc.getAttribute("conn");
         boardDao.setConnection(conn);
 
+        // ✅ 요청된 페이지 번호 받기 (기본값: 1)
+        int page = 1;
+        int pageSize = 8;  // ✅ 한 페이지당 게시글 개수
+
+        if (req.getParameter("page") != null) {
+            page = Integer.parseInt(req.getParameter("page"));
+        }
+
         try {
-        	 System.out.println("boardList컨트롤러 진입"); // 로그 추가
-             List<BoardDto> boardList = boardDao.selectList();
-             for (BoardDto board : boardList) {
-            	    System.out.println("게시글 번호: " + board.getNoteNo() + ", 작성자: " + board.getWriter());
-            	}
-			
-            session.setAttribute("boardList", boardList);
+            // ✅ 전체 게시글 개수 가져오기
+            int totalCount = boardDao.selectTotalCount();
+          System.out.println("컨트롤러측 " + totalCount );
+            int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+
+            System.out.println("토탈값: " + totalPage);
+            page = Math.max(1, page); // 최소값 1로 고정
+ // 총 페이지 수 계산
+
+            List<BoardDto> boardList = boardDao.selectList(page, pageSize);
+            System.out.println("현재 페이지: " + page);
+
+            req.setAttribute("boardList", boardList);
+            req.setAttribute("currentPage", page);
+            req.setAttribute("pageSize", pageSize);
+            req.setAttribute("totalPage", totalPage);  // 🔥 추가된 부분
+
             RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardList.jsp");
             dispatcher.forward(req, res);
         } catch (Exception e) {
             e.printStackTrace();
-            res.sendRedirect("error.jsp"); // 에러 페이지로 이동
+            res.sendRedirect("error.jsp");
         }
     }
+
+
 
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
