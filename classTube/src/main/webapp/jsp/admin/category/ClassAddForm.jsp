@@ -17,7 +17,7 @@
 		<form action='./add' method='post'>
 			클래스명: <input type='text' name='className'><br> 
 			가격: <input type='text' name='price'><br> 
-			설명: <input type='text' name='classDesc'><br>
+			설명: <textarea name='classDesc' cols="30" rows="5"></textarea><br>
 			호스트:  <input type='text' name='instructor'><br>
 			정원:  <input type='text' name='classLimit'><br>
 			지역:  <input type='text' name='region' placeholder="서울/성북구/종암로"><br>

@@ -1,0 +1,96 @@
+/* 
+.header {
+    width: 100%;
+    height: 80px;
+    background-color: white;  배경색을 흰색으로 설정
+    color: #007bff;  기본 글자색
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;  ✅ 메뉴가 자연스럽게 정렬
+    align-items: center;
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); 헤더에 그림자 효과 추가
+} */
+
+
+.header {
+	height: 100px;
+    padding: 5px 10px;  /* 🔥 전체 패딩 줄이기 */
+    display: flex;
+    align-items: center;
+    background-color: white;
+     padding: 30px 60px;
+     font-family: Arial, sans-serif;
+     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    justify-content: flex-start;  /* 🔥 로고와 메뉴를 좌측으로 정렬 */
+}
+
+
+/* 로고 스타일 */
+.logo img {
+    height: 150px;
+    width : 150px;
+    margin-right: 300px; /* ✅ 로고와 메뉴 사이 간격 유지 */
+}
+
+/* 네비게이션 스타일 */
+.nav-container {
+    flex: 1;  /* ✅ 메뉴가 중앙에서 균등 정렬되도록 설정 */
+    display: flex;
+    justify-content: center; /* ✅ 메뉴를 중앙 정렬 */
+}
+
+/* 메뉴 리스트 */
+.nav-menu {
+    display: flex;
+    margin-left: 300px;
+    gap: 90px;  /* ✅ 메뉴 간격 조정 */
+}
+
+/* 기본 버튼 스타일 */
+.nav-link {
+    text-decoration: none;
+    color: #C3C564;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 16px;  /* 버튼 크기 통일 */
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px; /* 높이 통일 */
+    min-width: 120px; /* 최소 너비 추가 */
+}
+
+/* 활성화된 버튼 스타일 (다른 버튼들과 동일한 크기로 맞춤) */
+.nav-link.active {
+    background-color: #C3C564;
+    color: white;
+    font-weight: bold;
+}
+
+/* 마우스 호버 효과 */
+.nav-link:hover {
+    background-color: #e0e0e0;
+    color: black;
+}
+
+/* 헤더 내부 요소들의 간격 줄이기 */
+.header {
+    padding: 5px 15px;  /* 🔥 전체 패딩 줄이기 */
+}
+
+/* 로고와 네비게이션 사이 간격 줄이기 */
+.logo {
+    margin-right: 10px;  /* 🔥 로고와 메뉴 사이 여백 최소화 */
+}
+
+/* 네비게이션 메뉴 간격 조정 */
+.nav-menu {
+    gap: 20px;  /* 🔥 메뉴들 사이 간격 줄이기 (기존 50px → 20px) */
+}

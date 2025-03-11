@@ -92,7 +92,7 @@ public class MemberDao {
 	
 		sql += "SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, TEL, CREATE_AT";
 		sql += " FROM MEMBER";
-		sql += " ORDER BY MNO ASC";
+		sql += " ORDER BY MEMBER_NO ASC";
 		
 		try {
 			pstmt = connection.prepareStatement(sql);

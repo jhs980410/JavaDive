@@ -46,7 +46,7 @@
     	
     </div>
     </div>
-	<script src="${pageContext.request.contextPath}/js/boardUpdate.js"></script>
+	<script src="${pageContext.request.contextPath}/js/board/boardUpdate.js"></script>
 	<!--온클릭이벤트 생성예정 , 생성시 주석삭제 / -->
 </body>
 </html>

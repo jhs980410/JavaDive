@@ -1,4 +1,4 @@
-package admin.controller.odclass;
+package JavaDive.controller.admin.odclass;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,7 +22,7 @@ public class ODClassAddController extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		RequestDispatcher dispatcher =
-				req.getRequestDispatcher("/jsp/admin/category/ClassUpdateForm.jsp");
+				req.getRequestDispatcher("/jsp/admin/category/ClassAddForm.jsp");
 		
 		dispatcher.forward(req, res);
 	}
@@ -38,7 +38,7 @@ public class ODClassAddController extends HttpServlet {
 		String instructorStr = req.getParameter("instructor");
 		int limitStr = Integer.parseInt(req.getParameter("classLimit"));
 		String regionStr = req.getParameter("region");
-		int categoryNo = Integer.parseInt("category");
+		int categoryNo = Integer.parseInt(req.getParameter("categoryNo"));
 		
 		ODClassDto odClassDto = new ODClassDto();
 
@@ -66,7 +66,7 @@ public class ODClassAddController extends HttpServlet {
 				System.out.println("클래스 추가 실패");
 			}
 
-			res.sendRedirect("");
+			res.sendRedirect("./list");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,7 +74,7 @@ public class ODClassAddController extends HttpServlet {
 			req.setAttribute("error", e);
 			
 			RequestDispatcher dispatcher = 
-					req.getRequestDispatcher("/Error.jsp");
+					req.getRequestDispatcher("/jsp/common/error.jsp");
 			
 			dispatcher.forward(req, res);
 		}

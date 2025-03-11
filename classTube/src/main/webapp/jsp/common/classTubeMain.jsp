@@ -20,6 +20,7 @@
 
 <div class="container">
 	<img class="logo" src="/images/ctube.jpg">
+	
 		<h2>클래스 목록</h2>
 
 		<div class="listWrap">
