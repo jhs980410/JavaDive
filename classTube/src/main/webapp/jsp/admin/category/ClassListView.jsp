@@ -12,7 +12,7 @@
 <body>
 
 	<div class="container">
-	<img class="logo" src="/images/ctube_logo.png">
+	<img class="logo" src="/images/ctube_logo.jpg">
 		<h2>클래스 목록</h2>
 
 		<div class="listWrap">

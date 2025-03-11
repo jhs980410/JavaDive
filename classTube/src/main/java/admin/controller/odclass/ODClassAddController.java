@@ -22,7 +22,7 @@ public class ODClassAddController extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		RequestDispatcher dispatcher =
-				req.getRequestDispatcher("/jsp/admin/category/ClassAddForm.jsp");
+				req.getRequestDispatcher("/jsp/admin/category/ClassUpdateForm.jsp");
 		
 		dispatcher.forward(req, res);
 	}
@@ -38,7 +38,7 @@ public class ODClassAddController extends HttpServlet {
 		String instructorStr = req.getParameter("instructor");
 		int limitStr = Integer.parseInt(req.getParameter("classLimit"));
 		String regionStr = req.getParameter("region");
-		int categoryNo = Integer.parseInt(req.getParameter("categoryNo"));
+		int categoryNo = Integer.parseInt("category");
 		
 		ODClassDto odClassDto = new ODClassDto();
 
@@ -66,7 +66,7 @@ public class ODClassAddController extends HttpServlet {
 				System.out.println("클래스 추가 실패");
 			}
 
-			res.sendRedirect("./list");
+			res.sendRedirect("");
 
 		} catch (Exception e) {
 			e.printStackTrace();

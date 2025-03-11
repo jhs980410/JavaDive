@@ -107,14 +107,10 @@ public class ODClassDao {
 			String region = odClassDto.getRegion();
 			int categoryNo = odClassDto.getCategoryNo();
 			
-			System.out.println(odClassDto);
-			
 			String sql = "";
 			sql += "INSERT INTO ODCLASS";
 			sql += " (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)";
-			sql += " VALUES(SEQ_CLASS_NO.NEXTVAL, ?, ?, ?, ?, SYSDATE, 0, ?, ?, ?, ?)";
-			
-			System.out.println("??");
+			sql += " VALUES(CLASS_SEQ.NEXTVAL(), ?, ?, ?, ?, SYSDATE, 0, ?, ?, ?";
 			
 			pstmt = connection.prepareStatement(sql);
 			
