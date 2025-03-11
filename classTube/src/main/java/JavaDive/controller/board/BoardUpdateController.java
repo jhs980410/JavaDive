@@ -90,7 +90,7 @@ public class BoardUpdateController extends HttpServlet {
 			}
 
 			// 게시글 수정 진행
-			boardDao.updateBoard(postId, title, content,categoryName);
+			boardDao.updateBoard(postId, title, content);
 			res.sendRedirect("/classTube/boardList"); // 서블릿으로 이동 (컨트롤러에서 처리)
 
 		} catch (Exception e) {
