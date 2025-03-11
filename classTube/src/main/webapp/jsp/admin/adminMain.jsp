@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/common/adminHeader.css">
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin/common/adminHeader.css">
 
 </head>
 
 <body>
-	<%@ include file="../common/adminHeader.jsp"%>
+	<%@ include file="/jsp/admin/common/adminHeader.jsp" %>
 	
 	<form action="./adminMain" method="get"
 	<div class="main-content">
