@@ -129,7 +129,6 @@ public class BoardDao {
 				boardDto.setTitle(rs.getString("NOTE_TITLE"));
 				boardDto.setMemberno(rs.getInt("MEMBER_NO"));
 				boardDto.setContent(rs.getString("NOTE_CONTENT"));
-				boardDto.setCategory(rs.getString("CATEGORY"));
 				boardDto.setCategoryNo(rs.getInt("CATEGORY_NO"));
 				boardDto.setCreateDate(rs.getDate("CREATE_AT"));
 
@@ -321,13 +320,12 @@ public class BoardDao {
 		
 	}
 
-	public void updateBoard(int postId, String title, String content , String category) throws SQLException {
+	public void updateBoard(int postId, String title, String content) throws SQLException {
 	    PreparedStatement pstmt = null;
 	    String sql = "UPDATE NOTE " +
 	             "SET NOTE_TITLE = ?, " +
 	             "NOTE_CONTENT = ?,	 " +
-	             "MODIFY_AT = SYSDATE, " +
-	             "CATEGORY = ?" +
+	             "MODIFY_AT = SYSDATE " +
 	             "WHERE NOTE_NO = ?";
 
 
@@ -335,8 +333,7 @@ public class BoardDao {
 	        pstmt = connection.prepareStatement(sql);
 	        pstmt.setString(1, title);
 	        pstmt.setString(2, content);
-	        pstmt.setString(3, category);
-	        pstmt.setInt(4, postId);
+	        pstmt.setInt(3, postId);
 	       
 	        int rowsUpdated = pstmt.executeUpdate();  // ✅ 영향을 받은 행 개수 반환
 	        System.out.println("수정된 행 개수: " + rowsUpdated);
