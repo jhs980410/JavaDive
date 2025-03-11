@@ -30,6 +30,7 @@
                     	<option value="5">쿠킹</option>
                 </select> 
 			<input type='submit' value='변경'> <input type='button' value='삭제' onclick='location.href="./delete?classNo=${odClassDto.getClassNo()}";'>
+			<input type='button' value='목록 보기' onclick='location.href="./list";'>
 			
 		</form>
 	</div>

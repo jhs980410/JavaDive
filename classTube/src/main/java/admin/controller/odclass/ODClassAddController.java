@@ -38,7 +38,7 @@ public class ODClassAddController extends HttpServlet {
 		String instructorStr = req.getParameter("instructor");
 		int limitStr = Integer.parseInt(req.getParameter("classLimit"));
 		String regionStr = req.getParameter("region");
-		int categoryNo = Integer.parseInt("category");
+		int categoryNo = Integer.parseInt(req.getParameter("categoryNo"));
 		
 		ODClassDto odClassDto = new ODClassDto();
 
@@ -66,7 +66,7 @@ public class ODClassAddController extends HttpServlet {
 				System.out.println("클래스 추가 실패");
 			}
 
-			res.sendRedirect("");
+			res.sendRedirect("./list");
 
 		} catch (Exception e) {
 			e.printStackTrace();

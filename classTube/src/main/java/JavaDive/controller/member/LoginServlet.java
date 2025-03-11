@@ -70,8 +70,8 @@ public class LoginServlet extends HttpServlet {
  
 			System.out.println("로그인 컨트롤러에서 의 memberdto : " + memberDto);
 			System.out.println("성공");
-			RequestDispatcher rd = req.getRequestDispatcher("/jsp/common/classTubeMain.jsp");
-			rd.forward(req, res);
+			
+			res.sendRedirect("./main");
 
 		} catch (Exception e) {
 			e.printStackTrace();

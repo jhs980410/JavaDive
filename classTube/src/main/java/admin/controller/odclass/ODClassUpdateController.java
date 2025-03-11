@@ -59,6 +59,7 @@ public class ODClassUpdateController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		Connection conn = null;
 		
 		int classNoStr = Integer.parseInt(req.getParameter("classNo"));
@@ -66,7 +67,7 @@ public class ODClassUpdateController extends HttpServlet {
 		int priceStr = Integer.parseInt(req.getParameter("price"));
 		String descStr = req.getParameter("classDesc");
 		String instructorStr  = req.getParameter("instructor");
-		String imgStr = req.getParameter("img");
+		int classLimitStr = Integer.parseInt(req.getParameter("classLimit"));
 		String regionStr = req.getParameter("region");
 		int categoryNoStr = Integer.parseInt(req.getParameter("categoryNo"));
 		
@@ -77,9 +78,11 @@ public class ODClassUpdateController extends HttpServlet {
 		odClassDto.setPrice(priceStr);
 		odClassDto.setClassDesc(descStr);
 		odClassDto.setInstructor(instructorStr);
-		odClassDto.setImg(imgStr);
+		odClassDto.setClassLimit(classLimitStr);
 		odClassDto.setRegion(regionStr);
 		odClassDto.setCategoryNo(categoryNoStr);
+		
+
 		
 		try {
 			ServletContext sc = this.getServletContext();
