@@ -129,7 +129,6 @@ public class BoardDao {
 				boardDto.setTitle(rs.getString("NOTE_TITLE"));
 				boardDto.setMemberno(rs.getInt("MEMBER_NO"));
 				boardDto.setContent(rs.getString("NOTE_CONTENT"));
-				boardDto.setCategory(rs.getString("CATEGORY"));
 				boardDto.setCategoryNo(rs.getInt("CATEGORY_NO"));
 				boardDto.setCreateDate(rs.getDate("CREATE_AT"));
 
