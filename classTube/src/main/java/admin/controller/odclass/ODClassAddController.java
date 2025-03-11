@@ -22,7 +22,7 @@ public class ODClassAddController extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		RequestDispatcher dispatcher =
-				req.getRequestDispatcher("/jsp/admin/category/ClassUpdateForm.jsp");
+				req.getRequestDispatcher("/jsp/admin/category/ClassAddForm.jsp");
 		
 		dispatcher.forward(req, res);
 	}

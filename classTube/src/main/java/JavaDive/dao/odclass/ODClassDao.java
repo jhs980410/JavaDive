@@ -110,7 +110,7 @@ public class ODClassDao {
 			String sql = "";
 			sql += "INSERT INTO ODCLASS";
 			sql += " (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)";
-			sql += " VALUES(CLASS_SEQ.NEXTVAL(), ?, ?, ?, ?, SYSDATE, 0, ?, ?, ?";
+			sql += " VALUES(CLASS_SEQ.NEXTVAL(), ?, ?, ?, ?, SYSDATE, 0, ?, ?, ?, ?)";
 			
 			pstmt = connection.prepareStatement(sql);
 			
@@ -272,5 +272,38 @@ public class ODClassDao {
 		
 		return result;
 	}
-	
+
+	public int classDelete(int classId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		try {
+			String sql = "DELETE FROM ODCLASS";
+			sql += " WHERE CLASS_NO=?";
+
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setInt(1, classId);
+
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+		}
+
+		return result;
+	}
 }
