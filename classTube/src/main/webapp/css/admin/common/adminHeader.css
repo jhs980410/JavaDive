@@ -18,7 +18,7 @@
 
 
 .header {
-	height: 150px;
+	height: 100px;
     padding: 5px 10px;  /* 🔥 전체 패딩 줄이기 */
     display: flex;
     align-items: center;
@@ -32,8 +32,8 @@
 
 /* 로고 스타일 */
 .logo img {
-    height: 180px;
-    width : 180px;
+    height: 150px;
+    width : 150px;
     margin-right: 300px; /* ✅ 로고와 메뉴 사이 간격 유지 */
 }
 
@@ -47,14 +47,14 @@
 /* 메뉴 리스트 */
 .nav-menu {
     display: flex;
-    margin-left: 130px;
+    margin-left: 300px;
     gap: 90px;  /* ✅ 메뉴 간격 조정 */
 }
 
 /* 기본 버튼 스타일 */
 .nav-link {
     text-decoration: none;
-    color: #007bff;
+    color: #C3C564;
     font-size: 16px;
     font-weight: 500;
     padding: 8px 16px;  /* 버튼 크기 통일 */
@@ -69,7 +69,7 @@
 
 /* 활성화된 버튼 스타일 (다른 버튼들과 동일한 크기로 맞춤) */
 .nav-link.active {
-    background-color: #007bff;
+    background-color: #C3C564;
     color: white;
     font-weight: bold;
 }

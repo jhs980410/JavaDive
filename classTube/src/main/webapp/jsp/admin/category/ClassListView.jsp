@@ -5,18 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>InsertTitle</title>
+<title>클래스 목록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/category/classList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
 </head>
 
 <body>
-
-	<div class="container">
-	
-	<img class="logo" src="../../images/ctube_logo.png">
-	
-	<h2>클래스 목록</h2>
-	
+<%@ include file="../common/adminHeader.jsp"%>
+	<div class="container">		
 	<div class="listWrap">
 		<div class="list">
 			<div class="addClass"><a href="./add">추가</a></div>

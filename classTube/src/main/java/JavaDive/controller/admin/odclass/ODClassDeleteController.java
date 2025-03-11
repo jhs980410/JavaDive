@@ -1,4 +1,4 @@
-package admin.controller.odclass;
+package JavaDive.controller.admin.odclass;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -51,7 +51,7 @@ public class ODClassDeleteController extends HttpServlet {
 		e.printStackTrace();
 
 		req.setAttribute("error", e);
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/Error.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/common/error.jsp");
 
 		dispatcher.forward(req, res);
 	}

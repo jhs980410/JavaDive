@@ -1,4 +1,4 @@
-package admin.controller.odclass;
+package JavaDive.controller.admin.odclass;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -74,7 +74,7 @@ public class ODClassAddController extends HttpServlet {
 			req.setAttribute("error", e);
 			
 			RequestDispatcher dispatcher = 
-					req.getRequestDispatcher("/Error.jsp");
+					req.getRequestDispatcher("/jsp/common/error.jsp");
 			
 			dispatcher.forward(req, res);
 		}
