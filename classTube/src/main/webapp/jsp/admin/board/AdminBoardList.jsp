@@ -34,7 +34,8 @@
 		</div>
 
 		<h2 class="board-title">📌 게시판 목록</h2>
-		<form action="admin/board/List" method="get">
+		<form action="${pageContext.request.contextPath}/admin/boardList" method="get">
+
 			<table class="board-list">
 				<thead>
 					<tr>
@@ -73,45 +74,50 @@
 				</tbody>
 			</table>
 		</form>
-		<c:set var="pageGroupSize" value="5" />
-		<c:set var="pageGroup" value="${(currentPage - 1) / pageGroupSize}" />
-		<c:set var="startPage" value="${pageGroup * pageGroupSize + 1}" />
+	<c:set var="pageGroupSize" value="10" />
+		<!-- startPage 계산: currentPage가 10보다 크면 그룹이 바뀌어야 함 -->
+		<c:set var="startPage"
+			value="${(currentPage - 1) / pageGroupSize * pageGroupSize + 1}" />
+		<!-- endPage 계산: startPage + pageGroupSize - 1, 단 totalPage보다 크면 endPage는 totalPage로 설정 -->
 		<c:set var="endPage" value="${startPage + pageGroupSize - 1}" />
 
-		<!-- totalPages보다 endPage가 크면 endPage를 조정 -->
 		<c:if test="${endPage > totalPage}">
 			<c:set var="endPage" value="${totalPage}" />
 		</c:if>
 
 		<ul class="pagination">
-			<!-- 🔹 "이전" 버튼 (5페이지 이전 그룹 이동) -->
-			<c:if test="${startPage > 1}">
-				<li class="page-item"><a class="page-link"
-					href="${pageContext.request.contextPath}/admin/board/list?page=${currentPage - 1}">이전</a>
-				</li>
-			</c:if>
+			<c:if test="${totalPage > 1}">
+				<!-- 이전 버튼 -->
+				<c:if test="${currentPage > 1}">
+					<li class="page-item"><a class="page-link"
+						href="/classTube/admin/boardList?page=${currentPage - 1}${not empty keyword ? '&keyword=' : ''}${keyword}">이전</a>
+					</li>
+				</c:if>
 
-			<!-- 🔹 페이지 번호 (5개씩 그룹화) -->
-			<c:forEach var="i" begin="${startPage}" end="${endPage}">
-				<li class="page-item ${currentPage == i ? 'active' : ''}"><a
-					class="page-link"
-					href="${pageContext.request.contextPath}/admin/board/list?page=${i}">${i}</a>
-				</li>
-			</c:forEach>
+				<!-- 페이지 숫자 버튼 -->
+				<c:forEach var="i" begin="1" end="${endPage}">
+					<li class="page-item ${currentPage == i ? 'active' : ''}"><a
+						class="page-link"
+						href="/classTube/admin/boardList?page=${i}${not empty keyword ? '&keyword=' : ''}${keyword}">${i}</a>
+					</li>
+				</c:forEach>
 
-			<!-- 🔹 "다음" 버튼 (5페이지 이후 그룹 이동) -->
-			<c:if test="${endPage < totalPage}">
-				<li class="page-item"><a class="page-link"
-					href="${pageContext.request.contextPath}/admin/board/list?page=${currentPage + 1}">다음</a>
-				</li>
+				<!-- 다음 버튼 -->
+				<c:if test="${currentPage < totalPage}">
+					<li class="page-item"><a class="page-link"
+						href="/classTube/admin/boardList?page=${currentPage + 1}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
+					</li>
+				</c:if>
 			</c:if>
 		</ul>
+
+
 
 
 		<!-- "글쓰기" 버튼이 form 태그 안에 있으면 안됨! -->
 		<div class="bottom-container">
 			<!-- 검색창 (왼쪽 정렬) -->
-			<form action="/classTube/admin/boardSearch" method="get"
+			<form action="/classTube/admin/boardList" method="get"
 				class="search-form">
 				<div class="search-container">
 					<div class="search">

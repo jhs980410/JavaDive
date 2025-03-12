@@ -36,12 +36,20 @@ public class BoardSearchController extends HttpServlet {
 		boardDao.setConnection(conn);
 		List<BoardDto> boardList = null; // dao에서 , keyword 입력예정
 		String keyWord = "";
+		
+		 int currentPage = 1;  // 기본 페이지는 1
+		    int pageSize = 8;  // 한 페이지에 10개씩 조회
+		    
 		try {
 			System.out.println("Search 컨트롤러진입");
 			String keyword = req.getParameter("keyword");
-			boardList = boardDao.searchBoard(keyword, req);
-			session.setAttribute("boardList", boardList);
-			
+			String category = req.getParameter("category");
+		    boardList = boardDao.searchBoard(keyword, currentPage, pageSize, req);
+	        session.setAttribute("boardList", boardList);
+
+	        // 📌 추가: 현재 페이지와 페이지 크기도 세션에 저장 (페이징 유지)
+	        session.setAttribute("currentPage", currentPage);
+	        session.setAttribute("pageSize", pageSize);
 			String path;
 	        if (req.getRequestURI().contains("/admin")) { 
 	            path = "/jsp/admin/board/AdminBoardList.jsp";  // 관리자 검색 결과 페이지
