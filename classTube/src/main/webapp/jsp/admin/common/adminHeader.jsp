@@ -2,7 +2,7 @@
 
 <header class="header">
     <div class="logo">
-        <img src="<%= request.getContextPath() %>/images/ctube_logo.png" alt="로고" width="120">
+        <img src="<%= request.getContextPath() %>/images/logo.PNG" alt="로고">
     </div>
 
   <nav class="nav-menu">

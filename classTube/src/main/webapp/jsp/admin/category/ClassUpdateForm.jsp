@@ -14,6 +14,7 @@
 	<div class="container">
 
 		<h1>클래스 수정</h1>
+		<div class="">
 		<form action='./update' method='post'>
 			클래스 번호: <input type='text' name='classNo' value="${odClassDto.getClassNo()}" readonly><br>
 			클래스명: <input type='text' name='className' value="${odClassDto.getClassName()}"><br> 
@@ -28,13 +29,13 @@
                     	<option value="3">자기계발</option>
                     	<option value="4">핸드메이드</option>
                     	<option value="5">쿠킹</option>
-                </select> 
-			<input type='submit' value='변경'> <input type='button' value='삭제' onclick='location.href="./delete?classNo=${odClassDto.getClassNo()}";'>
-			<input type='button' value='목록 보기' onclick='location.href="./list";'>
+                	</select> 
+				<input type='submit' value='변경'> <input type='button' value='삭제' onclick='location.href="./delete?classNo=${odClassDto.getClassNo()}";'>
+				<input type='button' value='목록 보기' onclick='location.href="./list";'>
 			
-		</form>
+			</form>
+		</div>
 	</div>
-
 </body>
 
 <script type="text/javascript">
