@@ -19,12 +19,9 @@ public class MemberListServlet extends HttpServlet{
 
 //	private static final long serialVersionUID = 1L;
 	
-	private ServletContext request;
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		super.doGet(req, res);
 		
 		Connection conn = null;
 		
@@ -44,9 +41,9 @@ public class MemberListServlet extends HttpServlet{
 			
 			req.setAttribute("memberList", memberList);
 			
-			RequestDispatcher dispatcher = req.getRequestDispatcher("");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/member/MemberListView.jsp");
 			
-			dispatcher.include(req, res);
+			dispatcher.forward(req, res);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,7 +59,6 @@ public class MemberListServlet extends HttpServlet{
 	@Override
 		protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 			// TODO Auto-generated method stub
-			super.doPost(req, res);
 		}
 	
 }
