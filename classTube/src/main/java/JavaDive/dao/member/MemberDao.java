@@ -20,67 +20,45 @@ public class MemberDao {
 		this.connection = conn;
 	}
 
-	//회원등록
-	public int memberInsert(MemberDto memberDto) throws Exception{
-		int result = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null; // 추가: 중복 검사용
-		
-		try {
-			String emailStr = memberDto.getEmail();
-			String pwdStr = memberDto.getPwd();
-			String nameStr = memberDto.getName();
-			String rrnStr = memberDto.getRrn();
-			String telStr = memberDto.getTel();
-			
-			// 추가: 이메일 중복 검사 쿼리
-	        String checkEmailSql = "SELECT COUNT(*) FROM MEMBER WHERE MEMBER_EMAIL = ?";
-	        pstmt = connection.prepareStatement(checkEmailSql);
-	        pstmt.setString(1, emailStr);
-	        rs = pstmt.executeQuery();
-	        
-	     // 이메일 중복 불가 
-	        if (rs.next() && rs.getInt(1) > 0) {
-	            System.out.println("이미 존재하는 이메일입니다.");
-	            return 0;
-	        }
-	        
-			String sql = "";
-			sql += "INSERT INTO MEMBER";
-			sql += " VALUE(MEMBER_NO, MEMBER_EMAIL, MEMBER_PWD, MEMBER_NAME, RRN, TEL, CREATE_AT)";
-			sql += " VALUES(MEMBER_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, SYSDATE)";
-			
-			pstmt = connection.prepareStatement(sql);
-			
-			pstmt.setString(1, emailStr);
-			pstmt.setString(2, pwdStr);
-			pstmt.setString(3, nameStr);
-			pstmt.setString(4, rrnStr);
-			pstmt.setString(5, telStr);
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}finally {
-			
-			try {
-				if (pstmt != null) 
-					pstmt.close();
-				if (rs != null) 
-					rs.close();
-			} catch (SQLException e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
-	}
-	
-	
-	
+	// 회원 등록
+    public int memberInsert(MemberDto memberDto) throws Exception {
+        int result = 0;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            String emailStr = memberDto.getEmail();
+            String pwdStr = memberDto.getPwd();
+            String nameStr = memberDto.getName();
+            String rrnStr = memberDto.getRrn();
+            String telStr = memberDto.getTel();
+
+            // 2. 회원 정보 삽입
+            String sql = "INSERT INTO MEMBER (MEMBER_NO, MEMBER_EMAIL, MEMBER_PWD, MEMBER_NAME, RRN, TEL, CREATE_AT) ";
+            sql += "VALUES (MEMBER_SEQ.NEXTVAL, ?, ?, ?, ?, ?, SYSDATE)";
+
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, emailStr);
+            pstmt.setString(2, pwdStr);
+            pstmt.setString(3, nameStr);
+            pstmt.setString(4, rrnStr);
+            pstmt.setString(5, telStr);
+
+            result = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
 	//회원목록
 	public List<MemberDto> selectList() throws Exception {
 		PreparedStatement pstmt = null;
