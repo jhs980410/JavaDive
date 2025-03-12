@@ -20,7 +20,7 @@ public class MemberAddServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/membership.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
         dispatcher.forward(req, res);
     }
 
@@ -54,7 +54,7 @@ public class MemberAddServlet extends HttpServlet {
         }
 
         try {
-            // DAO를 사용하여 회원가입 처리
+            // DAO를 사용하여 DB연결 가져오기
             ServletContext sc = getServletContext();
             Connection conn = (Connection) sc.getAttribute("conn");
             
@@ -73,7 +73,7 @@ public class MemberAddServlet extends HttpServlet {
             if (result > 0) {
                 out.println("<script>alert('회원가입이 완료되었습니다.'); window.location.href='LoginPage.jsp';</script>");
             } else {
-                out.println("<script>alert('회원가입 실패. 다시 시도해주세요.'); history.back();</script>");
+                out.println("<script>alert('사용중인Email입니다. 다시 시도해주세요.'); history.back();</script>");
             }
         } catch (Exception e) {
             e.printStackTrace();

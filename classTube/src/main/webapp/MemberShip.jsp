@@ -13,7 +13,7 @@
 <div class="frame">
     <h2 class="title">회원가입</h2>
 
-    <form action="join" method="post">
+    <form id="signupForm" action="join" method="post">
         <div class="form-container">
             <div class="input-group">
                 <label for="name">이름</label>
@@ -23,7 +23,7 @@
             <div class="input-group">
                 <label for="email">이메일</label>
                 <input type="email" id="email" name="email" placeholder="이메일 입력" required>
-                <button type="button" class="small-btn">중복확인</button>
+                <button type="submit" formaction="checkEmail" formnovalidate class="small-btn">중복확인</button>
             </div>
 
             <div class="input-group">
@@ -54,6 +54,13 @@
     </form>
 
 </div>
+
+<!-- 추가된 JavaScript: 이메일 값을 hidden 필드에 설정 -->
+<script>
+    function setEmailValue() {
+        document.getElementById("emailHidden").value = document.getElementById("email").value;
+    }
+</script>
 
 </body>
 </html>
