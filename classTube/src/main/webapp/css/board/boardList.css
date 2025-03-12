@@ -100,28 +100,33 @@ h2 {
 
 .button-group {
     display: flex;
-    justify-content: flex-end;
-    margin-top: 15px;
-}/* div 그룹 생성후  */
-
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 10px; /* 버튼 간격 */
+}
 
 .button {
-    text-align: right;
-    margin-top: 15px;
-    background-color: #0080ff;  
-    color: white;
+    text-align: center; /* 텍스트 정렬 */
+    background-color: #0080ff !important; /* 색상 강제 유지 */
+    color: white !important; /* 글씨 색상 강제 유지 */
     border: none;
     padding: 10px 15px;
     cursor: pointer;
     border-radius: 4px;
     font-size: 14px;
-    justify-content: flex-end;
+}
+.but-view {
+    background-color: #c0c0c0;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 
 
-
-.search-container {
+.search-container { 
     display: flex;
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
@@ -137,6 +142,7 @@ h2 {
     width: 100%; /* 검색 입력창을 꽉 차게 */
     display: flex;
     align-items: center;
+     margin-left: 80px;
 }
 
 .ui.icon.input input {
@@ -146,22 +152,10 @@ h2 {
     border: 1px solid #ccc;
 }
 
-.but-view-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 
 
-.but-view {
-    background-color: #c0c0c0;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+
 
 .pagination-container {
     display: flex;

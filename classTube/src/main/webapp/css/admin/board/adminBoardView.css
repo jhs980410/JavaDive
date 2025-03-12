@@ -1,23 +1,14 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    background-color: #f8f9fa; /* 배경색 추가 */
-}
 
-/* ✅ 본문 컨텐츠 스타일 */
+/* 헤더가 고정되었으므로 아래 여백 추가 */
 .container {
-    width: calc(100% - 270px); /* 전체 화면 너비에서 사이드바(270px) 제외 */
-    margin-left: 270px; /* 사이드바 크기만큼 이동 */
-    min-height: 100vh; /* 화면 전체 높이 유지 */
+    margin-top: 30px; /* 헤더 높이만큼 아래로 밀기 */
+    padding: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 100px;
     
-    background-color: white;
-    border-radius: 10px;
-    padding: 40px; /* 내부 여백 유지 */
-    box-sizing: border-box; /* 패딩 포함한 크기 조정 */
+    
 }
-
 
 /* ✅ 제목 스타일 */
 h2 {

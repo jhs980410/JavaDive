@@ -14,10 +14,9 @@ import java.sql.Connection;
 import JavaDive.dao.board.BoardDao;
 import JavaDive.dto.board.BoardDto;
 
-/**
- * Servlet implementation class AdminBoardView
- */
+
 @WebServlet("/admin/board/AdminBoardView")
+
 public class AdminBoardView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -44,8 +43,17 @@ public class AdminBoardView extends HttpServlet {
         System.out.println("관리자 세션 업데이트 접근");
         System.out.println("✅ 업데이트된 세션 boardDto: " + session.getAttribute("boardDto"));
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/admin/board/AdminBoardView.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/admin/board/AdminBoardVIew.jsp");
         dispatcher.forward(req, res);
+        
+   
+
+
+
+        System.out.println("🚀 어드민보드뷰에서 AdminBoardView.jsp로 이동 시도: " + dispatcher);
+
+
+
         
 
     }

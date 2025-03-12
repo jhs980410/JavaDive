@@ -229,18 +229,20 @@ public class BoardDao {
 
 		try {
 			sql += "SELECT * FROM ( ";
-			sql += "    SELECT ";
-			sql += "        N.NOTE_NO, ";
-			sql += "        N.NOTE_TITLE, ";
-			sql += "        M.MEMBER_NAME AS WRITER, ";
-			sql += "        N.CREATE_AT, ";
-			sql += "        C.CATEGORY_NAME AS CATEGORY, ";
-			sql += "        0 AS RNUM ";
-			sql += "    FROM NOTE N ";
-			sql += "    JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO ";
-			sql += "    JOIN BOARD_CATEGORY C ON N.CATEGORY_NO = C.CATEGORY_NO ";
-			sql += "    WHERE N.CATEGORY_NO = 1 ";
-			sql += "    AND ROWNUM <= 2 ";
+			sql += "    SELECT * FROM ( ";
+			sql += "        SELECT ";
+			sql += "            N.NOTE_NO, ";
+			sql += "            N.NOTE_TITLE, ";
+			sql += "            M.MEMBER_NAME AS WRITER, ";
+			sql += "            N.CREATE_AT, ";
+			sql += "            C.CATEGORY_NAME AS CATEGORY, ";
+			sql += "            0 AS RNUM ";
+			sql += "        FROM NOTE N ";
+			sql += "        JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO ";
+			sql += "        JOIN BOARD_CATEGORY C ON N.CATEGORY_NO = C.CATEGORY_NO ";
+			sql += "        WHERE N.CATEGORY_NO = 1 ";
+			sql += "        ORDER BY N.NOTE_NO DESC ";
+			sql += "    ) WHERE ROWNUM <= 2 "; 
 			sql += ") ";
 			sql += "UNION ALL ";
 			sql += "SELECT * FROM ( ";
@@ -256,7 +258,8 @@ public class BoardDao {
 			sql += "    JOIN BOARD_CATEGORY C ON N.CATEGORY_NO = C.CATEGORY_NO ";
 			sql += "    WHERE N.CATEGORY_NO != 1 ";
 			sql += ") ";
-			sql += "WHERE RNUM BETWEEN ? AND ?"; // 🔥 페이지네이션 추가 (범위 지정)
+			sql += "WHERE RNUM BETWEEN ? AND ?";  
+
 
 			pstmt = connection.prepareStatement(sql);
 
