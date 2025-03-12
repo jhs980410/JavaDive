@@ -18,6 +18,16 @@
             }
             return true; // 폼 제출 허용
         }
+        
+     // 🔹 이메일 중복 확인 함수 (새로운 코드 추가)
+        function checkEmail() {
+            var email = document.getElementById("email").value;
+
+            if (!email) {
+                alert("이메일을 입력하세요.");
+                return;
+            }
+
     </script>
     
 </head>
@@ -26,7 +36,7 @@
 <div class="frame">
     <h2 class="title">회원가입</h2>
 
-	<form action="join" method="post" onsubmit="return validateForm();">
+	<form action="join" method="post" onsubmit="return validateFormFnc();">
      <div class="form-container">
         <div class="input-group">
             <label for="name">이름</label>
@@ -36,7 +46,7 @@
         <div class="input-group">
             <label for="email">이메일</label>
             <input type="email" id="email" name="email" placeholder="이메일 입력" required>
-            <button class="small-btn">중복확인</button>
+            <button type="button" class="small-btn" onclick="checkEmail();">중복확인</button>
         </div>
 
         <div class="input-group">

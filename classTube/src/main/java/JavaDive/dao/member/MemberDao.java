@@ -44,7 +44,7 @@ public class MemberDao {
 	            System.out.println("이미 존재하는 이메일입니다.");
 	            return 0;
 	        }
-			
+	        
 			String sql = "";
 			sql += "INSERT INTO MEMBER";
 			sql += " VALUE(MEMBER_NO, MEMBER_EMAIL, MEMBER_PWD, MEMBER_NAME, RRN, TEL, CREATE_AT)";

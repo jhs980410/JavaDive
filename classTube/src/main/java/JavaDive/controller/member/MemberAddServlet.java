@@ -27,6 +27,7 @@ public class MemberAddServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
         dispatcher.forward(req, res);
+       
     }
 
     @Override
@@ -42,7 +43,7 @@ public class MemberAddServlet extends HttpServlet {
         String nameStr = req.getParameter("name");
         String rrnStr = req.getParameter("rrn");
         String telStr = req.getParameter("tel");
-
+        
         // 🔹 이메일 정규화 - 공백 제거 & 소문자로 변환
         if (emailStr != null) {
             emailStr = emailStr.trim().toLowerCase();
@@ -53,47 +54,33 @@ public class MemberAddServlet extends HttpServlet {
             out.println("<script>alert('유효하지 않은 이메일 형식입니다.'); history.back();</script>");
             return;
         }
+        
+     // 🔹 비밀번호 확인 체크 (추가됨)
+        if (pwdStr == null || pwdStr.trim().isEmpty()) {
+            out.println("<script>alert('비밀번호를 입력해주세요.'); history.back();</script>");
+            return;
+        }
+
+        if (!pwdStr.equals(pwdCheckStr)) { // 🔹 비밀번호 확인 로직 추가
+            out.println("<script>alert('비밀번호가 일치하지 않습니다.'); history.back();</script>");
+            return;
+        }
 
         try {
             ServletContext sc = this.getServletContext();
             conn = (Connection) sc.getAttribute("conn");
 
-            // 🔹 이메일 중복 체크
-            String checkEmailSql = "SELECT COUNT(*) FROM MEMBER WHERE LOWER(MEMBER_EMAIL) = ?";
-            PreparedStatement pstmt = conn.prepareStatement(checkEmailSql);
-            pstmt.setString(1, emailStr);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next() && rs.getInt(1) > 0) {
-                out.println("<script>alert('이미 가입된 이메일입니다.'); history.back();</script>");
-                return;
-            }
-            rs.close();
-            pstmt.close();
-
-            // 🔹 비밀번호 확인 체크 (추가됨)
-            if (pwdStr == null || pwdStr.trim().isEmpty()) {
-                out.println("<script>alert('비밀번호를 입력해주세요.'); history.back();</script>");
-                return;
-            }
-
-            if (!pwdStr.equals(pwdCheckStr)) { // 🔹 비밀번호 확인 로직 추가
-                out.println("<script>alert('비밀번호가 일치하지 않습니다.'); history.back();</script>");
-                return;
-            }
-
-            // 🔹 회원가입 정보 데이터베이스 저장 (수정됨: 회원 정보 저장 로직 추가)
-            String insertSql = "INSERT INTO MEMBER (MEMBER_NO, MEMBER_EMAIL, MEMBER_PWD, MEMBER_NAME, RRN, TEL, CREATE_AT) " +
-                               "VALUES (MEMBER_SEQ.NEXTVAL, ?, ?, ?, ?, ?, SYSDATE)";
-            pstmt = conn.prepareStatement(insertSql);
-            pstmt.setString(1, emailStr); // 이메일 저장 (소문자로 변환됨)
-            pstmt.setString(2, pwdStr);   // 비밀번호 저장
-            pstmt.setString(3, nameStr);
-            pstmt.setString(4, rrnStr);
-            pstmt.setString(5, telStr);
-
-            int result = pstmt.executeUpdate();
-            pstmt.close();
+           MemberDao memberDao = new MemberDao();
+           memberDao.setConnection(conn);
+            
+           MemberDto memberDto = new MemberDto();
+           memberDto.setEmail(emailStr);
+           memberDto.setPwd(pwdStr);
+           memberDto.setName(nameStr);
+           memberDto.setRrn(rrnStr);
+           memberDto.setTel(telStr);
+           
+           int result = memberDao.memberInsert(memberDto);
 
             if (result > 0) {
                 out.println("<script>alert('회원가입이 완료되었습니다.'); window.location.href='/login';</script>"); // 🔹 회원가입 성공 후 로그인 페이지 이동 추가
