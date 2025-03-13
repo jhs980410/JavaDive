@@ -13,12 +13,14 @@
 <body>
 	<%@ include file="/jsp/admin/common/adminHeader.jsp" %>
 	
-	<form action="./adminMain" method="get"
+	<form action="./adminMain" method="get">
 	<div class="main-content">
+	
 	
 	본문 내용
 	</div>
-	></form>
+	</form>
+	
 	
 </body>
 </html>

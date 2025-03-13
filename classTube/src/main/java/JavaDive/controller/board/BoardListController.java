@@ -21,60 +21,90 @@ import JavaDive.dto.member.MemberDto;
 /**
  * Servlet implementation class boardListController
  */
-@WebServlet("/boardList")
+@WebServlet({"/boardList", "/admin/boardList"})
 public class BoardListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-  
-    public BoardListController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        BoardDao boardDao = new BoardDao();
 
-        ServletContext sc = this.getServletContext();
-        Connection conn = (Connection) sc.getAttribute("conn");
-        boardDao.setConnection(conn);
+	public BoardListController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-        // ✅ 요청된 페이지 번호 받기 (기본값: 1)
-        int page = 1;
-        int pageSize = 8;  // ✅ 한 페이지당 게시글 개수
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		BoardDao boardDao = new BoardDao();
+		ServletContext sc = this.getServletContext();
+		Connection conn = (Connection) sc.getAttribute("conn");
+		boardDao.setConnection(conn);
 
-        if (req.getParameter("page") != null) {
-            page = Integer.parseInt(req.getParameter("page"));
-        }
+		List<BoardDto> boardList = null;
+		List<BoardDto> noticeList = null;
 
-        try {
-            // ✅ 전체 게시글 개수 가져오기
-            int totalCount = boardDao.selectTotalCount();
-          System.out.println("컨트롤러측 " + totalCount );
-            int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+		// 🔹 현재 페이지 가져오기 (없으면 기본값 1)
+		int currentPage = 1;
+		String pageParam = req.getParameter("page");
+		if (pageParam != null && pageParam.matches("\\d+")) { // 숫자인지 확인
+			currentPage = Integer.parseInt(pageParam);
+		}
 
-            System.out.println("토탈값: " + totalPage);
-            page = Math.max(1, page); // 최소값 1로 고정
- // 총 페이지 수 계산
+		int pageSize = 8;
+		String keyword = req.getParameter("keyword");
 
-            List<BoardDto> boardList = boardDao.selectList(page, pageSize);
-            System.out.println("현재 페이지: " + page);
+		try {
+			// 🔹 공지사항 가져오기 (항상 유지)
+			noticeList = boardDao.getTopNotices(2);
 
-            req.setAttribute("boardList", boardList);
-            req.setAttribute("currentPage", page);
-            req.setAttribute("pageSize", pageSize);
-            req.setAttribute("totalPage", totalPage);  // 🔥 추가된 부분
+			// 🔹 일반 게시물 개수 조회 (공지사항 제외)
+			// 총 일반 게시글 개수 가져오기 (공지사항 제외)
+			int totalRecords = boardDao.getTotalBoardCount(keyword);
+			int basePages = 10; // 기본 페이지 그룹 크기 (1~10페이지)
+			int extraPages = 0;
 
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardList.jsp");
-            dispatcher.forward(req, res);
-        } catch (Exception e) {
-            e.printStackTrace();
-            res.sendRedirect("error.jsp");
-        }
-    }
+			// 게시글이 10개 이상이면, 추가 페이지 수 계산
+			if (totalRecords > basePages * pageSize) {
+				extraPages = (int) Math.ceil((double) (totalRecords - (basePages * pageSize)) / pageSize);
+			}
 
+			int totalPage = basePages + extraPages; // 총 페이지 수
 
+			System.out.println("📌 totalRecords: " + totalRecords); // 🔍 조회된 개수 확인
+			System.out.println("📌 totalPage 계산 결과: " + totalPage); // 🔍 totalPage 계산 값 확인
+			if (keyword == null || keyword.trim().isEmpty()) {
+				// 검색어가 없을 때 일반 리스트 출력
+				boardList = boardDao.getBoardList(null, currentPage, pageSize);
+			} else {
+				// 검색 시 공지사항 제외하고 검색 리스트 가져오기
+				boardList = boardDao.getBoardList(keyword, currentPage, pageSize);
+			}
 
-	
+			// 🔹 공지사항 + 게시물 리스트 합치기
+			List<BoardDto> finalList = new ArrayList<>();
+			finalList.addAll(noticeList); // 공지사항 추가
+			finalList.addAll(boardList); // 일반 게시물 추가
+
+			// 🔹 세션에 저장
+			session.setAttribute("boardList", finalList);
+			session.setAttribute("currentPage", currentPage);
+			session.setAttribute("pageSize", pageSize);
+			session.setAttribute("keyword", keyword);
+			session.setAttribute("totalPage", totalPage); // 🔹 페이지네이션을 위한 totalPage 추가
+
+		 	String path;
+	        if (req.getRequestURI().contains("/admin")) { 
+	            path = "/jsp/admin/board/AdminBoardList.jsp";  // 관리자 검색 결과 페이지
+	        } else {
+	            path = "/jsp/board/boardList.jsp";  // 일반 사용자 검색 결과 페이지
+	        }
+			RequestDispatcher dispatcher = req.getRequestDispatcher(path);
+			dispatcher.forward(req, res);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/common/error.jsp");
+			dispatcher.forward(req, res);
+		}
+	}
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		super.doPost(req, res);
 	}

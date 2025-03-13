@@ -18,12 +18,11 @@
 
 
 .header {
-	height: 100px;
-    padding: 5px 10px;  /* 🔥 전체 패딩 줄이기 */
+	height: 80px;
     display: flex;
     align-items: center;
     background-color: white;
-     padding: 30px 60px;
+     padding: 5px 15px;
      font-family: Arial, sans-serif;
      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     justify-content: flex-start;  /* 🔥 로고와 메뉴를 좌측으로 정렬 */
@@ -32,9 +31,8 @@
 
 /* 로고 스타일 */
 .logo img {
-    height: 150px;
-    width : 150px;
-    margin-right: 300px; /* ✅ 로고와 메뉴 사이 간격 유지 */
+    height: 90px;
+    width : 160px;
 }
 
 /* 네비게이션 스타일 */
@@ -47,7 +45,7 @@
 /* 메뉴 리스트 */
 .nav-menu {
     display: flex;
-    margin-left: 300px;
+    margin-left: 300px; /* ✅ 로고와 메뉴 사이 간격 유지 */
     gap: 90px;  /* ✅ 메뉴 간격 조정 */
 }
 
@@ -80,17 +78,18 @@
     color: black;
 }
 
-/* 헤더 내부 요소들의 간격 줄이기 */
-.header {
-    padding: 5px 15px;  /* 🔥 전체 패딩 줄이기 */
-}
-
 /* 로고와 네비게이션 사이 간격 줄이기 */
 .logo {
+	width: 250px;
+	height: 100px;
     margin-right: 10px;  /* 🔥 로고와 메뉴 사이 여백 최소화 */
 }
 
 /* 네비게이션 메뉴 간격 조정 */
 .nav-menu {
     gap: 20px;  /* 🔥 메뉴들 사이 간격 줄이기 (기존 50px → 20px) */
+}
+
+td {
+	width: 100px;
 }

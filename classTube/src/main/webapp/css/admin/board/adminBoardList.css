@@ -1,19 +1,6 @@
-.sidebar {
-    width: 250px;
-    background-color: #2C3E50;
-    padding: 20px;
-    min-height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    color: white;
-    
-}
-
-/* 📌 전체 레이아웃 조정 */
 .container {
     width: 75%;
-    margin-left: 20%;  /* 사이드바 고려한 레이아웃 조정 */
+    margin-left: 130px;  /* 사이드바 고려한 레이아웃 조정 */
     padding: 30px;
     background-color: #ffffff; /* 배경색 화이트 */
 }
@@ -97,7 +84,9 @@ h2 {
 }
 
 /* 📌 게시글 작성 버튼 */
-
+/* ✅ 버튼들을 같은 라인에 배치 */
+/* ✅ 모든 버튼을 한 줄에 배치 */
+/* ✅ 모든 .button-group을 감싸지 않아도 한 줄 정렬 가능 */
 .button-group {
     display: flex;
     justify-content: flex-end; /* 오른쪽 정렬 */
@@ -115,18 +104,12 @@ h2 {
     border-radius: 4px;
     font-size: 14px;
 }
-.but-view {
-    background-color: #c0c0c0;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
 
 
-.search-container { 
+
+
+.search-container {
     display: flex;
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
@@ -142,7 +125,7 @@ h2 {
     width: 100%; /* 검색 입력창을 꽉 차게 */
     display: flex;
     align-items: center;
-     margin-left: 80px;
+    margin-left: 80px;
 }
 
 .ui.icon.input input {
@@ -152,10 +135,22 @@ h2 {
     border: 1px solid #ccc;
 }
 
+.but-view-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
 
-
+.but-view {
+    background-color: #c0c0c0;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
 .pagination-container {
     display: flex;
@@ -207,10 +202,4 @@ h2 {
     text-align: center;
     border-radius: 5px;
 }
-
-
-
-
-
-
 

@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
+}
+
+.btn {
+	text-align: right;
+	width: 50%;
+}
+
+td {
+	height: 30px;
+	margin-bottom: 3px;
+}
+
+.colsLabel {
+	max-width: 200px;
+	text-align: right;
+}
+
+input, textarea {
+	width: 100%;
+}
+
+.btnGroup {
+	text-align: right;
+}
+.btn {
+	width: 40px;
+	text-align: center;
+}
+
+td {
+	width: 100px; 
+}
+
+.colsBlank {
+	width: 10px;
+}
+
+input {
+	min-height: 25px;
+	border-radius: 5px;
+}

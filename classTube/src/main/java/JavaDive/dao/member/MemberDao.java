@@ -268,7 +268,7 @@ public class MemberDao {
 	public MemberDto memberExist(String member_email, String member_pwd)
 		throws SQLException {
 		
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null;  
 		ResultSet rs = null;
 		MemberDto memberDto= null;
 		String sql = "";
