@@ -43,7 +43,7 @@ public class BoardViewController extends HttpServlet {
 
         System.out.println("✅ 업데이트된 세션 boardDto: " + session.getAttribute("boardDto"));
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/admin/board/AdminBoardView.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardView.jsp");
         dispatcher.forward(req, res);
     }
 }

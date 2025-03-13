@@ -31,47 +31,52 @@ public class BoardListController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        BoardDao boardDao = new BoardDao();
+		HttpSession session = req.getSession();
+		BoardDao boardDao = new BoardDao();
 
-        ServletContext sc = this.getServletContext();
-        Connection conn = (Connection) sc.getAttribute("conn");
-        boardDao.setConnection(conn);
+		ServletContext sc = this.getServletContext();
+		Connection conn = (Connection) sc.getAttribute("conn");
+		boardDao.setConnection(conn);
 
-        // ✅ 요청된 페이지 번호 받기 (기본값: 1)
-        int page = 1;
-        int pageSize = 8;  // ✅ 한 페이지당 게시글 개수
+		// ✅ 요청된 페이지 번호 받기 (기본값: 1)
+		int page = 1;
+		int pageSize = 8; // ✅ 한 페이지당 게시글 개수
 
-        if (req.getParameter("page") != null) {
-            page = Integer.parseInt(req.getParameter("page"));
-        }
+		
+		if (req.getParameter("page") != null && !req.getParameter("page").isEmpty()) {
+		    try {
+		        page = Integer.parseInt(req.getParameter("page")); // 정상 숫자만 변환
+		    } catch (NumberFormatException e) {
+		        System.out.println("잘못된 페이지 값, 기본값(1)으로 설정");
+		    }
+		}
 
-        try {
-            // ✅ 전체 게시글 개수 가져오기
-            int totalCount = boardDao.selectTotalCount();
-          System.out.println("컨트롤러측 " + totalCount );
-            int totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
-            System.out.println("토탈값: " + totalPage);
-            page = Math.max(1, page); // 최소값 1로 고정
- // 총 페이지 수 계산
+		try {
+			// ✅ 전체 게시글 개수 가져오기
+			int totalCount = boardDao.selectTotalCount();
+			System.out.println("관리자 컨트롤러측 " + totalCount);
+			int totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
-            List<BoardDto> boardList = boardDao.selectList(page, pageSize);
-            System.out.println("현재 페이지: " + page);
+			System.out.println(" 관리자 토탈값: " + totalPage);
+			page = Math.max(1, page); // 최소값 1로 고정
+			// 총 페이지 수 계산
 
-            req.setAttribute("boardList", boardList);
-            req.setAttribute("currentPage", page);
-            req.setAttribute("pageSize", pageSize);
-            req.setAttribute("totalPage", totalPage);  // 🔥 추가된 부분
+			List<BoardDto> boardList = boardDao.adminSelectList(page, pageSize);
+			System.out.println("현재 페이지: " + page);
 
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardList.jsp");
-            dispatcher.forward(req, res);
-        } catch (Exception e) {
-            e.printStackTrace();
-            res.sendRedirect("error.jsp");
-        }
+			session.setAttribute("boardList", boardList);
+			session.setAttribute("currentPage", page);
+			session.setAttribute("pageSize", pageSize);
+			session.setAttribute("totalPage", totalPage); //세션업데이트
+
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardList.jsp");
+			dispatcher.forward(req, res);
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.sendRedirect("error.jsp");
+		}
     }
-
 
 
 	

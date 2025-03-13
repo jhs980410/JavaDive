@@ -35,9 +35,15 @@ public class AdminBoardList extends HttpServlet {
 		int page = 1;
 		int pageSize = 8; // ✅ 한 페이지당 게시글 개수
 
-		if (req.getParameter("page") != null) {
-			page = Integer.parseInt(req.getParameter("page"));
+		
+		if (req.getParameter("page") != null && !req.getParameter("page").isEmpty()) {
+		    try {
+		        page = Integer.parseInt(req.getParameter("page")); // 정상 숫자만 변환
+		    } catch (NumberFormatException e) {
+		        System.out.println("잘못된 페이지 값, 기본값(1)으로 설정");
+		    }
 		}
+
 
 		try {
 			// ✅ 전체 게시글 개수 가져오기

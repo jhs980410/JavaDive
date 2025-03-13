@@ -19,7 +19,7 @@ import JavaDive.dto.board.BoardDto;
 /**
  * Servlet implementation class BoardSearchController
  */
-@WebServlet("/boardSearch")
+@WebServlet({"/boardSearch", "/admin/boardSearch"}) 
 public class BoardSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -41,8 +41,16 @@ public class BoardSearchController extends HttpServlet {
 			String keyword = req.getParameter("keyword");
 			boardList = boardDao.searchBoard(keyword, req);
 			session.setAttribute("boardList", boardList);
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardList.jsp");
-			dispatcher.forward(req, res);
+			
+			String path;
+	        if (req.getRequestURI().contains("/admin")) { 
+	            path = "/jsp/admin/board/AdminBoardList.jsp";  // 관리자 검색 결과 페이지
+	        } else {
+	            path = "/jsp/board/boardList.jsp";  // 일반 사용자 검색 결과 페이지
+	        }
+
+	        RequestDispatcher dispatcher = req.getRequestDispatcher(path);
+	        dispatcher.forward(req, res);
 
 		} catch (Exception e) {
 			e.printStackTrace();

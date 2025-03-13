@@ -21,7 +21,10 @@ td {
 	text-align: right;
 }
 
-input, textarea {
+textarea {
+	resize: none;
+	border-radius: 5px;
+	border: 2px solid rgba(0, 0, 0, 0.1);
 	width: 100%;
 }
 
@@ -42,6 +45,8 @@ td {
 }
 
 input {
+	width: 100%;
 	min-height: 25px;
 	border-radius: 5px;
+	border: 2px solid rgba(0, 0, 0, 0.1);
 }

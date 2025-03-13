@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/admin/category/update")
-public class ODClassUpdateController extends HttpServlet {
+public class ODClassDetailController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

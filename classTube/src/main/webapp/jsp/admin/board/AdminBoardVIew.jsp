@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/admin/board/adminBoard.css">
+	href="${pageContext.request.contextPath}/css/admin/board/adminBoardView.css">
 
 </head>
 <body>
@@ -28,20 +29,7 @@
 				<c:if test="${not empty boardDto.createDate}">
 					<span class="date"> 작성일 : ${boardDto.createDate} </span>
 				</c:if>
-				<c:set var="boardDto" value="${sessionScope.boardDto}" />
-				<c:set var="memberDto" value="${sessionScope.member}" />
-
-				<!-- 현재 로그인한 유저가 게시글 작성자인 경우 -->
-				<c:if
-					test="${not empty memberDto and memberDto.no == boardDto.memberNo}">
-					<button class="updatebutton"
-						onclick="location.href='/classTube/boardUpdate?postId=${boardDto.noteNo}'">
-						수정</button>
-					<button class="deletebutton"
-						onclick="location.href='/classTube/boardDelete?postId=${boardDto.noteNo}'">
-						삭제</button>
-
-				</c:if>
+	
 			</div>
 		</div>
 		<div class="form-group">
@@ -65,7 +53,7 @@
 		<!-- ✅ 버튼 그룹 -->
 		<div class="button-group">
 			<button class="but-view"
-				onclick="location.href='/classTube/boardList'">게시글 목록</button>
+				onclick="location.href='/classTube/admin/board/list'">게시글 목록</button>
 
 		</div>
 </body>

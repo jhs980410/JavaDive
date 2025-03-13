@@ -1,6 +1,6 @@
 .container {
     width: 75%;
-    margin-left: 20%;  /* 사이드바 고려한 레이아웃 조정 */
+    margin-left: 130px;  /* 사이드바 고려한 레이아웃 조정 */
     padding: 30px;
     background-color: #ffffff; /* 배경색 화이트 */
 }
@@ -84,26 +84,27 @@ h2 {
 }
 
 /* 📌 게시글 작성 버튼 */
-
+/* ✅ 버튼들을 같은 라인에 배치 */
+/* ✅ 모든 버튼을 한 줄에 배치 */
+/* ✅ 모든 .button-group을 감싸지 않아도 한 줄 정렬 가능 */
 .button-group {
     display: flex;
-    justify-content: flex-end;
-    margin-top: 15px;
-}/* div 그룹 생성후  */
-
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 10px; /* 버튼 간격 */
+}
 
 .button {
-    text-align: right;
-    margin-top: 15px;
-    background-color: #0080ff;  
-    color: white;
+    text-align: center; /* 텍스트 정렬 */
+    background-color: #0080ff !important; /* 색상 강제 유지 */
+    color: white !important; /* 글씨 색상 강제 유지 */
     border: none;
     padding: 10px 15px;
     cursor: pointer;
     border-radius: 4px;
     font-size: 14px;
-    justify-content: flex-end;
 }
+
 
 
 
@@ -124,6 +125,7 @@ h2 {
     width: 100%; /* 검색 입력창을 꽉 차게 */
     display: flex;
     align-items: center;
+    margin-left: 80px;
 }
 
 .ui.icon.input input {

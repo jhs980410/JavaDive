@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.List;
 
 import JavaDive.dao.board.BoardDao;
 import JavaDive.dto.board.BoardDto;
@@ -18,7 +19,7 @@ import JavaDive.dto.member.MemberDto;
 /**
  * Servlet implementation class BoardDeleteController
  */
-@WebServlet("/boardDelete")
+@WebServlet({"/boardDelete", "/admin/boardDelete"})
 public class BoardDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -41,20 +42,30 @@ public class BoardDeleteController extends HttpServlet {
 
             HttpSession session = req.getSession();
             MemberDto loginUser = (MemberDto) session.getAttribute("member");
-
+            
             BoardDto board = boardDao.getBoardById(postId);
-
+            System.out.println("딜리트 접근함");
             //  게시글 작성자만 삭제 가능하도록 체크
-            if (loginUser == null || loginUser.getNo() != board.getMemberNo()) {
-                res.sendRedirect("error.jsp"); // 권한 없는 경우 에러 페이지 이동
-                return;
-            }
-
+            if (loginUser == null || 
+            	    (loginUser.getNo() != board.getMemberNo() && 
+            	     !loginUser.getPriv().equals("ADMIN"))) {  
+            	    res.sendRedirect("error.jsp"); // 권한 없는 경우 에러 페이지 이동
+            	    return;
+            	}
+            System.out.println("현재 요청 URI: " + req.getRequestURI());
             // 7. 게시글 삭제 실행
             boardDao.deleteBoard(postId);
-
-            // 8. 삭제 후 목록 페이지로 이동
-            res.sendRedirect("/classTube/boardList");
+            List<BoardDto> updateBoard = boardDao.adminSelectList(1, 8);
+            session.setAttribute("boardList", updateBoard);
+        	String path;
+	        if (req.getRequestURI().contains("/admin")) { 
+	            path = "/jsp/admin/board/AdminBoardList.jsp";  // 관리자 검색 결과 페이지
+	        } else {
+	            path = "/jsp/board/boardList.jsp";  // 일반 사용자 검색 결과 페이지
+	        }
+           
+	        
+            res.sendRedirect(req.getContextPath()+path);
 
         } catch (Exception e) {
             e.printStackTrace();
