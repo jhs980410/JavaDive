@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("권한자: " + admin);
 				System.out.println("성공");
 
-				res.sendRedirect("./adminMain");  // 절대 경로
+				res.sendRedirect("./adminMain");  // 상대 경로
 
 			}else {
 				; // 기존 memberdto

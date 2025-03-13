@@ -16,40 +16,42 @@
 		<br>
 		<br>
 		<div class="addForm">
-		<form action='./update' method='post'>
+		<form action='./update' method='get'>
 			<table>
-			<input type="hidden" name="classNo" value="${odClassDto.getClassNo()}">
 				<tr>
 					<td class="colsLabel"><label>클래스명</label></td>
 					<td class="colsBlank"></td>
-					<td colspan=2><input type='text' name='className' value="${odClassDto.getClassName()}"></td>
+					<td colspan=2><input type='text' name='className' value="${odClassDto.getClassName()}" readonly></td>
 					<td colspan=4>
 				</tr>
 				<tr>
 					<td class="colsLabel"><label>설명</label></td>
 					<td class="colsBlank"></td>
-					<td colspan=6><textarea name='classDesc' cols="30" rows="35">${odClassDto.getClassDesc()}</textarea></td>
+					<td colspan=6><textarea name='classDesc' cols="30" rows="35" readonly>${odClassDto.getClassDesc()}</textarea></td>
 				</tr>
 				<tr>
 					<td class="colsLabel"><label>호스트</label></td>
 					<td class="colsBlank"></td>
-					<td colspan=2><input type='text' name='instructor'  value="${odClassDto.getInstructor()}"></td>				<td colspan=4></td>
+					<td colspan=2><input type='text' name='instructor'  value="${odClassDto.getInstructor()}" readonly></td>
+					<td colspan=4></td>
 				</tr>
 				<tr>
 					<td class="colsLabel"><label>가격</label></td>
 					<td class="colsBlank"></td>
-					<td><input type='text' name='price' value="${odClassDto.getPrice()}"></td>
+					<td><input type='text' name='price' value="${odClassDto.getPrice()}" readonly></td>
 					<td></td>
 					<td class="colsLabel left-align"><label>정원</label></td>
 					<td class="colsBlank"></td>
-					<td><input type='text' name='classLimit' value="${odClassDto.getClassLimit()}"></td>
+					<td><input type='text' name='classLimit' value="${odClassDto.getClassLimit()}" readonly></td>
 					<td></td>
 				</tr>
 				<tr>
 				<tr>
 					<td class="colsLabel"><label>카테고리</label></td>
 					<td class="colsBlank"></td>
-					<td><select name="categoryNo" class="select">
+					<td><select name="categoryNo" class="select"
+						onFocus="this.initialSelect = this.selectedIndex;" 
+        				onChange="this.selectedIndex = this.initialSelect;">
 						<option value="1" ${odClassDto.getCategoryNo() == '1' ? 'selected' : ''}>레져/스포츠</option>
    						<option value="2" ${odClassDto.getCategoryNo() == '2' ? 'selected' : ''}>뷰티</option>
    						<option value="3" ${odClassDto.getCategoryNo() == '3' ? 'selected' : ''}>자기계발</option>
@@ -58,11 +60,12 @@
             		<td></td>
 					<td class="colsLabel"><label>지역</label></td>
 					<td class="colsBlank"></td>
-					<td><input type='text' name='region' value="${odClassDto.getRegion()}"></td>
+					<td><input type='text' name='region' value="${odClassDto.getRegion()}" readonly></td>
 					<td></td>
 				</tr>
+				
 				<tr class="btnGroup">
-				<td colspan=8><input type='submit' class="btn" value='수정'> <input type='reset' class="btn" value='취소' onclick='location.href="./list";'></td>
+				<td colspan=8><input type='수정' class="btn" value='추가'> <input type='button' class="btn" value='목록' onclick='location.href="./list";'></td>
 				</tr>
 			</table>
 		</form>

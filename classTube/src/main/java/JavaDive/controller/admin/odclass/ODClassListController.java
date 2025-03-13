@@ -31,7 +31,7 @@ public class ODClassListController  extends HttpServlet {
 			
 			ODClassDao odClassDao = new ODClassDao();
 //			주입
-				odClassDao.setConnection(conn);
+			odClassDao.setConnection(conn);
 				
 			ArrayList<ODClassDto> odClassList = null;
 			
