@@ -5,21 +5,22 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판글쓰기</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/board/boardAdd.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/board/adminBoardAdd.css">
 
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
 </head>
 <body>
-	<%@ include file="../common/sideBar.jsp" %>
+	<%@ include file="../common/adminHeader.jsp"%>
 
     <div class="container">
           
-        <h2>게시판 수정</h2>
-	<form action="${pageContext.request.contextPath}/boardUpdate" method="post">
+        <h2>공지사항 수정</h2>
+	<form action="${pageContext.request.contextPath}/admin/boardUpdate" method="post">
 		<!--버튼을 누를때만 요청이 받음.-->
         <div class="form-group">
                 <input type="hidden" name="postId" value="${board.noteNo}">
-
+             
             </div>
             
         

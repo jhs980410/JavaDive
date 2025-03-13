@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/member/LoginPage.css">
 </head>
 <body>
-
+	
 	<div class="container">
 	    <div class="logo-box">
 	        <img src="<%= request.getContextPath() %>/images/logo.PNG" alt="로고">

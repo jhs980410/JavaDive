@@ -1,7 +1,7 @@
 
 /* 헤더가 고정되었으므로 아래 여백 추가 */
 .container {
-    margin-top: 30px; /* 헤더 높이만큼 아래로 밀기 */
+    margin-top: 20px; /* 헤더 높이만큼 아래로 밀기 */
     padding: 20px;
     margin-left: 50px;
     margin-right: 50px;
