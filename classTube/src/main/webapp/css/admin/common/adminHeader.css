@@ -15,7 +15,9 @@
     z-index: 1000;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); 헤더에 그림자 효과 추가
 } */
-
+* {
+	font-family: Arial, sans-serif;
+}
 
 .header {
 	height: 80px;

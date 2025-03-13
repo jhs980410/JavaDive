@@ -27,7 +27,7 @@
 				<tr>
 					<td class="colsLabel"><label>설명</label></td>
 					<td class="colsBlank"></td>
-					<td colspan=6><textarea name='classDesc' cols="30" rows="40"></textarea></td>
+					<td colspan=6><textarea name='classDesc' cols="30" rows="35"></textarea></td>
 				</tr>
 				<tr>
 					<td class="colsLabel"><label>호스트</label></td>
@@ -64,7 +64,7 @@
 				</tr>
 				
 				<tr class="btnGroup">
-				<td colspan=8><input type='submit' class="btn" value='추가'> <input type='reset' class="btn" value='취소'></td>
+				<td colspan=8><input type='submit' class="btn" value='추가'> <input type='button' class="btn" value='취소' onclick='location.href="./list";'></td>
 				</tr>
 			</table>
 		</form>
