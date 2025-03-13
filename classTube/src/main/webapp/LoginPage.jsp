@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
-    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/member/LoginPage.css">
 </head>
 <body>
 
 	<div class="container">
 	    <div class="logo-box">
-	        <span class="logo-text">로고</span>
+	        <img src="<%= request.getContextPath() %>/images/logo.PNG" alt="로고">
 	    </div>
 	<form action="login" method="post">
 	    <input type="text" class="input-box" placeholder="아이디" name="member_email">

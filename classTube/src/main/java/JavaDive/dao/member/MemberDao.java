@@ -80,49 +80,58 @@ public class MemberDao {
  	}
 
 	//회원목록
-	public List<MemberDto> selectList() throws Exception {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		ArrayList<MemberDto> memberList = new ArrayList<MemberDto>();
-	
-		String sql = "";
-	
-		sql += "SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, TEL, CREATE_AT";
-		sql += " FROM MEMBER";
-		sql += " ORDER BY MEMBER_NO ASC";
-		
-		try {
-			pstmt = connection.prepareStatement(sql);
-			
-			rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				MemberDto memberDto = new MemberDto(
-					rs.getInt("MEMBER_NO"),
-					rs.getString("MEMBER_EMAIL"),
-					rs.getString("MEMBER_NAME"),
-					rs.getString("TEL"),
-					rs.getDate("CREATE_AT")
-				);
-				memberList.add(memberDto);
-				
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-			return memberList;	
-	}
+ 	public List<MemberDto> selectList() throws Exception {
+ 	    System.out.println("🟢 [DEBUG] DAO: selectList() 실행됨!");
+
+ 	    PreparedStatement pstmt = null;
+ 	    ResultSet rs = null;
+ 	    
+ 	    ArrayList<MemberDto> memberList = new ArrayList<>();
+
+ 	    String sql = "SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, TEL, CREATE_AT, MEMBER_PRIV " +
+ 	                 " FROM MEMBER ORDER BY MEMBER_NO ASC";
+ 	    
+ 	    try {
+ 	        if (connection == null) { // 🔹 connection이 null인지 확인
+ 	            System.out.println("❌ [ERROR] DAO: DB Connection이 NULL입니다!");
+ 	            return memberList; // 빈 리스트 반환
+ 	        }
+
+ 	        pstmt = connection.prepareStatement(sql);
+ 	        System.out.println("✅ [DEBUG] DAO: SQL 실행 준비 완료");
+
+ 	        rs = pstmt.executeQuery();
+ 	        System.out.println("✅ [DEBUG] DAO: SQL 실행 완료");
+
+ 	        while (rs.next()) {
+ 	            System.out.println("📌 [DEBUG] 조회된 회원 이메일: " + rs.getString("MEMBER_EMAIL"));
+
+ 	            MemberDto memberDto = new MemberDto(
+ 	                rs.getInt("MEMBER_NO"),
+ 	                rs.getString("MEMBER_EMAIL"),
+ 	                rs.getString("MEMBER_NAME"),
+ 	                rs.getString("TEL"),
+ 	                rs.getString("MEMBER_PRIV"),
+ 	                rs.getDate("CREATE_AT")
+ 	                
+ 	            );
+ 	            memberList.add(memberDto);
+ 	        }
+
+ 	    } catch (Exception e) {
+ 	        e.printStackTrace();
+ 	    } finally {
+ 	        try {
+ 	            if (rs != null) rs.close();
+ 	            if (pstmt != null) pstmt.close();
+ 	        } catch (Exception e) {
+ 	            e.printStackTrace();
+ 	        }
+ 	    }
+
+ 	    return memberList;
+ 	}
+
 	
 	//회원삭제
 	public int memberDelete(int no) throws SQLException {

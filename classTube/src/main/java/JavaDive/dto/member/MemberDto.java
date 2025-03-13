@@ -15,6 +15,7 @@ public class MemberDto {
 	private String priv;
 	private Date create_at;
 	
+	
 	public MemberDto() {
 		super();
 	}
@@ -43,6 +44,15 @@ public class MemberDto {
 		this.create_at = creDate;
 	}
 	
+	public MemberDto(int no, String email, String name, String tel, String priv, Date create_at) {
+		super();
+		this.no = no;
+		this.email = email;
+		this.name = name;
+		this.tel = tel;
+		this.priv = priv;
+		this.create_at = create_at;
+	}
 
 
 	public int getNo() {

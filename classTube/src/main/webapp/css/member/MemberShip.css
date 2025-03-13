@@ -49,7 +49,7 @@ body {
 /* 작은 버튼 (중복확인, 인증요청) */
 .small-btn {
     margin-top: 5px;
-    background: #2F67D1;
+    background: #C3C564;
     color: white;
     border: none;
     padding: 8px;
@@ -72,7 +72,7 @@ body {
 /* 메인 버튼 (가입완료, 뒤로) */
 .main-btn {
     width: 48%;
-    background: #2F67D1;
+    background: #C3C564;
     color: white;
     border: none;
     padding: 12px;

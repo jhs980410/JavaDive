@@ -36,35 +36,32 @@ public class LoginServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("로그인 컨트롤러 진입");
 		Connection conn = null;
 
 		try {
 			String email = req.getParameter("member_email");
 			String pwd = req.getParameter("member_password");
 			String admin = "";
+			
 			ServletContext sc = this.getServletContext();
-
 			conn = (Connection) sc.getAttribute("conn");
-
+			
 			MemberDao memberDao = new MemberDao();
 			memberDao.setConnection(conn);
 
 			MemberDto memberDto = memberDao.memberExist(email, pwd);
-
+			
 			if (memberDto == null) {
-				System.out.println("로그인 실패");
 
 				RequestDispatcher rd = req.getRequestDispatcher("/LoginPage.jsp");
 				rd.forward(req, res);
 				return;
 			}
+			
 			HttpSession session = req.getSession();
 			session.setAttribute("member", memberDto); 
 			
-			admin = memberDto.getPriv();
-
-			if (admin.equals("ADMIN")) {
+			if ("ADMIN".equals(memberDto.getPriv())) {
 				// 기존 memberdto
 
 				System.out.println("로그인 컨트롤러에서 의 memberdto : " + memberDto);

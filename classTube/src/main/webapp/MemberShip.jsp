@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
-    <link rel="stylesheet" href="css/MemberShip.css">
+    <link rel="stylesheet" href="css/member/MemberShip.css">
        
 </head>
 <body>
@@ -48,7 +48,7 @@
 
             <div class="button-group">
                 <button type="submit" class="main-btn">가입완료</button>
-                <button type="button" class="main-btn cancel" onclick="history.back();">뒤로</button>
+                <button type="button" class="main-btn cancel" onclick="location.href='<%= request.getContextPath() %>/login';">뒤로</button>
             </div>
         </div>
     </form>

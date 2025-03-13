@@ -29,30 +29,7 @@ body {
     align-items: center;
 }
 
-/* ✅ 로고 박스 크기 고정 */
-.logo-box {
-    width: 180px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    font-weight: bold;
-    border: 2px solid black;
-    margin-bottom: 20px;
-}
 
-/* ✅ "로고" 글자 정렬 */
-.logo-text {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
 
 /* ✅ 입력 필드 */
 .input-box {
@@ -62,7 +39,7 @@ body {
     font-size: 16px;
     border: 2px solid black;
     border-radius: 5px;
-    text-align: center;
+    text-align: left;
 }
 
 /* ✅ 로그인 버튼 */
@@ -76,7 +53,7 @@ body {
     padding: 15px;
     font-size: 18px;
     font-weight: bold;
-    background-color: #1967d2;
+    background-color: #C3C564;
     color: white;
     border: none;
     border-radius: 5px;
@@ -84,7 +61,7 @@ body {
 }
 
 .login-button-text:hover {
-    background-color: #1351a5;
+    background-color: #C3C564;
 }
 
 /* ✅ 아이디/비밀번호 찾기 & 회원가입 버튼 가로 정렬 */
@@ -102,7 +79,7 @@ body {
     font-size: 14px;
     font-weight: bold;
     color: white;
-    background-color: #1967d2;
+    background-color: #C3C564;
     text-align: center;
     border-radius: 5px;
     cursor: pointer;
@@ -110,7 +87,7 @@ body {
 }
 
 .find-id-password:hover, .signup:hover {
-    background-color: #1351a5;
+    background-color: #C3C564;
 }
 
 /* ✅ 소셜 로그인 버튼 */
@@ -129,4 +106,9 @@ body {
 
 .google-login:hover, .naver-login:hover {
     background-color: #e6e6e6;
+}
+
+img {
+	width: 200px;
+	height:110px;
 }
