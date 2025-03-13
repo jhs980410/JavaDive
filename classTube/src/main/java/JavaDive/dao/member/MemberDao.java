@@ -124,34 +124,6 @@ public class MemberDao {
 			return memberList;	
 	}
 	
-	// 회원 목록 조회 (관리자 전용)
-    public MemberDto adminLogin(String email, String password) throws SQLException {
-    	
-        MemberDto memberDto = null;
-        
-        String sql = "SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, TEL, CREATE_AT, MEMBER_PRIV " +
-                     "FROM MEMBER WHERE MEMBER_EMAIL = ? AND MEMBER_PWD = ? AND MEMBER_PRIV = 'ADMIN'"; // 관리자 계정만 조회
-
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            
-        	pstmt.setString(1, email); // 이메일 바인딩
-            pstmt.setString(2, password); // 비밀번호 바인딩
-            
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) { // 관리자인 경우 회원 정보 반환
-                    memberDto = new MemberDto(
-                    		rs.getInt("MEMBER_NO"),
-                            rs.getString("MEMBER_EMAIL"),
-                            rs.getString("MEMBER_NAME"),
-                            rs.getString("TEL"),
-                            rs.getDate("CREATE_AT")
-                    );
-                }
-            }
-        }
-        return memberDto; // 관리자 계정 정보 반환 (없으면 null 반환)
-    }
-	
 	//회원삭제
 	public int memberDelete(int no) throws SQLException {
 		int result = 0;

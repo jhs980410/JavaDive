@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		// 회원가입 버튼 클릭시 회원가입 페이지로 이동
 		String MemberShip = req.getParameter("MemberShip");
 
 		if ("register".equals(MemberShip)) { // 회원가입 버튼이 눌렸을 때
@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 			rd.forward(req, res);
 			return;
 		}
-
+		// 기본 로그인 페이지로 이동
 		RequestDispatcher rd = req.getRequestDispatcher("/LoginPage.jsp");
 		rd.forward(req, res);
 	}
