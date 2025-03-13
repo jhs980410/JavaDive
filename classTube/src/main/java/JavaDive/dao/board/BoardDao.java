@@ -23,7 +23,7 @@ public class BoardDao {
 	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}
-
+// 게시글 추가
 	public int boardInsert(BoardDto boardDto, HttpServletRequest req) throws Exception {
 		PreparedStatement pstmt = null; // 객체준비 //
 		ResultSet rs = null;
@@ -108,7 +108,7 @@ public class BoardDao {
 
 		return generatedNoteNo;
 	}
-
+//ID가져오기 VIEW
 	public BoardDto getBoardById(int postId) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -149,7 +149,7 @@ public class BoardDao {
 		}
 		return boardDto;
 	}
-
+//검색어리스트 
 	public List<BoardDto> selectList(int page, int pageSize) throws Exception {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -219,7 +219,7 @@ public class BoardDao {
 
 		return boardList;
 	}
-
+//관리자에서 LIST
 	public List<BoardDto> adminSelectList(int page, int pageSize) throws Exception {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -304,7 +304,7 @@ public class BoardDao {
 
 		return boardList;
 	}
-
+//공지2개만가져오는 DAO
 	public List<BoardDto> getTopNotices(int noticeCount) throws Exception {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -340,7 +340,7 @@ public class BoardDao {
 		}
 		return noticeList;
 	}
-
+//공지목록만보는LIST
 	public List<BoardDto> noticesList(int categoryNo) {
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
@@ -380,7 +380,7 @@ public class BoardDao {
 	    return noticeList;
 	}
 
-
+//공지 제외 일반 8개 LIST 
 	public List<BoardDto> getBoardList(String keyword, int page, int pageSize) throws Exception {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -428,6 +428,7 @@ public class BoardDao {
 		return boardList;
 	}
 
+	//전체반환되는 게시글의 카운트 
 	public int getTotalBoardCount(String keyword) throws Exception {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -589,7 +590,7 @@ public class BoardDao {
 				pstmt.close();
 		}
 	}
-
+//삭제//
 	public void deleteBoard(int postId) throws SQLException {
 		String sql = "DELETE FROM NOTE WHERE NOTE_NO = ?";
 
