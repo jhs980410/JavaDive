@@ -20,53 +20,65 @@ public class MemberDao {
 		this.connection = conn;
 	}
 
-	//회원등록
-	public int memberInsert(MemberDto memberDto) throws Exception{
-		int result = 0;
-		PreparedStatement pstmt = null;
-		
-		try {
-			String emailStr = memberDto.getEmail();
-			String pwdStr = memberDto.getPwd();
-			String nameStr = memberDto.getName();
-			String rrnStr = memberDto.getRrn();
-			String telStr = memberDto.getTel();
-			
-			String sql = "";
-			sql += "INSERT INTO MEMBER";
-			sql += " VALUE(MEMBER_NO, MEMBER_EMAIL, MEMBER_PWD, MEMBER_NAME, RRN, TEL, CREATE_AT)";
-			sql += " VALUES(MEMBER_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, SYSDATE)";
-			
-			pstmt = connection.prepareStatement(sql);
-			
-			pstmt.setString(1, emailStr);
-			pstmt.setString(2, emailStr);
-			pstmt.setString(3, emailStr);
-			pstmt.setString(4, emailStr);
-			pstmt.setString(5, emailStr);
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}finally {
-			
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-			} catch (SQLException e) {
-				// TODO: handle exception
-				e.printStackTrace();
+	// 회원 등록
+    public int memberInsert(MemberDto memberDto) throws Exception {
+        int result = 0;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            String emailStr = memberDto.getEmail();
+            String pwdStr = memberDto.getPwd();
+            String nameStr = memberDto.getName();
+            String rrnStr = memberDto.getRrn();
+            String telStr = memberDto.getTel();
+            
+            // 이메일 중복체크
+            if (isEmailDuplicate(emailStr)) {
+				return 0; //중복되면 0값을 반환하여 회원가입 차단
 			}
-		}
-		
-		return result;
-	}
-	
-	
-	
+
+            // 2. 회원 정보 삽입
+            String sql = "INSERT INTO MEMBER (MEMBER_NO, MEMBER_EMAIL, MEMBER_PWD, MEMBER_NAME, RRN, TEL, CREATE_AT) ";
+            sql += "VALUES (MEMBER_SEQ.NEXTVAL, ?, ?, ?, ?, ?, SYSDATE)";
+
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, emailStr);
+            pstmt.setString(2, pwdStr);
+            pstmt.setString(3, nameStr);
+            pstmt.setString(4, rrnStr);
+            pstmt.setString(5, telStr);
+
+            result = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
+    // 이메일 중복 검사 메서드
+ 	public boolean isEmailDuplicate(String email) throws SQLException {
+ 		String sql = "SELECT COUNT(*) FROM MEMBER WHERE MEMBER_EMAIL = ?";
+ 		
+ 		try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+ 			pstmt.setString(1, email);
+ 			try (ResultSet rs = pstmt.executeQuery()) {
+ 				if (rs.next()) {
+ 					return rs.getInt(1) > 0; // 중복이면 true 반환
+ 				}
+ 			} 
+ 		}
+ 		return false; 
+ 	}
+
 	//회원목록
 	public List<MemberDto> selectList() throws Exception {
 		PreparedStatement pstmt = null;
@@ -85,20 +97,14 @@ public class MemberDao {
 			
 			rs = pstmt.executeQuery();
 			
-			int no = 0;
-			String email = "";
-			String name = "";
-			String tel = "";
-			Date creDate = null;
-			
 			while (rs.next()) {
-				no = rs.getInt("MEMBER_NO");
-				email = rs.getString("MEMBER_EMAIL");
-				name = rs.getString("MEMBER_NAME");
-				tel = rs.getString("TEL");
-				creDate = rs.getDate("CREATE_AT");
-				
-				MemberDto memberDto = new MemberDto(no, email, name, tel, creDate);
+				MemberDto memberDto = new MemberDto(
+					rs.getInt("MEMBER_NO"),
+					rs.getString("MEMBER_EMAIL"),
+					rs.getString("MEMBER_NAME"),
+					rs.getString("TEL"),
+					rs.getDate("CREATE_AT")
+				);
 				memberList.add(memberDto);
 				
 			}
@@ -113,18 +119,38 @@ public class MemberDao {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 		
 			return memberList;	
 	}
+	
+	// 회원 목록 조회 (관리자 전용)
+    public MemberDto adminLogin(String email, String password) throws SQLException {
+    	
+        MemberDto memberDto = null;
+        
+        String sql = "SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, TEL, CREATE_AT, MEMBER_PRIV " +
+                     "FROM MEMBER WHERE MEMBER_EMAIL = ? AND MEMBER_PWD = ? AND MEMBER_PRIV = 'ADMIN'"; // 관리자 계정만 조회
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            
+        	pstmt.setString(1, email); // 이메일 바인딩
+            pstmt.setString(2, password); // 비밀번호 바인딩
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) { // 관리자인 경우 회원 정보 반환
+                    memberDto = new MemberDto(
+                    		rs.getInt("MEMBER_NO"),
+                            rs.getString("MEMBER_EMAIL"),
+                            rs.getString("MEMBER_NAME"),
+                            rs.getString("TEL"),
+                            rs.getDate("CREATE_AT")
+                    );
+                }
+            }
+        }
+        return memberDto; // 관리자 계정 정보 반환 (없으면 null 반환)
+    }
 	
 	//회원삭제
 	public int memberDelete(int no) throws SQLException {
@@ -347,5 +373,4 @@ public class MemberDao {
 		// 회원이 조회가 안된다면
 		return null;
 	}
-		
 }
