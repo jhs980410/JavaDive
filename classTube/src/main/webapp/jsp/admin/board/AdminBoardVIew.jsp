@@ -29,7 +29,10 @@
 				<c:if test="${not empty boardDto.createDate}">
 					<span class="date"> 작성일 : ${boardDto.createDate} </span>
 				</c:if>
-	
+			<button class="updatebutton"
+  onclick="location.href='/classTube/admin/boardUpdate?postId=${boardDto.noteNo}'">
+  수정
+</button>
 			</div>
 		</div>
 		<div class="form-group">
@@ -53,7 +56,7 @@
 		<!-- ✅ 버튼 그룹 -->
 		<div class="button-group">
 			<button class="but-view"
-				onclick="location.href='/classTube/admin/board/list'">게시글 목록</button>
+				onclick="location.href='/classTube/admin/boardList'">게시글 목록</button>
 
 		</div>
 </body>

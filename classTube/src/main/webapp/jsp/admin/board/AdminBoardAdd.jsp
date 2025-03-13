@@ -5,20 +5,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판글쓰기</title>
+<title>공지사항 추가</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/board/boardAdd.css">
-
+	href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/admin/board/adminBoardAdd.css">
+</head>
 
 </head>
 <body>
-	<%@ include file="../common/sideBar.jsp"%>
+	<%@ include file="../common/adminHeader.jsp"%>
 
 	<div class="container">
 		
 
-		<h2>게시판 글쓰기</h2>
-		<form action="${pageContext.request.contextPath}/boardAdd"
+		<h2>공지사항 추가</h2>
+		<form action="${pageContext.request.contextPath}/admin/boardAdd"
 			method="post">
 			<!--버튼을 누를때만 요청이 받음.-->
 			<div class="form-group">
@@ -45,7 +47,7 @@
 			</div>
 			<div class="button-group">
 			<button class="but-view"
-				onclick="location.href='/classTube/boardList'">게시글
+				onclick="location.href='/classTube/admin/boardList'">게시글
 				목록</button>
 				<button type="reset" class="cancel">취소</button>
 				<button id="SubBtu" type="submit">등록</button>

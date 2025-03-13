@@ -81,7 +81,7 @@ public class BoardListController extends HttpServlet {
 			List<BoardDto> finalList = new ArrayList<>();
 			finalList.addAll(noticeList); // 공지사항 추가
 			finalList.addAll(boardList); // 일반 게시물 추가
-
+			System.out.println("📌 공지사항 포함된 최종 리스트: " + finalList);
 			// 🔹 세션에 저장
 			session.setAttribute("boardList", finalList);
 			session.setAttribute("currentPage", currentPage);

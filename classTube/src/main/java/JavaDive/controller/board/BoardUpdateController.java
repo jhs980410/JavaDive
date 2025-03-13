@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import JavaDive.dao.board.BoardDao;
 import JavaDive.dto.board.BoardDto;
@@ -19,7 +21,7 @@ import JavaDive.dto.member.MemberDto;
 /**
  * Servlet implementation class BoardUpdateController
  */
-@WebServlet("/boardUpdate")
+@WebServlet({"/boardUpdate","/admin/boardUpdate"})
 public class BoardUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -42,13 +44,21 @@ public class BoardUpdateController extends HttpServlet {
 
 		// 🔹 DAO 객체 생성 및 DB 연결 설정
 		BoardDao boardDao = new BoardDao();
-		boardDao.setConnection(conn);
+	
+	       boardDao.setConnection(conn);
+	
 		int postId = Integer.parseInt(req.getParameter("postId")); // postId 가져오기
 		BoardDto board = boardDao.getBoardById(postId);
 
 		req.setAttribute("board", board);
-
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardUpdate.jsp");
+		
+		String path;
+        if (req.getRequestURI().contains("/admin")) { 
+            path = "/jsp/admin/board/AdminboardUpdate.jsp";  // 관리자 검색 결과 페이지
+        } else {
+            path = "/jsp/board/boardUpdate.jsp";  // 일반 사용자 검색 결과 페이지
+        }
+		RequestDispatcher dispatcher = req.getRequestDispatcher(path);
 		dispatcher.forward(req, res);
 	}
 
@@ -70,28 +80,30 @@ public class BoardUpdateController extends HttpServlet {
 
 		BoardDao boardDao = new BoardDao();
 		boardDao.setConnection(conn);
-		String  categoryName = "";
+	
 		try {
 			BoardDto board = boardDao.getBoardById(postId); // 게시글 정보 가져오기
-			if ("categoryNo1".equals(category)) {
-				categoryName = "자유";
-				
-			} else if ("categoryNo2".equals(category)) {
-				categoryName = "정보";
-	
-			} else if ("categoryNo3".equals(category)) {
-				
-			}
-			// 🔥 게시글 작성자가 로그인한 사용자와 다르면 수정 불가
-			if (loginUser == null || loginUser.getNo() != board.getMemberNo()) {
-				 RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/common/error.jsp"); 
-		            dispatcher.forward(req, res); //에러 페이지 이동
-				return;
-			}
-
+		
+			// 게시글 수정 진행
 			// 게시글 수정 진행
 			boardDao.updateBoard(postId, title, content);
-			res.sendRedirect("/classTube/boardList"); // 서블릿으로 이동 (컨트롤러에서 처리)
+
+			// 📌 최신 데이터 다시 조회
+			BoardDto updatedBoard = boardDao.getBoardById(postId);
+			session.setAttribute("boardDto", updatedBoard);
+
+			// 📌 수정 후 상세 페이지로 이동 (최신 데이터 반영됨)
+			String path;
+			if (req.getRequestURI().contains("/admin")) {
+			    path = "/jsp/admin/board/AdminBoardVIew.jsp?postId=" + postId; // 관리자 상세 페이지 이동
+			} else {
+			    path = "/jsp/board/boardView.jsp?postId=" + postId; // 일반 사용자 상세 페이지 이동
+			}
+
+			RequestDispatcher dispatcher = req.getRequestDispatcher(path);
+			dispatcher.forward(req, res);
+
+
 
 		} catch (Exception e) {
 			e.printStackTrace();

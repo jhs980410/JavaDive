@@ -304,27 +304,53 @@ public class BoardDao {
 
 		return boardList;
 	}
-	
+
 	public List<BoardDto> getTopNotices(int noticeCount) throws Exception {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<BoardDto> noticeList = new ArrayList<>();
+
+		String sql = "SELECT * FROM ( " + "    SELECT A.*, ROWNUM AS RNUM " + "    FROM ( "
+				+ "        SELECT N.NOTE_NO, N.NOTE_TITLE, M.MEMBER_NAME AS WRITER, "
+				+ "               N.CREATE_AT, C.CATEGORY_NAME AS CATEGORY " + "        FROM NOTE N "
+				+ "        JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO "
+				+ "        JOIN BOARD_CATEGORY C ON N.CATEGORY_NO = C.CATEGORY_NO " + "        WHERE N.CATEGORY_NO = 1 "
+				+ "        ORDER BY N.NOTE_NO DESC " + "    ) A " + ") WHERE RNUM <= ?";
+		// 최신 공지 2개만 가져오기
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, noticeCount);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				BoardDto board = new BoardDto();
+				board.setNoteNo(rs.getInt("NOTE_NO"));
+				board.setTitle(rs.getString("NOTE_TITLE"));
+				board.setWriter(rs.getString("WRITER"));
+				board.setCreateDate(rs.getDate("CREATE_AT"));
+				board.setCategory(rs.getString("CATEGORY"));
+				noticeList.add(board);
+			}
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (pstmt != null)
+				pstmt.close();
+		}
+		return noticeList;
+	}
+
+	public List<BoardDto> noticesList(int categoryNo) {
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    List<BoardDto> noticeList = new ArrayList<>();
-
-	    String sql = "SELECT * FROM ( "
-	            + "  SELECT N.NOTE_NO, N.NOTE_TITLE, M.MEMBER_NAME AS WRITER, "
-	            + "         N.CREATE_AT, C.CATEGORY_NAME AS CATEGORY, "
-	            + "         ROWNUM AS RNUM "
-	            + "  FROM NOTE N "
-	            + "  JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO "
-	            + "  JOIN BOARD_CATEGORY C ON N.CATEGORY_NO = C.CATEGORY_NO "
-	            + "  WHERE N.CATEGORY_NO = 1 " // 공지사항 카테고리
-	            + "  ORDER BY N.NOTE_NO DESC "
-	            + ") WHERE RNUM <= ?";
-  // 최신 공지 2개만 가져오기
+	    
+	    String sql = "SELECT * FROM NOTE WHERE CATEGORY_NO = ?";
 
 	    try {
 	        pstmt = connection.prepareStatement(sql);
-	        pstmt.setInt(1, noticeCount);
+	        pstmt.setInt(1, categoryNo);
 	        rs = pstmt.executeQuery();
 
 	        while (rs.next()) {
@@ -334,92 +360,103 @@ public class BoardDao {
 	            board.setWriter(rs.getString("WRITER"));
 	            board.setCreateDate(rs.getDate("CREATE_AT"));
 	            board.setCategory(rs.getString("CATEGORY"));
+
 	            noticeList.add(board);
 	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
 	    } finally {
-	        if (rs != null) rs.close();
-	        if (pstmt != null) pstmt.close();
+	        try {
+	            if (rs != null) rs.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        try {
+	            if (pstmt != null) pstmt.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
 	    }
 	    return noticeList;
 	}
+
+
 	public List<BoardDto> getBoardList(String keyword, int page, int pageSize) throws Exception {
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    List<BoardDto> boardList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<BoardDto> boardList = new ArrayList<>();
 
-	    String sql = "SELECT * FROM ( " +
-	                 "SELECT N.NOTE_NO, N.NOTE_TITLE, M.MEMBER_NAME AS WRITER, " +
-	                 "N.CREATE_AT, C.CATEGORY_NAME AS CATEGORY, " +
-	                 "ROW_NUMBER() OVER (ORDER BY N.NOTE_NO DESC) AS RNUM " +
-	                 "FROM NOTE N " +
-	                 "JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO " +
-	                 "JOIN BOARD_CATEGORY C ON N.CATEGORY_NO = C.CATEGORY_NO " +
-	                 "WHERE N.CATEGORY_NO != 1 ";  // 공지사항 제외
+		String sql = "SELECT * FROM ( " + "SELECT N.NOTE_NO, N.NOTE_TITLE, M.MEMBER_NAME AS WRITER, "
+				+ "N.CREATE_AT, C.CATEGORY_NAME AS CATEGORY, " + "ROW_NUMBER() OVER (ORDER BY N.NOTE_NO DESC) AS RNUM "
+				+ "FROM NOTE N " + "JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO "
+				+ "JOIN BOARD_CATEGORY C ON N.CATEGORY_NO = C.CATEGORY_NO " + "WHERE N.CATEGORY_NO != 1 "; // 공지사항 제외
 
-	    // 검색어가 있을 경우 WHERE 절 추가
-	    if (keyword != null && !keyword.trim().isEmpty()) {
-	        sql += " AND LOWER(N.NOTE_TITLE) LIKE LOWER(?) ";
-	    }
+		// 검색어가 있을 경우 WHERE 절 추가
+		if (keyword != null && !keyword.trim().isEmpty()) {
+			sql += " AND LOWER(N.NOTE_TITLE) LIKE LOWER(?) ";
+		}
 
-	    sql += ") WHERE RNUM BETWEEN ? AND ?";
+		sql += ") WHERE RNUM BETWEEN ? AND ?";
 
-	    try {
-	        pstmt = connection.prepareStatement(sql);
-	        int paramIndex = 1;
+		try {
+			pstmt = connection.prepareStatement(sql);
+			int paramIndex = 1;
 
-	        if (keyword != null && !keyword.trim().isEmpty()) {
-	            pstmt.setString(paramIndex++, "%" + keyword.trim() + "%");
-	        }
-	        pstmt.setInt(paramIndex++, (page - 1) * pageSize + 1);
-	        pstmt.setInt(paramIndex, page * pageSize);
+			if (keyword != null && !keyword.trim().isEmpty()) {
+				pstmt.setString(paramIndex++, "%" + keyword.trim() + "%");
+			}
+			pstmt.setInt(paramIndex++, (page - 1) * pageSize + 1);
+			pstmt.setInt(paramIndex, page * pageSize);
 
-	        rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 
-	        while (rs.next()) {
-	            BoardDto board = new BoardDto();
-	            board.setNoteNo(rs.getInt("NOTE_NO"));
-	            board.setTitle(rs.getString("NOTE_TITLE"));
-	            board.setWriter(rs.getString("WRITER"));
-	            board.setCreateDate(rs.getDate("CREATE_AT"));
-	            board.setCategory(rs.getString("CATEGORY"));
-	            boardList.add(board);
-	        }
-	    } finally {
-	        if (rs != null) rs.close();
-	        if (pstmt != null) pstmt.close();
-	    }
-	    return boardList;
+			while (rs.next()) {
+				BoardDto board = new BoardDto();
+				board.setNoteNo(rs.getInt("NOTE_NO"));
+				board.setTitle(rs.getString("NOTE_TITLE"));
+				board.setWriter(rs.getString("WRITER"));
+				board.setCreateDate(rs.getDate("CREATE_AT"));
+				board.setCategory(rs.getString("CATEGORY"));
+				boardList.add(board);
+			}
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (pstmt != null)
+				pstmt.close();
+		}
+		return boardList;
 	}
+
 	public int getTotalBoardCount(String keyword) throws Exception {
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    int totalRecords = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int totalRecords = 0;
 
-	    String sql = "SELECT COUNT(*) FROM NOTE WHERE CATEGORY_NO != 1";  // 공지사항 제외
+		String sql = "SELECT COUNT(*) FROM NOTE WHERE CATEGORY_NO != 1"; // 공지사항 제외
 
-	    // 🔹 검색어가 있을 경우 WHERE 절 추가
-	    if (keyword != null && !keyword.trim().isEmpty()) {
-	        sql += " AND LOWER(NOTE_TITLE) LIKE LOWER(?) ";
-	    }
+		// 🔹 검색어가 있을 경우 WHERE 절 추가
+		if (keyword != null && !keyword.trim().isEmpty()) {
+			sql += " AND LOWER(NOTE_TITLE) LIKE LOWER(?) ";
+		}
 
-	    try {
-	        pstmt = connection.prepareStatement(sql);
-	        if (keyword != null && !keyword.trim().isEmpty()) {
-	            pstmt.setString(1, "%" + keyword.trim() + "%");
-	        }
-	        rs = pstmt.executeQuery();
-	        if (rs.next()) {
-	            totalRecords = rs.getInt(1);
-	        }
-	    } finally {
-	        if (rs != null) rs.close();
-	        if (pstmt != null) pstmt.close();
-	    }
-	    return totalRecords;
+		try {
+			pstmt = connection.prepareStatement(sql);
+			if (keyword != null && !keyword.trim().isEmpty()) {
+				pstmt.setString(1, "%" + keyword.trim() + "%");
+			}
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				totalRecords = rs.getInt(1);
+			}
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (pstmt != null)
+				pstmt.close();
+		}
+		return totalRecords;
 	}
-	
-	
-	
 
 	public List<BoardDto> searchBoard(String keyword, int currentPage, int pageSize, HttpServletRequest req) {
 		PreparedStatement pstmt = null; // 쿼리실행준비
@@ -456,14 +493,12 @@ public class BoardDao {
 
 			}
 			pstmt.setString(1, keyword);
-			  int startRow = (currentPage - 1) * pageSize + 1;
-		        int endRow = currentPage * pageSize;
+			int startRow = (currentPage - 1) * pageSize + 1;
+			int endRow = currentPage * pageSize;
 
-		        pstmt.setInt(2, startRow);
-		        pstmt.setInt(3, endRow);
-		        
-		        
-			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
 			rs = pstmt.executeQuery();
 			int noteNo = 0;
 			String title = "";

@@ -18,7 +18,7 @@ import JavaDive.dao.board.BoardDao;
 import JavaDive.dto.board.BoardDto;
 import JavaDive.dto.member.MemberDto;
 
-
+@WebServlet({"/boardAdd", "/admin/boardAdd"})
 public class BoardAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -97,11 +97,17 @@ public class BoardAddController extends HttpServlet {
 			    session.setAttribute("boardDto", boardDto); // 최신 데이터로 세션 업데이트
 			    
 			    System.out.println("업데이트된 세션 boardDto: " + session.getAttribute("boardDto"));
-
-			    RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/board/boardView.jsp");
-			    dispatcher.forward(req, res);  //세션유지 서버내부이동  //
-
 			    
+			 	String path;
+		        if (req.getRequestURI().contains("/admin")) { 
+		            path = "/jsp/admin/board/AdminBoardVIew.jsp";  // 관리자 검색 결과 페이지
+		        } else {
+		            path = "/jsp/board/boardView.jsp";  // 일반 사용자 검색 결과 페이지
+		        }
+				RequestDispatcher dispatcher = req.getRequestDispatcher(path);
+				dispatcher.forward(req, res);
+			    
+	
 			    return;
 				
 			} else {

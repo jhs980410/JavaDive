@@ -20,8 +20,6 @@
 	<div class="container">
 
 		<div class="button-group">
-		<button class="but-view"
-				onclick="location.href='/classTube/boardNotice'">공지사항목록</button>
 			<button class="but-view"
 				onclick="location.href='/classTube/boardList'">게시글 목록</button>
 
@@ -34,30 +32,25 @@
 			</form>
 		</div>
 
-		<h2 class="board-title">📌 게시판 목록</h2>
-
-		<!-- 🔍 검색 기능 -->
-
+			<h2 class="board-title">📢 공지사항 목록</h2>
 
 		<table class="board-list">
 			<thead>
 				<tr>
 					<th class="boardHeader">번호</th>
 					<th class="boardHeader">제목</th>
-					<th class="boardHeader">카테고리</th>
 					<th class="boardHeader">작성자</th>
 					<th class="boardHeader">작성일</th>
 				</tr>
 			</thead>
 
 			<tbody class="post-section">
-				<c:forEach var="board" items="${boardList}">
+				<c:forEach var="notice" items="${noticeList}">
 					<tr>
-						<td>${board.noteNo}</td>
-						<td><a href="boardView?postId=${board.noteNo}">${board.title}</a></td>
-						<td>${board.category}</td>
-						<td>${board.writer}</td>
-						<td>${board.createDate}</td>
+						<td>${notice.noteNo}</td>
+						<td><a href="boardView?postId=${notice.noteNo}">${notice.title}</a></td>
+						<td>${notice.writer}</td>
+						<td>${notice.createDate}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
