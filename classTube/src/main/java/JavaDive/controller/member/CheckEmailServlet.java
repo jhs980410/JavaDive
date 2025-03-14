@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.regex.Pattern;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -28,11 +29,6 @@ public class CheckEmailServlet extends HttpServlet {
 
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-			}
-	
-	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		res.setContentType("text/html; charset=UTF-8");
@@ -40,23 +36,22 @@ public class CheckEmailServlet extends HttpServlet {
         // 클라이언트가 입력한 이메일 가져오기
         String emailStr = req.getParameter("email");
         
-        // 이메일 입력값이 비어있는 경우
+     // 이메일 입력값이 비어있는 경우, 포워딩 사용
         if (emailStr == null || emailStr.trim().isEmpty()) {
-            res.getWriter().write("<script>alert('이메일을 입력해주세요.'); history.back();</script>");
+            req.setAttribute("errorMessage", "이메일을 입력해주세요.");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
+            dispatcher.forward(req, res);
             return;
         }
 
         // 이메일 정규화 적용
         emailStr = normalizeEmail(emailStr);
         
-        //이메일 형식 검증
+     // 이메일 형식 검증 (정규식 검사 후 포워딩 처리)
         if (!EMAIL_PATTERN.matcher(emailStr).matches()) {
-            res.getWriter().write("<script>alert('올바른 이메일 형식을 입력해주세요.'); history.back();</script>");
-            return;
-        }
-        // 이메일 형식 검증 (정규식 검사)
-        if (emailStr == null || !EMAIL_PATTERN.matcher(emailStr).matches()) {
-            res.getWriter().print("invalid_format"); // 잘못된 이메일 형식
+            req.setAttribute("errorMessage", "올바른 이메일 형식을 입력해주세요.");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
+            dispatcher.forward(req, res);
             return;
         }
 
@@ -77,14 +72,23 @@ public class CheckEmailServlet extends HttpServlet {
             rs = pstmt.executeQuery();
 
             if (rs.next() && rs.getInt(1) > 0) {
-                res.getWriter().write("<script>alert('이미 사용 중인 이메일입니다.'); history.back();</script>");
+            	// 중복된 이메일일 경우 회원가입 페이지로 포워딩
+                req.setAttribute("errorMessage", "이미 사용 중인 이메일입니다.");
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
+                dispatcher.forward(req, res);
             } else {
-                res.getWriter().write("<script>alert('사용 가능한 이메일입니다.'); history.back();</script>");
+            	// 사용 가능한 이메일일 경우 메시지를 설정하고 회원가입 페이지로 이동
+                req.setAttribute("successMessage", "사용 가능한 이메일입니다.");
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
+                dispatcher.forward(req, res);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            res.getWriter().write("<script>alert('서버 오류가 발생했습니다.'); history.back();</script>");
+            // 서버 오류 발생 시 회원가입 페이지로 포워딩
+            req.setAttribute("errorMessage", "서버 오류가 발생했습니다. 다시 시도해주세요.");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
+            dispatcher.forward(req, res);
         } finally {
         	
             try {

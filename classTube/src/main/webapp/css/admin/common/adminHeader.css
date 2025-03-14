@@ -95,3 +95,29 @@
 td {
 	width: 100px;
 }
+
+/* 로그아웃 버튼 컨테이너 */
+.logout-container {
+    width: 100%;
+    display: flex;
+    padding: 10px 20px;
+    margin-top: 10px;  /* 헤더와 간격 유지 */
+    margin-left: 1400px; /* 오른쪽으로 이동*/
+}
+
+/* 로그아웃 버튼 스타일 */
+.logout-btn {
+    background-color: #C3C564;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.logout-btn:hover {
+    background-color: #e0e0e0;
+    color: black;
+}

@@ -17,7 +17,7 @@
 <%@ include file="../common/adminHeader.jsp" %> 
 
 <%
-    // 🔹 회원 정보 가져오기
+    // 회원 정보 가져오기 (null 체크 필요)
     MemberDto member = (MemberDto) request.getAttribute("member");
     if (member == null) {
         response.sendRedirect("adminMemberList.jsp");
@@ -35,26 +35,32 @@
         <table class="member-info-table">
             <tr>
                 <th>이메일</th>
-                <td><input type="text" value="<%= member.getEmail() %>" disabled></td>
+                <td>
+                    <input type="text" name="email" value="<%= (member.getEmail() != null) ? member.getEmail() : "" %>">
+                </td>
             </tr>
             <tr>
                 <th>비밀번호</th>
-                <td><input type="password" name="pwd" placeholder="변경할 비밀번호 입력"></td>
+                <td><input type="password" name="pwd" placeholder="변경할 비밀번호를 입력하세요."></td>
             </tr>
             <tr>
                 <th>이름</th>
-                <td><input type="text" name="name" value="<%= member.getName() %>"></td>
+                <td>
+                    <input type="text" name="name" value="<%= (member.getName() != null) ? member.getName() : "" %>">
+                </td>
             </tr>
             <tr>
                 <th>휴대폰번호</th>
-                <td><input type="text" name="tel" value="<%= member.getTel() %>"></td>
+                <td>
+                    <input type="text" name="tel" value="<%= (member.getTel() != null) ? member.getTel() : "" %>">
+                </td>
             </tr>
             <tr>
                 <th>회원등급</th>
                 <td>
                     <select name="priv">
-                        <option value="USER" <%= member.getPriv().equals("USER") ? "selected" : "" %>>일반회원</option>
-                        <option value="ADMIN" <%= member.getPriv().equals("ADMIN") ? "selected" : "" %>>관리자</option>
+                        <option value="USER" <%= "USER".equals(member.getPriv()) ? "selected" : "" %>>일반회원</option>
+                        <option value="ADMIN" <%= "ADMIN".equals(member.getPriv()) ? "selected" : "" %>>관리자</option>
                     </select>
                 </td>
             </tr>
@@ -69,16 +75,10 @@
 
 <script>
     document.querySelector(".update-btn").addEventListener("click", function() {
-        alert("폼이 제출됩니다!");
-        document.querySelector("form").submit(); // 폼 제출 실행
+        if (confirm("정말로 수정하시겠습니까?")) {
+            document.querySelector("form").submit(); // 폼 제출 실행
+        }
     });
-    
-    window.onload = function () {
-        document.querySelector(".update-btn").addEventListener("click", function () {
-            alert("폼이 제출됩니다!");
-            document.querySelector("form").submit();
-        });
-    };
 </script>
 
 </body>

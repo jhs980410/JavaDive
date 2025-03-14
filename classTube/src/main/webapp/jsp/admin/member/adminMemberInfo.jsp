@@ -16,11 +16,39 @@
     	function updateActionFnc() {
     		var memberNoObj = document.getElementById('no');
     		
-    		if (!memberNoObj || memberNoObj.value) {
+    		if (!memberNoObj || !memberNoObj.value) {
 				alert("회원 번호가 없습니다.")
+				return;
 			}
-    		location.href = '<%= request.getContextPath() %>/admin/member/updateAction?no=' + memberNoObj.value;
+    		
+    		// UPDATE 서블릿(`/admin/member/update`)으로 이동
+    	    location.href = '<%= request.getContextPath() %>/admin/member/update?memberNo=' + memberNoObj.value;
 		}
+    	
+    	function deleteActionFnc() {
+            var memberNoObj = document.getElementById('no');
+
+            if (!memberNoObj || !memberNoObj.value) {
+                alert("회원 번호가 없습니다.");
+                return;
+            }
+
+            if (confirm("정말로 회원을 삭제하시겠습니까?")) {
+                var form = document.createElement("form");
+                form.method = "POST";
+                form.action = "<%= request.getContextPath() %>/admin/member/delete";
+
+                var input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "no";
+                input.value = memberNoObj.value;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    	
     </script>
 </head>
 <body>
@@ -70,7 +98,11 @@
         회원목록
     </button>
     
+    <button type="button" class="delete-btn" onclick="deleteActionFnc();">삭제하기</button>
+    
     <input id='no' type="hidden" value="${member.getNo()}">
+    
+    
 </div>
 
 </div>

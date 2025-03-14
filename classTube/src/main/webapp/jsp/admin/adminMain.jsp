@@ -13,6 +13,13 @@
 <body>
 	<%@ include file="/jsp/admin/common/adminHeader.jsp" %>
 	
+	<!-- 🔹 헤더 외부에 로그아웃 버튼 추가 -->
+    <div class="logout-container">
+        <form id="logoutForm" action="<%= request.getContextPath() %>/logout" method="post">
+            <button type="submit" class="logout-btn">로그아웃</button>
+        </form>
+    </div>
+	
 	<form action="./adminMain" method="get">
 	<div class="main-content">
 	
