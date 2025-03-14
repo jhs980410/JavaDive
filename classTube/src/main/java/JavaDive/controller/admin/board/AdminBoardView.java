@@ -10,8 +10,11 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.List;
 
+import JavaDive.dao.board.BoardCommentDao;
 import JavaDive.dao.board.BoardDao;
+import JavaDive.dto.board.BoardCommentDto;
 import JavaDive.dto.board.BoardDto;
 
 
@@ -19,7 +22,7 @@ import JavaDive.dto.board.BoardDto;
 
 public class AdminBoardView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private BoardCommentDao boardCommentDao;
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String postIdParam = req.getParameter("postId");
         int postId = (postIdParam != null) ? Integer.parseInt(postIdParam) : -1;
@@ -37,8 +40,14 @@ public class AdminBoardView extends HttpServlet {
 
             return;
         }
-
+        boardCommentDao = new BoardCommentDao();
+        boardCommentDao.setConn((Connection) getServletContext().getAttribute("conn"));
+        List<BoardCommentDto> commentList = boardCommentDao.getCommentByPostId(postId);
+        if (commentList == null || commentList.isEmpty()) {
+            System.out.println("댓글이 없습니다.");
+        }
         HttpSession session = req.getSession();
+        session.setAttribute("commentList", commentList);
         session.setAttribute("boardDto", boardDto);
         System.out.println("관리자 세션 업데이트 접근");
         System.out.println("✅ 업데이트된 세션 boardDto: " + session.getAttribute("boardDto"));

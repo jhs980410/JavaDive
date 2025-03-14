@@ -15,7 +15,7 @@
 
     <div class="container">
           
-        <h2>공지사항 수정</h2>
+        <h2>게시글 수정</h2>
 	<form action="${pageContext.request.contextPath}/admin/boardUpdate" method="post">
 		<!--버튼을 누를때만 요청이 받음.-->
         <div class="form-group">
@@ -35,6 +35,8 @@
             </div>
 
             <div class="button-group">
+            <button class="but-view"
+				onclick="location.href='/classTube/admin/boardList'">뒤로 가기</button>
                 <button type="reset" class="cancel">취소</button>
                 <button id="SubBtn" type="submit">수정</button>
             </div>

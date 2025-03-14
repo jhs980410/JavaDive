@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,7 +131,7 @@ public class BoardDao {
 				boardDto.setMemberno(rs.getInt("MEMBER_NO"));
 				boardDto.setContent(rs.getString("NOTE_CONTENT"));
 				boardDto.setCategoryNo(rs.getInt("CATEGORY_NO"));
-				boardDto.setCreateDate(rs.getDate("CREATE_AT"));
+				boardDto.setCreateDate(rs.getTimestamp("CREATE_AT"));
 
 				// ✅ 작성자 정보 추가
 				boardDto.setWriter(rs.getString("WRITER"));
@@ -194,7 +195,7 @@ public class BoardDao {
 				boardDto.setNoteNo(rs.getInt("NOTE_NO"));
 				boardDto.setTitle(rs.getString("NOTE_TITLE"));
 				boardDto.setWriter(rs.getString("WRITER"));
-				boardDto.setCreateDate(rs.getDate("CREATE_AT"));
+				boardDto.setCreateDate(rs.getTimestamp("CREATE_AT"));
 				boardDto.setCategory(rs.getString("CATEGORY"));
 
 				boardList.add(boardDto);
@@ -279,7 +280,7 @@ public class BoardDao {
 				boardDto.setNoteNo(rs.getInt("NOTE_NO"));
 				boardDto.setTitle(rs.getString("NOTE_TITLE"));
 				boardDto.setWriter(rs.getString("WRITER"));
-				boardDto.setCreateDate(rs.getDate("CREATE_AT"));
+				boardDto.setCreateDate(rs.getTimestamp("CREATE_AT"));
 				boardDto.setCategory(rs.getString("CATEGORY"));
 
 				boardList.add(boardDto);
@@ -328,7 +329,8 @@ public class BoardDao {
 				board.setNoteNo(rs.getInt("NOTE_NO"));
 				board.setTitle(rs.getString("NOTE_TITLE"));
 				board.setWriter(rs.getString("WRITER"));
-				board.setCreateDate(rs.getDate("CREATE_AT"));
+				board.setCreateDate(rs.getTimestamp
+						("CREATE_AT"));
 				board.setCategory(rs.getString("CATEGORY"));
 				noticeList.add(board);
 			}
@@ -358,7 +360,7 @@ public class BoardDao {
 	            board.setNoteNo(rs.getInt("NOTE_NO"));
 	            board.setTitle(rs.getString("NOTE_TITLE"));
 	            board.setWriter(rs.getString("WRITER"));
-	            board.setCreateDate(rs.getDate("CREATE_AT"));
+	            board.setCreateDate(rs.getTimestamp("CREATE_AT"));
 	            board.setCategory(rs.getString("CATEGORY"));
 
 	            noticeList.add(board);
@@ -415,7 +417,7 @@ public class BoardDao {
 				board.setNoteNo(rs.getInt("NOTE_NO"));
 				board.setTitle(rs.getString("NOTE_TITLE"));
 				board.setWriter(rs.getString("WRITER"));
-				board.setCreateDate(rs.getDate("CREATE_AT"));
+				board.setCreateDate(rs.getTimestamp("CREATE_AT"));
 				board.setCategory(rs.getString("CATEGORY"));
 				boardList.add(board);
 			}
@@ -504,14 +506,14 @@ public class BoardDao {
 			int noteNo = 0;
 			String title = "";
 			String writer = "";
-			Date createDate = null;
+			Timestamp createDate = null;
 			String category = "";
 
 			while (rs.next()) {
 				noteNo = rs.getInt("NOTE_NO");
 				title = rs.getString("NOTE_TITLE");
 				writer = rs.getString("WRITER");
-				createDate = rs.getDate("CREATE_AT");
+				createDate = rs.getTimestamp("CREATE_AT");
 				category = rs.getString("CATEGORY_NAME");
 
 				BoardDto boardDto = new BoardDto();

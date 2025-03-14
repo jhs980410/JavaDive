@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,7 @@
 			<div class="member">
 				작성자 : ${boardDto.writer}
 				<c:if test="${not empty boardDto.createDate}">
-					<span class="date"> 작성일 : ${boardDto.createDate} </span>
+					<span class="date"> 작성일 : <fmt:formatDate value="${boardDto.createDate}" pattern="yyyy-MM-dd HH:mm:ss" /> </span>
 				</c:if>
 			<button class="updatebutton"
   onclick="location.href='/classTube/admin/boardUpdate?postId=${boardDto.noteNo}'">
@@ -47,10 +48,28 @@
 		<!-- ✅ 댓글 영역 추가 -->
 		<div class="comment-section">
 			<h3>댓글</h3>
-			<div class="comment">댓글 1</div>
-			<div class="comment">댓글 2</div>
-			<div class="comment">댓글 3</div>
-			<!-- 댓글 추가 예정 -->
+			<c:forEach var="comment" items="${commentList}">
+					<div class="comment">
+						<span class="comment-writer">${comment.commentWriter}</span>
+						<!-- 댓글 작성자 -->
+						<span class="comment-content">${comment.commentContent}</span>
+						<div class="comment-buttons">
+						
+						
+							<button id="deleteConment"
+								onclick="showEditForm(${comment.commentNo})">삭제</button>
+						
+						</div>
+						<!-- 댓글 내용 -->
+						<span class="comment-date"><fmt:formatDate value="${comment.createAt}" pattern="yyyy-MM-dd HH:mm:ss" /></span>
+						<!-- 댓글 작성일 -->
+					</div>
+				</c:forEach>
+				<form action="/comment/add" method="post">
+				<input type="hidden" name="postId" value="${boardDto.noteNo}">
+				<textarea name="content"  placeholder="댓글을 입력하세요" required></textarea>
+				<button class = "commentadd" type="submit">댓글 등록</button>
+			</form>
 		</div>
 
 		<!-- ✅ 버튼 그룹 -->

@@ -34,6 +34,8 @@
             </div>
 
             <div class="button-group">
+            <button class="but-view"
+				onclick="location.href='/classTube/boardList'">뒤로 가기</button>
                 <button type="reset" class="cancel">취소</button>
                 <button id="SubBtn" type="submit">수정</button>
             </div>

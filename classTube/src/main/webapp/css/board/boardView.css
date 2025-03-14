@@ -108,7 +108,7 @@ button {
     position: fixed; /* 화면 하단에 고정 */
     bottom: 20px; /* 화면 아래에서 20px 위로 배치 */
     left: 50%; /* 가운데 정렬 */
-    transform: translateX(-10%); /* 가로 중앙 정렬 */
+    transform: translateX(-15%); /* 가로 중앙 정렬 */
     width: 100%;
     text-align: center;
 }
@@ -147,17 +147,87 @@ button.but-view {
 
 /* ✅ 개별 댓글 */
 .comment {
-    padding: 15px;
-    margin-bottom: 10px;
+    padding: 10px;
+    margin-bottom: 5px;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 13px;
+}
+
+.comment-content {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.comment-date {
+    font-size: 12px;
+    color: #777;
+    text-align: right;
+    display: block; /* 오른쪽 정렬을 위해 block 처리 */
+}
+.comment-writer {
+    font-weight: bold;
+    color: #007bff; /* 작성자 이름 강조 */
+    display: block; /* 작성자를 한 줄 차지하도록 배치 */
+    margin-bottom: 5px;
+}
+.commentadd {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    margin-right: 0px;
+    background-color: rgb(0, 128, 255);
+    color: white !important;
+}
+
+textarea{
+	width:100%; 
+	height:100px;
+	border: 1px solid #ddd;
+
 }
 
 .date{
 	margin-left: 20px;
 	
 }
+
+
+
+.comment-buttons {
+    display: flex;
+    gap: 8px; /* 버튼 간격 조정 */
+    justify-content: flex-end;
+    margin-bottom:8px; 
+}
+#deleteConment {
+    background-color: #DC3545 !important;
+    color: white !important;
+    width: 60px;  /* 버튼 너비 줄이기 */
+    height: 25px; /* 버튼 높이 줄이기 */
+    font-size: 10px; /* 글자 크기 조정 */
+    padding: 5px 10px; /* 내부 여백 조정 */
+    border-radius: 5px; /* 둥근 테두리 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer;
+
+
+
+}
+#updateConment{
+	 background-color: #007BFF !important;
+     color: white !important;
+    width: 60px;  /* 버튼 너비 줄이기 */
+    height: 25px; /* 버튼 높이 줄이기 */
+    font-size: 10px; /* 글자 크기 조정 */
+    padding: 5px 10px; /* 내부 여백 조정 */
+    border-radius: 5px; /* 둥근 테두리 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer;
+}
+
 
     

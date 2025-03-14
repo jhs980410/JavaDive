@@ -1,6 +1,7 @@
 package JavaDive.dto.board;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 
 public class BoardDto {
@@ -8,8 +9,8 @@ public class BoardDto {
 	private int noteNo; // 게시글 번호
 	private String title; // 제목
 	private int memberno;// 멤버번호
-	private Date createDate; // 작성일
-	private Date updateDate; // 수정일
+	private Timestamp createDate; // 작성일
+	private Timestamp updateDate; // 수정일
 	private String content; // 내용
 	private String category; // 카테고리 (말머리)
 	private int categoryNo; // 카테고리 번호 (외래키)
@@ -33,7 +34,7 @@ public class BoardDto {
 		return memberno;
 	}
 
-	public BoardDto(int noteNo, String title, int memberno, Date createDate, Date updateDate, String content,
+	public BoardDto(int noteNo, String title, int memberno, Timestamp createDate, Timestamp updateDate, String content,
 			String category, int categoryNo) {
 		this.noteNo = noteNo;
 		this.title = title;
@@ -70,19 +71,19 @@ public class BoardDto {
 		this.memberno = memberno;
 	}
 
-	public Date getCreateDate() {
+	public Timestamp getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
 
-	public Date getUpdateDate() {
+	public Timestamp getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
 	}
 
