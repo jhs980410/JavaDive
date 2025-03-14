@@ -94,6 +94,8 @@ public class ODClassUpdateController extends HttpServlet {
 			
 			int result = 0;
 			
+			System.out.println(odClassDto);
+			
 			result = odClassDao.odClassUpdate(odClassDto);
 			
 			if(result == 0) {

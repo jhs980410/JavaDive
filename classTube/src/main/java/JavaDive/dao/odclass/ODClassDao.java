@@ -248,7 +248,7 @@ public class ODClassDao {
 			pstmt.setInt(5, odClassDto.getClassLimit());
 			pstmt.setString(6, odClassDto.getImg());
 			pstmt.setString(7, odClassDto.getRegion());
-			pstmt.setInt(8, odClassDto.getCategoryNo());
+			pstmt.setInt(8, odClassDto.getClassNo());
 			
 			
 
@@ -306,4 +306,31 @@ public class ODClassDao {
 
 		return result;
 	}
+	
+	public int selectTotalCount() throws Exception {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int totalCount = 0;
+
+		String sql = "SELECT COUNT(CLASS_NO) AS TOTAL FROM ODCLASS";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				totalCount = rs.getInt("TOTAL");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (pstmt != null)
+				pstmt.close();
+		}
+
+		return totalCount;
+	}
+	
 }

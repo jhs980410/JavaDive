@@ -54,9 +54,7 @@
 </body>
 
 <script type="text/javascript">
-function addCommaFnc(int number) {
-	  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	}
+
 </script>
 
 </html>
