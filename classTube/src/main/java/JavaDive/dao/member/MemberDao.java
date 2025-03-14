@@ -81,7 +81,6 @@ public class MemberDao {
 
 	//회원목록
  	public List<MemberDto> selectList() throws Exception {
- 	    System.out.println("🟢 [DEBUG] DAO: selectList() 실행됨!");
 
  	    PreparedStatement pstmt = null;
  	    ResultSet rs = null;
@@ -92,19 +91,15 @@ public class MemberDao {
  	                 " FROM MEMBER ORDER BY MEMBER_NO ASC";
  	    
  	    try {
- 	        if (connection == null) { // 🔹 connection이 null인지 확인
- 	            System.out.println("❌ [ERROR] DAO: DB Connection이 NULL입니다!");
+ 	        if (connection == null) { // connection이 null인지 확인
  	            return memberList; // 빈 리스트 반환
  	        }
 
  	        pstmt = connection.prepareStatement(sql);
- 	        System.out.println("✅ [DEBUG] DAO: SQL 실행 준비 완료");
 
  	        rs = pstmt.executeQuery();
- 	        System.out.println("✅ [DEBUG] DAO: SQL 실행 완료");
 
  	        while (rs.next()) {
- 	            System.out.println("📌 [DEBUG] 조회된 회원 이메일: " + rs.getString("MEMBER_EMAIL"));
 
  	            MemberDto memberDto = new MemberDto(
  	                rs.getInt("MEMBER_NO"),
@@ -171,20 +166,18 @@ public class MemberDao {
 	public MemberDto memberSelectOne(int no) throws Exception {
 		
 		MemberDto memberDto = null;
-		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		String sql = "";
 		
-		sql += "SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, TEL, CREATE_AT";
-		sql += " FROM MEMBERS";
-		sql += " WHERE MNO =?";
+		sql += "SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, TEL, CREATE_AT, MEMBER_PRIV";
+		sql += " FROM MEMBER";
+		sql += " WHERE MEMBER_NO =?";
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, no);
-			
 			rs = pstmt.executeQuery();
 			
 			String member_email = "";
@@ -193,22 +186,17 @@ public class MemberDao {
 			Date create_at = null;
 			
 			if (rs.next()) {
-				member_email = rs.getString("MEMBER_EMAIL");
-				member_name = rs.getString("MEMBER_NAME");
-				tel = rs.getString("TEL");
-				create_at = rs.getDate("REATE_AT");
-				
 				memberDto = new MemberDto();
 				
-				memberDto.setNo(no);
-				memberDto.setEmail(member_email);
-				memberDto.setName(member_name);
-				memberDto.setTel(tel);
-				memberDto.setCreate_at(create_at);
+				memberDto.setNo(rs.getInt("MEMBER_NO"));
+				memberDto.setEmail(rs.getString("MEMBER_EMAIL"));
+				memberDto.setName(rs.getString("MEMBER_NAME"));
+				memberDto.setTel(rs.getString("TEL"));
+				memberDto.setCreate_at(rs.getDate("CREATE_AT"));
+				memberDto.setPriv(rs.getString("MEMBER_PRIV"));
 			}else {
 				throw new Exception("해당 번호의 회원을 찾을 수 없습니다.");
 			}
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -240,13 +228,12 @@ public class MemberDao {
 	// 회원 정보 변경
 	public int memberUpdate(MemberDto memberDto) throws SQLException{
 		int result = 0;
-		
 		PreparedStatement pstmt = null;
 		
 		String sql = "";
 		sql += "UPDATE MEMBER";
-		sql += " SET MEMBER_PWD=?, MEMBER_NAME=?, TEL=?,";
-		sql += " WHERE MNO =?";
+		sql += " SET MEMBER_PWD=?, MEMBER_NAME=?, TEL=?, MEMBER_PRIV = ?";
+		sql += " WHERE MEMBER_NO = ?";
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -254,12 +241,13 @@ public class MemberDao {
 			pstmt.setString(1, memberDto.getPwd());
 			pstmt.setString(2, memberDto.getName());
 			pstmt.setString(3, memberDto.getTel());
-			pstmt.setInt(4, memberDto.getNo());
+			pstmt.setString(4, memberDto.getPriv());
+			pstmt.setInt(5, memberDto.getNo());
 			
 			result = pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-			
 		}finally {
 			try {
 				if (pstmt != null) {
