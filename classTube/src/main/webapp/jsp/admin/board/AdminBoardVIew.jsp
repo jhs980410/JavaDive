@@ -60,10 +60,14 @@
 							<button id="updateConment"
 								onclick="openEditWindow(${comment.commentNo},${boardDto.noteNo})">수정</button>
 						</c:if>
-						
-							<button id="deleteConment"
-								onclick="showEditForm(${comment.commentNo})">삭제</button>
-						
+							<form
+								action="${pageContext.request.contextPath}/admin//BoardCommentDelete"
+								method="post">
+								<input type="hidden" name="commentId"
+									value="${comment.commentNo}"> <input type="hidden"
+									name="postId" value="${boardDto.noteNo}">
+								<button id="deleteConment" type="submit">삭제</button>
+							</form>
 						</div>
 						<!-- 댓글 내용 -->
 						<span class="comment-date"><fmt:formatDate value="${comment.createAt}" pattern="yyyy-MM-dd HH:mm:ss" /></span>

@@ -73,10 +73,16 @@
 						</c:if>
 						<c:if
 							test="${not empty memberDto and memberDto.no eq comment.memberNo}">
-							<button id="deleteConment"
-								onclick="showEditForm(${comment.commentNo},${boardDto.noteNo})">삭제</button>
+							<form
+								action="${pageContext.request.contextPath}/BoardCommentDelete"
+								method="post">
+								<input type="hidden" name="commentId"
+									value="${comment.commentNo}"> <input type="hidden"
+									name="postId" value="${boardDto.noteNo}">
+								<button id="deleteConment" type="submit">삭제</button>
+							</form>
 						</c:if>
-						</div>
+
 						<span class="comment-date"> <fmt:formatDate
 								value="${comment.createAt}" pattern="yyyy-MM-dd HH:mm:ss" />
 						</span>

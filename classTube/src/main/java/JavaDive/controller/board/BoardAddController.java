@@ -18,14 +18,14 @@ import JavaDive.dao.board.BoardDao;
 import JavaDive.dto.board.BoardDto;
 import JavaDive.dto.member.MemberDto;
 
-@WebServlet({"/boardAdd", "/admin/boardAdd"})
+@WebServlet({ "/boardAdd", "/admin/boardAdd" })
 public class BoardAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public BoardAddController() {
 		super();
 	}
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -41,15 +41,15 @@ public class BoardAddController extends HttpServlet {
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
 			HttpSession session = req.getSession();
-			MemberDto memberDto = (MemberDto)session.getAttribute("member"); //세션값 memberdto값 /
+			MemberDto memberDto = (MemberDto) session.getAttribute("member"); // 세션값 memberdto값 /
 			System.out.println("boardAdd 세션의 memberDto: " + memberDto);
 			// 2️ 카테고리 번호 매핑
 			if (memberDto == null) {
-	            System.out.println("오류: 세션에서 memberDto를 찾을 수 없음. 로그인 필요.");
-	            res.sendRedirect(req.getContextPath() + "/LoginPage.jsp"); // 로그인 페이지로 이동
-	            return;
-	        }
-			
+				System.out.println("오류: 세션에서 memberDto를 찾을 수 없음. 로그인 필요.");
+				res.sendRedirect(req.getContextPath() + "/LoginPage.jsp"); // 로그인 페이지로 이동
+				return;
+			}
+
 			int categoryNo = 0;
 			if ("categoryNo1".equals(category)) {
 				categoryNo = 1;
@@ -61,13 +61,13 @@ public class BoardAddController extends HttpServlet {
 				categoryNo = 3;
 				category = "정보";
 			}
-			
+
 			// 3️ DB 연결 가져오기
 			ServletContext sc = this.getServletContext();
 			conn = (Connection) sc.getAttribute("conn");
 
 			if (conn == null) {
-			    throw new ServletException("DB 연결이 설정되지 않았습니다.");
+				throw new ServletException("DB 연결이 설정되지 않았습니다.");
 			}
 
 			// 4️ BoardDto 객체 생성 및 데이터 세팅
@@ -77,8 +77,7 @@ public class BoardAddController extends HttpServlet {
 			boardDto.setContent(content);
 			boardDto.setCategory(category);
 			boardDto.setCategoryNo(categoryNo);
-			
-			
+
 			System.out.println();
 			int recentPostId = 0;
 			// 5️ DAO를 통한 DB 저장
@@ -86,43 +85,34 @@ public class BoardAddController extends HttpServlet {
 			boardDao.setConnection(conn);
 			recentPostId = boardDao.boardInsert(boardDto, req); // 게시글 저장
 			System.out.println("recentPostId: " + recentPostId);
-			
+
 			if (recentPostId > 0) {
-			    System.out.println("게시글 등록 성공 게시글id: " + recentPostId);
-			    
-			    // 📌 DB에서 다시 조회하여 `createDate` 가져오기
-			    boardDto = boardDao.getBoardById(recentPostId);
-			    
-			    session = req.getSession(); // 세션 가져오기
-			    session.setAttribute("boardDto", boardDto); // 최신 데이터로 세션 업데이트
-			    
-			    System.out.println("업데이트된 세션 boardDto: " + session.getAttribute("boardDto"));
-			    
-			 	String path;
-		        if (req.getRequestURI().contains("/admin")) { 
-		            path = "/jsp/admin/board/AdminBoardVIew.jsp";  // 관리자 검색 결과 페이지
-		        } else {
-		            path = "/jsp/board/boardView.jsp";  // 일반 사용자 검색 결과 페이지
-		        }
-				RequestDispatcher dispatcher = req.getRequestDispatcher(path);
-				dispatcher.forward(req, res);
-			    
-	
-			    return;
-				
+				System.out.println("게시글 등록 성공 게시글id: " + recentPostId);
+
+				// 📌 DB에서 다시 조회하여 `createDate` 가져오기
+				boardDto = boardDao.getBoardById(recentPostId);
+
+				session = req.getSession(); // 세션 가져오기
+				session.setAttribute("boardDto", boardDto); // 최신 데이터로 세션 업데이트
+
+				System.out.println("업데이트된 세션 boardDto: " + session.getAttribute("boardDto"));
+
+				// 🔹 페이지 이동을 sendRedirect()로 변경 (이전 request 데이터 유지 방지)
+				if (req.getRequestURI().contains("/admin")) {
+					res.sendRedirect(req.getContextPath() + "/admin/board/AdminBoardView?postId=" + recentPostId);
+				} else {
+					res.sendRedirect(req.getContextPath() + "/boardView?postId=" + recentPostId);
+				}
 			} else {
-			    System.out.println("게시글 등록 실패");
-			    res.getWriter().println("<script>alert('게시글 등록 실패!'); history.back();</script>");
-			    return;
+				System.out.println("게시글 등록 실패");
+				res.getWriter().println("<script>alert('게시글 등록 실패!'); history.back();</script>");
+				return;
 			}
 
-
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			req.setAttribute("error", "게시글 등록 중 오류 발생");
-		    System.out.println("게시글 등록 중 오류 발생: " + e.getMessage()); 
-
+			System.out.println("게시글 등록 중 오류 발생: " + e.getMessage());
 
 		}
 	}

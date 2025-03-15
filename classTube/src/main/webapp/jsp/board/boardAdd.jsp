@@ -44,7 +44,7 @@
 				<textarea name="content" rows="20" required></textarea>
 			</div>
 			<div class="button-group">
-			<button class="but-view"
+			<button type="button" class="but-view"
 				onclick="location.href='/classTube/boardList'">게시글
 				목록</button>
 				<button type="reset" class="cancel">취소</button>

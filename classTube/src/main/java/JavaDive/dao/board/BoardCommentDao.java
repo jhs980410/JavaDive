@@ -109,5 +109,19 @@ public class BoardCommentDao {
 	    return comment;  // ✅ 단일 댓글 객체 반환
 	}
 
+	//게시글삭제 
+	public boolean deleteComment(int commentId) throws Exception {
+	    String sql = "DELETE FROM NOTE_COMMENT WHERE COMMENT_NO = ?";
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, commentId);
+	        int affectedRows = pstmt.executeUpdate();
+	        return affectedRows > 0;  // 삭제 성공 여부 반환
+	    }
+	}
+
+	
+	
 	
 }
+
+
