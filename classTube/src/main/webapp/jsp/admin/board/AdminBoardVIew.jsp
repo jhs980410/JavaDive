@@ -22,6 +22,7 @@
 		<h2>관리자 게시판 상세</h2>
 
 		<c:set var="boardDto" value="${sessionScope.boardDto}" />
+		<c:set var="memberDto" value="${sessionScope.member}" />
 		<c:set var="recentPostId" value="${sessionScope.recentPostId}" />
 		<div class="form-group"></div>
 		<div class="form-group">
@@ -54,7 +55,11 @@
 						<!-- 댓글 작성자 -->
 						<span class="comment-content">${comment.commentContent}</span>
 						<div class="comment-buttons">
-						
+						<c:if
+							test="${not empty memberDto and memberDto.no eq comment.memberNo}">
+							<button id="updateConment"
+								onclick="openEditWindow(${comment.commentNo},${boardDto.noteNo})">수정</button>
+						</c:if>
 						
 							<button id="deleteConment"
 								onclick="showEditForm(${comment.commentNo})">삭제</button>
@@ -65,7 +70,7 @@
 						<!-- 댓글 작성일 -->
 					</div>
 				</c:forEach>
-				<form action="/comment/add" method="post">
+				<form action="${pageContext.request.contextPath}/admin//BoardCommentAdd" method="post">
 				<input type="hidden" name="postId" value="${boardDto.noteNo}">
 				<textarea name="content"  placeholder="댓글을 입력하세요" required></textarea>
 				<button class = "commentadd" type="submit">댓글 등록</button>
@@ -78,5 +83,6 @@
 				onclick="location.href='/classTube/admin/boardList'">게시글 목록</button>
 
 		</div>
+		<script src="${pageContext.request.contextPath}/js/admin/adminBoardView.js"></script>
 </body>
 </html>

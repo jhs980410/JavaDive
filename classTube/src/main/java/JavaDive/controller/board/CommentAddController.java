@@ -17,7 +17,9 @@ import JavaDive.dto.member.MemberDto;
 /**
  * Servlet implementation class BoardCommentAdd
  */
-@WebServlet("/BoardCommentAdd")
+
+//@WebServlet({"/admin/boardNotice" , "/boardNotice"})
+@WebServlet({"/BoardCommentAdd","/admin/BoardCommentAdd"})
 public class CommentAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -53,12 +55,20 @@ public class CommentAddController extends HttpServlet {
 			if (conn == null) {
 			    throw new ServletException("DB 연결이 설정되지 않았습니다.");
 			}
-			
+			  String path;
+			    if (req.getRequestURI().contains("/admin")) { 
+			        path = "/admin/board/AdminBoardView?postId=";  // 관리자 서블릿 경로 수정
+			    } else {
+			        path = "/boardView?postId=";  // 일반 사용자 페이지
+			    }
+
+			    // 올바른 경로로 리다이렉트
+			   
 			BoardCommentDao boardCommentDao = new BoardCommentDao();
 			boardCommentDao.setConn(conn);
 			boardCommentDao.insertComment(postId, memberNo, comment);
 			System.out.println("댓글추가됐음");
-			res.sendRedirect(req.getContextPath() + "/boardView?postId=" + postId);
+			 res.sendRedirect(req.getContextPath() + path + postId);
 
 		} catch (Exception e) {
 			e.printStackTrace();

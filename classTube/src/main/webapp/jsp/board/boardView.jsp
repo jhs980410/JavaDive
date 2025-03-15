@@ -17,7 +17,7 @@
 
 	<div class="container">
 		<h2>게시판 상세페이지</h2>
-
+		<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 		<c:set var="boardDto" value="${sessionScope.boardDto}" />
 		<c:set var="recentPostId" value="${sessionScope.recentPostId}" />
 		<div class="form-group"></div>
@@ -69,12 +69,12 @@
 						<c:if
 							test="${not empty memberDto and memberDto.no eq comment.memberNo}">
 							<button id="updateConment"
-								onclick="showEditForm(${comment.commentNo})">수정</button>
+								onclick="openEditWindow(${comment.commentNo},${boardDto.noteNo})">수정</button>
 						</c:if>
 						<c:if
 							test="${not empty memberDto and memberDto.no eq comment.memberNo}">
 							<button id="deleteConment"
-								onclick="showEditForm(${comment.commentNo})">삭제</button>
+								onclick="showEditForm(${comment.commentNo},${boardDto.noteNo})">삭제</button>
 						</c:if>
 						</div>
 						<span class="comment-date"> <fmt:formatDate
@@ -109,6 +109,6 @@
 
     </script>
 
-	<script src="${pageContext.request.contextPath}/js/board/boardList.js"></script>
+	<script src="${pageContext.request.contextPath}/js/board/boardView.js"></script>
 </body>
 </html>

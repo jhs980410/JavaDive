@@ -10,8 +10,10 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.List;
 
 import JavaDive.dao.board.BoardCommentDao;
+import JavaDive.dto.board.BoardCommentDto;
 import JavaDive.dto.member.MemberDto;
 
 /**
@@ -65,7 +67,16 @@ public class CommentUpdateController extends HttpServlet {
 			boardCommentDao.setConn(conn);
 			boardCommentDao.updateComment(commentId,comment);
 			System.out.println("댓글업데이트됐음");
-			res.sendRedirect(req.getContextPath() + "/boardView?postId=" + postId);
+			List<BoardCommentDto> updatedComments = boardCommentDao.getCommentByPostId(postId);
+
+			// 세션에 최신 댓글 리스트 저장
+			session.setAttribute("commentList", updatedComments);
+			res.getWriter().write("<script>");
+			res.getWriter().write("window.opener.location.reload();"); // 부모 창 새로고침
+			res.getWriter().write("window.close();"); // 현재 창 닫기
+			res.getWriter().write("</script>");
+
+
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -59,7 +59,7 @@ public class BoardCommentDao {
 		    return commentList;
 		}
 	//게시글 업데이트
-	public void updateComment(int postId, String content) {
+	public void updateComment(int commentId, String content) {
 		String sql = "UPDATE NOTE_COMMENT " 
 		           + "SET COMMENT_CONTENT = ?, " 
 		           + "MODIFY_AT = SYSDATE "
@@ -67,15 +67,15 @@ public class BoardCommentDao {
 
 
 	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	    	 pstmt.setInt(1, postId);
-	        pstmt.setString(2, content);
+	    	 pstmt.setString(1, content);
+	        pstmt.setInt(2, commentId);
 	       
 
 	        int rowsUpdated = pstmt.executeUpdate();
 	        System.out.println("✅ 수정된 행 개수: " + rowsUpdated);
 	        
 	        if (rowsUpdated == 0) {
-	            System.out.println("⚠️ 업데이트된 데이터가 없습니다. (postId: " + postId + ")");
+	            System.out.println("⚠️ 업데이트된 데이터가 없습니다. (postId: " + commentId + ")");
 	        }
 
 	    } catch (SQLException e) {
@@ -83,7 +83,31 @@ public class BoardCommentDao {
 	        e.printStackTrace();
 	    }
 	}
+//수정할 댓글 id가져오기 . 
+	public BoardCommentDto getCommentById(int commentNo) throws Exception {
+	    BoardCommentDto comment = null;  // 단일 객체 반환
+	   String sql = "SELECT nc.*, m.MEMBER_NAME  AS COMMENT_WRITER " + 
+                "FROM NOTE_COMMENT nc " +
+                "JOIN MEMBER m ON nc.MEMBER_NO = m.MEMBER_NO " +
+                "WHERE nc.COMMENT_NO = ?";
 
-	
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, commentNo);  // ✅ 여기서는 commentNo로 변경!
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {  // ✅ 단일 결과만 처리
+	                comment = new BoardCommentDto();
+	                comment.setCommentNo(rs.getInt("COMMENT_NO"));
+	                comment.setMemberNo(rs.getInt("MEMBER_NO"));
+	                comment.setCommentContent(rs.getString("COMMENT_CONTENT"));
+	                comment.setCommentWriter(rs.getString("COMMENT_WRITER"));
+	                comment.setCreateAt(rs.getTimestamp("CREATE_AT"));
+	                comment.setModifyAt(rs.getTimestamp("MODIFY_AT"));
+	                comment.setNoteNo(rs.getInt("NOTE_NO"));
+	            }
+	        }
+	    }
+	    return comment;  // ✅ 단일 댓글 객체 반환
+	}
+
 	
 }
