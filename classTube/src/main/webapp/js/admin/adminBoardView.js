@@ -19,9 +19,8 @@ function openEditWindow(commentId, postId) {
 
 
 
-function confirmDelete(commentId) {
-    if (confirm("정말로 이 댓글을 삭제하시겠습니까?")) {
-        document.getElementById("deleteForm_" + commentId).submit();
-    }
+function confirmDelete() {
+    return confirm("정말로 이 댓글을 삭제하시겠습니까?");
 }
+
 

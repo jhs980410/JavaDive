@@ -75,18 +75,20 @@
 							test="${not empty memberDto and memberDto.no eq comment.memberNo}">
 							<form
 								action="${pageContext.request.contextPath}/BoardCommentDelete"
-								method="post">
+								method="post" onsubmit="return confirmDelete()">
 								<input type="hidden" name="commentId"
 									value="${comment.commentNo}"> <input type="hidden"
 									name="postId" value="${boardDto.noteNo}">
 								<button id="deleteConment" type="submit">삭제</button>
 							</form>
+
 						</c:if>
 
 						<span class="comment-date"> <fmt:formatDate
 								value="${comment.createAt}" pattern="yyyy-MM-dd HH:mm:ss" />
 						</span>
 						<!-- 댓글 작성일 -->
+					</div>
 					</div>
 			</c:forEach>
 

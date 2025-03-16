@@ -58,14 +58,16 @@ public class BoardDeleteController extends HttpServlet {
             List<BoardDto> updateBoard = boardDao.adminSelectList(1, 8);
             session.setAttribute("boardList", updateBoard);
         	String path;
-	        if (req.getRequestURI().contains("/admin")) { 
-	            path = "/jsp/admin/board/AdminBoardList.jsp";  // 관리자 검색 결과 페이지
-	        } else {
-	            path = "/jsp/board/boardList.jsp";  // 일반 사용자 검색 결과 페이지
-	        }
+        	if (req.getRequestURI().contains("/admin")) {
+        	    res.sendRedirect(req.getContextPath() + "/admin/boardList");
+        	} else {
+        	    res.sendRedirect(req.getContextPath() + "/boardList");
+        	}
+
            
+	        // 이쪽 서블릿 호출로 변경해야함//
 	        
-            res.sendRedirect(req.getContextPath()+path);
+      
 
         } catch (Exception e) {
             e.printStackTrace();
