@@ -62,6 +62,6 @@
 	</div>
 
 </body>
-
+<script src="${pageContext.request.contextPath}/js/admin/adminHeader.js"></script>
 
 </html>
