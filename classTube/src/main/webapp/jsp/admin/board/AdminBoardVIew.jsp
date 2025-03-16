@@ -37,8 +37,8 @@
 					onclick="location.href='/classTube/admin/boardUpdate?postId=${boardDto.noteNo}'">
 					수정</button>
 				<button class="deletebutton"
-					onclick="location.href='/classTube/admin/boardDelete?postId=${boardDto.noteNo}'">
-					삭제</button>
+						onclick="confirmPostDelete('/classTube/admin/boardDelete?postId=${boardDto.noteNo}')">
+						삭제</button>
 
 			</div>
 		</div>

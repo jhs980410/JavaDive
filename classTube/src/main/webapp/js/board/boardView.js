@@ -17,7 +17,11 @@ var contextPath = "${contextPath}"
 	function confirmDelete() {
 	    return confirm("정말로 이 댓글을 삭제하시겠습니까?");
 	}
-
+	function confirmPostDelete(url) {
+	    if (confirm("정말로 이 게시물을 삭제하시겠습니까?")) {
+	        location.href = url;
+	    }
+	}
 
 
 

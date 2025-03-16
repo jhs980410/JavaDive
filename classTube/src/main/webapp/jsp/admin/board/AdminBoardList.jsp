@@ -20,22 +20,23 @@
 	<div class="container">
 
 		<div class="button-group">
-		<button class="but-view" onclick="location.href='/classTube/admin/boardNotice'">공지사항목록</button>
 			<button class="but-view"
-				onclick="location.href='/classTube/admin/boardList'">게시글
-				목록</button>
+				onclick="location.href='/classTube/admin/boardNotice'">공지사항목록</button>
+			<button class="but-view"
+				onclick="location.href='/classTube/admin/boardList'">게시글 목록</button>
 
 			<form action="${pageContext.request.contextPath}/boardSubmit"
 				method="post">
 				<div class="button-group">
 					<button type="button" class="button"
-						 onclick="location.href='${pageContext.request.contextPath}/jsp/admin/board/AdminBoardAdd.jsp'">글쓰기</button>
+						onclick="location.href='${pageContext.request.contextPath}/jsp/admin/board/AdminBoardAdd.jsp'">글쓰기</button>
 				</div>
 			</form>
 		</div>
 
 		<h2 class="board-title">📌 게시판 목록</h2>
-		<form action="${pageContext.request.contextPath}/admin/boardList" method="get">
+		<form action="${pageContext.request.contextPath}/admin/boardList"
+			method="get">
 
 			<table class="board-list">
 				<thead>
@@ -60,22 +61,25 @@
 
 							<td>${board.category}</td>
 							<td>${board.writer}</td>
-							<td><fmt:formatDate value="${board.createDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-							
+							<td><fmt:formatDate value="${board.createDate}"
+									pattern="yyyy-MM-dd HH:mm:ss" /></td>
+
 							<td>
 								<!-- 개별 삭제 form -->
 								<form action="/classTube/admin/boardDelete" method="get">
 									<input type="hidden" name="postId" value="${board.noteNo}">
-									<button type="submit">삭제</button>
+									<button
+										onclick="confirmPostDelete('/classTube/admin/boardDelete?postId=${boardDto.noteNo}')">
+										삭제</button>
 								</form>
 							</td>
-							
+
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</form>
-	<c:set var="pageGroupSize" value="10" />
+		<c:set var="pageGroupSize" value="10" />
 		<!-- startPage 계산: currentPage가 10보다 크면 그룹이 바뀌어야 함 -->
 		<c:set var="startPage"
 			value="${(currentPage - 1) / pageGroupSize * pageGroupSize + 1}" />
@@ -136,5 +140,7 @@
 			<p>
 		</div>
 	</div>
+	<script
+		src="${pageContext.request.contextPath}/js/admin/adminBoardList.js"></script>
 </body>
 </html>

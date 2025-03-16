@@ -39,8 +39,9 @@
 						onclick="location.href='/classTube/boardUpdate?postId=${boardDto.noteNo}'">
 						수정</button>
 					<button class="deletebutton"
-						onclick="location.href='/classTube/boardDelete?postId=${boardDto.noteNo}'">
+						onclick="confirmPostDelete('/classTube/boardDelete?postId=${boardDto.noteNo}')">
 						삭제</button>
+
 
 				</c:if>
 			</div>
@@ -89,7 +90,7 @@
 						</span>
 						<!-- 댓글 작성일 -->
 					</div>
-					</div>
+				</div>
 			</c:forEach>
 
 
