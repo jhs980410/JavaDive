@@ -70,11 +70,10 @@
 		<c:set var="pageGroupSize" value="10" />
 
 		<!-- 현재 페이지 그룹의 첫 번째 페이지 계산 (10단위) -->
-		<c:set var="startPage"
-			value="${(((currentPage - 1) div pageGroupSize) * pageGroupSize + 1) div 1}" />
-		<c:set var="endPage" value="${(startPage + pageGroupSize - 1) div 1}" />
-
-
+		<c:set var="groupSize" value="10" />
+		<c:set var="currentGroup" value="${(currentPage - 1) div groupSize}" />
+		<c:set var="startPage" value="${currentGroup * groupSize + 1}" />
+		<c:set var="endPage" value="${startPage + groupSize - 1}" />
 		<!-- 마지막 페이지가 전체 페이지 수보다 크면 조정 -->
 		<c:if test="${endPage > totalPage}">
 			<c:set var="endPage" value="${totalPage}" />
@@ -96,7 +95,8 @@
 			<!-- 페이지 숫자 버튼 -->
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
 				<li class="page-item ${currentPage == i ? 'active' : ''}"><a
-					class="page-link" href="boardList?page=${i}">${i}</a></li>
+					class="page-link"
+					href="boardList?page=${i}&keyword=${param.keyword}">${i}</a></li>
 			</c:forEach>
 
 			<!-- ▶ 다음 그룹 버튼 -->

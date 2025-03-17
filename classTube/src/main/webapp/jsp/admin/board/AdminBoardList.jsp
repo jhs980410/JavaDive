@@ -80,7 +80,7 @@
 				</tbody>
 			</table>
 		</form>
-			<c:set var="pageGroupSize" value="10" />
+		<c:set var="pageGroupSize" value="10" />
 
 		<!-- 현재 페이지 그룹의 첫 번째 페이지 계산 (10단위) -->
 		<c:set var="startPage"
@@ -103,26 +103,27 @@
 			<!-- ◀ 이전 그룹 버튼 -->
 			<c:if test="${startPage > 1}">
 				<li class="page-item"><a class="page-link"
-					href="boardList?page=${fn:substringBefore((startPage - pageGroupSize), '.')}">이전</a></li>
+					href="boardList?page=${fn:substringBefore((startPage - 1), '.')}">이전</a></li>
 			</c:if>
 
 			<!-- 페이지 숫자 버튼 -->
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
 				<li class="page-item ${currentPage == i ? 'active' : ''}"><a
-					class="page-link" href="boardList?page=${i}">${i}</a></li>
+					class="page-link"
+					href="boardList?page=${i}&keyword=${param.keyword}">${i}</a></li>
 			</c:forEach>
 
 			<!-- ▶ 다음 그룹 버튼 -->
 			<c:if test="${endPage < totalPage}">
 				<li class="page-item"><a class="page-link"
-					href="boardList?page=${fn:substringBefore((startPage + pageGroupSize), '.')}">다음</a></li>
+					href="boardList?page=${fn:substringBefore((startPage + 1), '.')}">다음</a></li>
 			</c:if>
 
 
 			<!-- ▶▶ 마지막 페이지 버튼 -->
 			<c:if test="${currentPage < totalPage}">
 				<li class="page-item"><a class="page-link"
-					href="boardList?page=${totalPage}">끝</a></li>
+					href="boardList?page=${totalPage}&keyword=${param.keyword}">끝</a></li>
 			</c:if>
 		</ul>
 

@@ -157,8 +157,11 @@ public class BoardDao {
 		BoardDto boardDto = null;
 
 		// ✅ MEMBER 테이블 조인하여 작성자 이름(MEMBER_NAME) 가져오기
-		String sql ="SELECT N.*, M.MEMBER_NAME AS WRITER  FROM NOTE N \r\n"
-				+ "				JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO  WHERE M.MEMBER_NO = ?";
+		 String sql = "SELECT N.*, M.MEMBER_NAME AS WRITER, B.CATEGORY_NAME " +
+                 "FROM NOTE N " +
+                 "JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO " +
+                 "JOIN BOARD_CATEGORY B ON N.CATEGORY_NO = B.CATEGORY_NO " +
+                 "WHERE M.MEMBER_NO = ?";
 		List<BoardDto> boardList = new ArrayList<BoardDto>();
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -173,6 +176,7 @@ public class BoardDao {
 				boardDto.setContent(rs.getString("NOTE_CONTENT"));
 				boardDto.setCategoryNo(rs.getInt("CATEGORY_NO"));
 				boardDto.setCreateDate(rs.getTimestamp("CREATE_AT"));
+				boardDto.setCategory(rs.getString("CATEGORY_NAME"));
 
 				// ✅ 작성자 정보 추가
 				boardDto.setWriter(rs.getString("WRITER"));

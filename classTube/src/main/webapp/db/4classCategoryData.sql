@@ -19,3 +19,5 @@ VALUES(SEQ_CLASS_CATEGORY_NO.NEXTVAL, '쿠킹');
 
 SELECT *
 FROM class_category;
+
+COMMIT;	

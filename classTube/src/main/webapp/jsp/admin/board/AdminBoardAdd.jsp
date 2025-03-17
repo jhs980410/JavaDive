@@ -26,10 +26,10 @@
 			<div class="form-group">
 
 				<select name="category" class="select">
-					<option value="default" selected>-- 말머리 --</option>
+
 					<c:set var="user" value="${sessionScope.member}" />
 					<c:if test="${user.priv == 'ADMIN'}">
-						<option value="categoryNo1">공지사항</option>
+						<option value="categoryNo1" selected>공지사항</option>
 					</c:if>
 
 					<option value="categoryNo2">자유</option>

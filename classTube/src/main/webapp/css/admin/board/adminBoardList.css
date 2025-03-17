@@ -52,7 +52,7 @@ h2 {
 .board-list th, .board-list td {
     padding: 14px;
     border-bottom: 1px solid #ddd;
-    text-align: left;
+    text-align: center;
 }
 
 .board-list th {
