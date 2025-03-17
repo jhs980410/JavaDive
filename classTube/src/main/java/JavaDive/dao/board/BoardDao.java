@@ -150,6 +150,51 @@ public class BoardDao {
 		}
 		return boardDto;
 	}
+	
+	public List<BoardDto> getBoardByMember(int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardDto boardDto = null;
+
+		// ✅ MEMBER 테이블 조인하여 작성자 이름(MEMBER_NAME) 가져오기
+		String sql ="SELECT N.*, M.MEMBER_NAME AS WRITER  FROM NOTE N \r\n"
+				+ "				JOIN MEMBER M ON N.MEMBER_NO = M.MEMBER_NO  WHERE M.MEMBER_NO = ?";
+		List<BoardDto> boardList = new ArrayList<BoardDto>();
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				boardDto = new BoardDto();
+				boardDto.setNoteNo(rs.getInt("NOTE_NO"));
+				boardDto.setTitle(rs.getString("NOTE_TITLE"));
+				boardDto.setMemberno(rs.getInt("MEMBER_NO"));
+				boardDto.setContent(rs.getString("NOTE_CONTENT"));
+				boardDto.setCategoryNo(rs.getInt("CATEGORY_NO"));
+				boardDto.setCreateDate(rs.getTimestamp("CREATE_AT"));
+
+				// ✅ 작성자 정보 추가
+				boardDto.setWriter(rs.getString("WRITER"));
+				boardList.add(boardDto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return boardList;
+	}
+	
+	
+	
 //검색어리스트 
 	public List<BoardDto> selectList(int page, int pageSize) throws Exception {
 		PreparedStatement pstmt = null;
