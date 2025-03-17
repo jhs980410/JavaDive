@@ -1,0 +1,19 @@
+.sidebar {
+    width: 250px;
+    background-color: #2C3E50;
+    padding: 20px;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    color: white;
+    
+}
+
+/* 📌 전체 레이아웃 조정 */
+.container {
+    width: 75%;
+    margin-left: 20%;  /* 사이드바 고려한 레이아웃 조정 */
+    padding: 30px;
+    background-color: #ffffff; /* 배경색 화이트 */
+}
