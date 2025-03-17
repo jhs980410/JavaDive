@@ -65,7 +65,8 @@ public class BoardListController extends HttpServlet {
 				extraPages = (int) Math.ceil((double) (totalRecords - (basePages * pageSize)) / pageSize);
 			}
 
-			int totalPage = basePages + extraPages; // 총 페이지 수
+			int totalPage = (int) Math.ceil((double) totalRecords / pageSize);
+
 
 			System.out.println("📌 totalRecords: " + totalRecords); // 🔍 조회된 개수 확인
 			System.out.println("📌 totalPage 계산 결과: " + totalPage); // 🔍 totalPage 계산 값 확인
@@ -83,6 +84,8 @@ public class BoardListController extends HttpServlet {
 			finalList.addAll(boardList); // 일반 게시물 추가
 			System.out.println("📌 공지사항 포함된 최종 리스트: " + finalList);
 			// 🔹 세션에 저장
+			System.out.println("📌 공지사항 포함된 최종 리스트 크기: " + finalList.size());
+
 			session.setAttribute("boardList", finalList);
 			session.setAttribute("currentPage", currentPage);
 			session.setAttribute("pageSize", pageSize);

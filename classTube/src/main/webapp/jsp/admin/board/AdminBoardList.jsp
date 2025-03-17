@@ -3,6 +3,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html>
 <html>
@@ -79,42 +80,52 @@
 				</tbody>
 			</table>
 		</form>
-		<c:set var="pageGroupSize" value="10" />
-		<!-- startPage 계산: currentPage가 10보다 크면 그룹이 바뀌어야 함 -->
-		<c:set var="startPage"
-			value="${(currentPage - 1) / pageGroupSize * pageGroupSize + 1}" />
-		<!-- endPage 계산: startPage + pageGroupSize - 1, 단 totalPage보다 크면 endPage는 totalPage로 설정 -->
-		<c:set var="endPage" value="${startPage + pageGroupSize - 1}" />
+			<c:set var="pageGroupSize" value="10" />
 
+		<!-- 현재 페이지 그룹의 첫 번째 페이지 계산 (10단위) -->
+		<c:set var="startPage"
+			value="${(((currentPage - 1) div pageGroupSize) * pageGroupSize + 1) div 1}" />
+		<c:set var="endPage" value="${(startPage + pageGroupSize - 1) div 1}" />
+
+
+		<!-- 마지막 페이지가 전체 페이지 수보다 크면 조정 -->
 		<c:if test="${endPage > totalPage}">
 			<c:set var="endPage" value="${totalPage}" />
 		</c:if>
 
 		<ul class="pagination">
-			<c:if test="${totalPage > 1}">
-				<!-- 이전 버튼 -->
-				<c:if test="${currentPage > 1}">
-					<li class="page-item"><a class="page-link"
-						href="/classTube/admin/boardList?page=${currentPage - 1}${not empty keyword ? '&keyword=' : ''}${keyword}">이전</a>
-					</li>
-				</c:if>
+			<!-- ◀◀ 처음 페이지 버튼 -->
+			<c:if test="${currentPage > 1}">
+				<li class="page-item"><a class="page-link"
+					href="boardList?page=1">처음</a></li>
+			</c:if>
 
-				<!-- 페이지 숫자 버튼 -->
-				<c:forEach var="i" begin="1" end="${endPage}">
-					<li class="page-item ${currentPage == i ? 'active' : ''}"><a
-						class="page-link"
-						href="/classTube/admin/boardList?page=${i}${not empty keyword ? '&keyword=' : ''}${keyword}">${i}</a>
-					</li>
-				</c:forEach>
+			<!-- ◀ 이전 그룹 버튼 -->
+			<c:if test="${startPage > 1}">
+				<li class="page-item"><a class="page-link"
+					href="boardList?page=${fn:substringBefore((startPage - pageGroupSize), '.')}">이전</a></li>
+			</c:if>
 
-				<!-- 다음 버튼 -->
-				<c:if test="${currentPage < totalPage}">
-					<li class="page-item"><a class="page-link"
-						href="/classTube/admin/boardList?page=${currentPage + 1}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
-					</li>
-				</c:if>
+			<!-- 페이지 숫자 버튼 -->
+			<c:forEach var="i" begin="${startPage}" end="${endPage}">
+				<li class="page-item ${currentPage == i ? 'active' : ''}"><a
+					class="page-link" href="boardList?page=${i}">${i}</a></li>
+			</c:forEach>
+
+			<!-- ▶ 다음 그룹 버튼 -->
+			<c:if test="${endPage < totalPage}">
+				<li class="page-item"><a class="page-link"
+					href="boardList?page=${fn:substringBefore((startPage + pageGroupSize), '.')}">다음</a></li>
+			</c:if>
+
+
+			<!-- ▶▶ 마지막 페이지 버튼 -->
+			<c:if test="${currentPage < totalPage}">
+				<li class="page-item"><a class="page-link"
+					href="boardList?page=${totalPage}">끝</a></li>
 			</c:if>
 		</ul>
+
 
 
 

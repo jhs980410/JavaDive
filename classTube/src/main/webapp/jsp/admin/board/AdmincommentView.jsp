@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,7 +74,7 @@ button {
 		<div class="comment-header">댓글 수정</div>
 
 		<div class="comment-info">
-			작성자: <strong>${comment.commentWriter}</strong> | 작성일: ${comment.createAt}
+			작성자: <strong>${comment.commentWriter}</strong> | 작성일: <fmt:formatDate value="${comment.createAt}" pattern="yyyy-MM-dd HH:mm:ss" />
 		</div>
 
 		<!-- 기존 댓글 내용 표시 (내용만 수정 가능) -->

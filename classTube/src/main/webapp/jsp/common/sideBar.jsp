@@ -10,13 +10,13 @@
 </head>
 <body>
     <div class="sidebar">
-        <div class="logo">
+        <div class="logo" onclick='location.href="${pageContext.request.contextPath}/main"'>
     	<img src="<%= request.getContextPath() %>/images/logo.PNG" alt="로고" width="150">
 		</div>
 <!-- <img src="로고이미지경로/logo.png" alt="로고" width="150">  -->
         
         <nav class="menu-list">
-            <a href="main.jsp" class="menu">메인페이지</a>    <!-- 메인페이지 정해지면 주소 수정필요 -->
+            <a onclick='location.href="${pageContext.request.contextPath}/main"' class="menu">메인페이지</a>    <!-- 메인페이지 정해지면 주소 수정필요 -->
             <a href="mypage.jsp" class="menu">마이페이지</a>  <!-- 마이페이지 정해지면 주소 수정필요  -->
             
             <div class="menu-title">클래스 목록</div>
