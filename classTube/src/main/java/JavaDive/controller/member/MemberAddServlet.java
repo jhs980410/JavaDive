@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/join") // JSP에서 설정한 action 경로 유지
 public class MemberAddServlet extends HttpServlet {
@@ -29,12 +30,17 @@ public class MemberAddServlet extends HttpServlet {
         res.setContentType("text/html; charset=UTF-8");
         PrintWriter out = res.getWriter();
 
+        //입력한 회원 정보 가져오기
         String nameStr = req.getParameter("name");
         String emailStr = req.getParameter("email");
         String pwdStr = req.getParameter("password");
         String pwdCheckStr = req.getParameter("password-confirm");
         String rrnStr = req.getParameter("id-number");
         String telStr = req.getParameter("phone");
+        
+        //세션에서 이메일 중복 확인 여부 가져오기
+        HttpSession session = req.getSession();
+        String checkedEmail = (String) session.getAttribute("emailChecked");
         
         // 필수 입력값 확인 (입력되지 않은 값이 있는지 체크)
         if (nameStr == null || nameStr.trim().isEmpty() ||
@@ -52,7 +58,11 @@ public class MemberAddServlet extends HttpServlet {
             out.println("<script>alert('비밀번호가 일치하지 않습니다.'); history.back();</script>");
             return;
         }
-
+        
+        if (checkedEmail == null || !checkedEmail.equals(emailStr)) {
+        	out.print("<script>alert('이메일 중복 확인을 해주세요.'); history.back();</script>");
+			
+		}
         try {
             // DAO를 사용하여 DB연결 가져오기
             ServletContext sc = getServletContext();
@@ -71,6 +81,9 @@ public class MemberAddServlet extends HttpServlet {
             int result = memberDao.memberInsert(memberDto);
 
             if (result > 0) {
+            	// 회원가입 후 세션에서 이메일체크 삭제
+            	session.removeAttribute("emailChecked");
+            	
                 out.println("<script>alert('회원가입이 완료되었습니다.'); window.location.href='LoginPage.jsp';</script>");
             } else {
                 out.println("<script>alert('사용중인Email입니다. 다시 시도해주세요.'); history.back();</script>");

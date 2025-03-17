@@ -15,7 +15,7 @@
     
      <!-- 이메일 중복 확인 여부를 저장하는 hidden input 추가 -->
     <input type="hidden" id="emailChecked" name="emailChecked" 
-           value="<%= request.getAttribute("emailChecked") != null ? request.getAttribute("emailChecked") : "false" %>">
+           value="<%= session.getAttribute("emailChecked") != null ? "true" : "false" %>">
            
            <!-- 서버에서 전달된 에러 메시지 출력 -->
     <% if (request.getAttribute("errorMessage") != null) { %>
@@ -31,14 +31,15 @@
 
             <div class="input-group">
                 <label for="email">이메일</label>
-                <input type="email" id="email" name="email" placeholder="이메일 입력" required>
-                <button type="submit" formaction="checkEmail" formnovalidate class="small-btn">중복확인</button>
+                <input type="email" id="email" name="email" placeholder="이메일 입력" required
+                oninput="resetEmailCheck()">
+                <button type="button" class="small-btn" onclick="checkEmail()">중복확인</button>
             </div>
             
-            <!-- 이메일 중복 여부 확인 메시지 추가 -->
-            <% if (request.getAttribute("emailExists") != null && (boolean) request.getAttribute("emailExists")) { %>
-                <p style="color: red;">이미 사용 중인 이메일입니다.</p>
-            <% } %>
+			             <!-- ✅ 서버에서 전달된 메시지를 출력하는 부분 -->
+			    <% if (request.getAttribute("message") != null) { %>
+			        <p class="message"><%= request.getAttribute("message") %></p>
+			    <% } %>
 
             <div class="input-group">
                 <label for="password">비밀번호</label>
@@ -95,6 +96,34 @@
         }
 
         return true;
+    }
+    
+    function resetEmailCheck() {
+    	document.getElementById("emailChecked").value = "false";
+	}
+    
+    function checkEmail() {
+        var email = document.getElementById("email").value;
+
+        // 이메일 입력 여부 확인
+        if (!email.trim()) {
+            alert("이메일을 입력해주세요!");
+            return;
+        }
+
+        // 중복 확인 요청을 직접 폼 제출 방식으로 변경
+        var form = document.createElement("form");
+        form.method = "POST";
+        form.action = "checkEmail";
+
+        var emailInput = document.createElement("input");
+        emailInput.type = "hidden";
+        emailInput.name = "email";
+        emailInput.value = email;
+
+        form.appendChild(emailInput);
+        document.body.appendChild(form);
+        form.submit();
     }
     
 </script>

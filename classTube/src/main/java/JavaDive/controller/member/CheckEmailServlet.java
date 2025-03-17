@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/checkEmail")
 public class CheckEmailServlet extends HttpServlet {
@@ -27,11 +28,17 @@ public class CheckEmailServlet extends HttpServlet {
         return email.trim().toLowerCase();
     }
 
+    
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	// TODO Auto-generated method stub
+    	doPost(req, res);
+    }
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		res.setContentType("text/html; charset=UTF-8");
+		res.setContentType("text/plain; charset=UTF-8");
 
         // 클라이언트가 입력한 이메일 가져오기
         String emailStr = req.getParameter("email");
@@ -74,14 +81,18 @@ public class CheckEmailServlet extends HttpServlet {
             if (rs.next() && rs.getInt(1) > 0) {
             	// 중복된 이메일일 경우 회원가입 페이지로 포워딩
                 req.setAttribute("errorMessage", "이미 사용 중인 이메일입니다.");
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
-                dispatcher.forward(req, res);
             } else {
+            	
+            	//사용 가능 이메일 서버에 저정
+            	HttpSession session = req.getSession(); //세션 가져오기
+            	session.setAttribute("emailChecked", emailStr); //세션에 이메일 저장
+            	
             	// 사용 가능한 이메일일 경우 메시지를 설정하고 회원가입 페이지로 이동
                 req.setAttribute("successMessage", "사용 가능한 이메일입니다.");
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
-                dispatcher.forward(req, res);
             }
+            
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
+            dispatcher.forward(req, res);
 
         } catch (Exception e) {
             e.printStackTrace();
