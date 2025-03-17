@@ -18,7 +18,7 @@ public class ODClassDao {
 		this.connection = conn;
 	}
 
-	public List<ODClassDto> selectClassList() throws Exception {
+	public List<ODClassDto> selectClassList(String keyword, int page, int pageSize) throws Exception {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -27,42 +27,113 @@ public class ODClassDao {
 
 		String sql = "";
 
-		sql += "SELECT CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR,"
-				+ " CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO";
-		sql += " FROM ODCLASS";
-		sql += " ORDER BY CLASS_NO";
+		sql += "SELECT * FROM ( ";
+		sql += "    SELECT CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, ";
+		sql += "           CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO, ";
+		sql += "           ROW_NUMBER() OVER (ORDER BY CLASS_NO DESC) AS RNUM ";
+		sql += "    FROM ODCLASS ";
 
+		if (keyword != null && !keyword.trim().isEmpty()) {
+		    sql += "    WHERE LOWER(CLASS_NAME) LIKE LOWER(?) ";
+		}
+
+		sql += ") WHERE RNUM BETWEEN ? AND ?";
+		
 		try {
 			pstmt = connection.prepareStatement(sql);
+			int paramIndex = 1;
 
+			if (keyword != null && !keyword.trim().isEmpty()) {
+				pstmt.setString(paramIndex++, "%" + keyword.trim() + "%");
+			}
+			pstmt.setInt(paramIndex++, (page - 1) * pageSize + 1);
+			pstmt.setInt(paramIndex, page * pageSize);
+			
 			rs = pstmt.executeQuery();
 
-			int classNo = 0;
-			String className = "";
-			int price = 0;
-			String classDesc = "";
-			String instructor = "";
-			Date create_at;
-			int views = 0;
-			int limit = 0;
-			String img = "";
-			String region = "";
-			int categoryNo = 0;
+			while (rs.next()) {
+				
+				ODClassDto odClassDto = new ODClassDto();
+				odClassDto.setClassNo(rs.getInt("CLASS_NO"));
+				odClassDto.setClassName(rs.getString("CLASS_NAME"));
+				odClassDto.setPrice(rs.getInt("PRICE"));
+				odClassDto.setClassDesc(rs.getString("CLASS_DESC"));
+				odClassDto.setInstructor(rs.getString("INSTRUCTOR"));
+				odClassDto.setCreateAt(rs.getDate("CREATE_AT"));
+				odClassDto.setViews(rs.getInt("VIEWS"));
+				odClassDto.setClassLimit(rs.getInt("CLASS_LIMIT"));
+				odClassDto.setImg(rs.getString("IMG"));
+				odClassDto.setRegion(rs.getString("REGION"));
+				odClassDto.setCategoryNo(rs.getInt("CATEGORY_NO"));
+
+				odClassList.add(odClassDto);
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} // finally end
+
+		return odClassList;
+	}
+	
+	public List<ODClassDto> selectClassList(int page, int pageSize) throws Exception {
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<ODClassDto> odClassList = new ArrayList<ODClassDto>();
+
+		String sql = "";
+
+		sql += "SELECT * FROM ( ";
+		sql += "    SELECT CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, ";
+		sql += "           CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO, ";
+		sql += "           ROW_NUMBER() OVER (ORDER BY CLASS_NO DESC) AS RNUM ";
+		sql += "    FROM ODCLASS ";
+		sql += ") WHERE RNUM BETWEEN ? AND ?";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			int paramIndex = 1;
+
+			pstmt.setInt(paramIndex++, (page - 1) * pageSize + 1);
+			pstmt.setInt(paramIndex, page * pageSize);
+			
+			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				classNo = rs.getInt("CLASS_NO");
-				className = rs.getString("CLASS_NAME");
-				price = rs.getInt("PRICE");
-				classDesc = rs.getString("CLASS_DESC");
-				instructor = rs.getString("INSTRUCTOR");
-				create_at = rs.getDate("CREATE_AT");
-				views = rs.getInt("VIEWS");
-				limit = rs.getInt("CLASS_LIMIT");
-				img = rs.getString("IMG");
-				region = rs.getString("REGION");
-				categoryNo = rs.getInt("CATEGORY_NO");
-
-				ODClassDto odClassDto = new ODClassDto(classNo, className, price, classDesc, instructor, create_at, views, limit, img, region, categoryNo);
+				
+				ODClassDto odClassDto = new ODClassDto();
+				odClassDto.setClassNo(rs.getInt("CLASS_NO"));
+				odClassDto.setClassName(rs.getString("CLASS_NAME"));
+				odClassDto.setPrice(rs.getInt("PRICE"));
+				odClassDto.setClassDesc(rs.getString("CLASS_DESC"));
+				odClassDto.setInstructor(rs.getString("INSTRUCTOR"));
+				odClassDto.setCreateAt(rs.getDate("CREATE_AT"));
+				odClassDto.setViews(rs.getInt("VIEWS"));
+				odClassDto.setClassLimit(rs.getInt("CLASS_LIMIT"));
+				odClassDto.setImg(rs.getString("IMG"));
+				odClassDto.setRegion(rs.getString("REGION"));
+				odClassDto.setCategoryNo(rs.getInt("CATEGORY_NO"));
 
 				odClassList.add(odClassDto);
 
@@ -163,38 +234,21 @@ public class ODClassDao {
 			
 			rs = pstmt.executeQuery();
 			
-			String className = "";
-			int price = 0;
-			String classDesc = "";
-			String instructor = "";
-			Date createAt = null;
-			int classLimit = 0;
-			String img = "";
-			String region = "";
-			int categoryNo = 0;
 			
 			if (rs.next()) {
-				className = rs.getString("CLASS_NAME");
-				price = rs.getInt("PRICE");
-				classDesc = rs.getString("CLASS_DESC");
-				instructor = rs.getString("INSTRUCTOR");
-				createAt = rs.getDate("CREATE_AT");
-				classLimit = rs.getInt("CLASS_LIMIT");
-				img = rs.getString("IMG");
-				region = rs.getString("REGION");
-				categoryNo = rs.getInt("CATEGORY_NO");
-				
 				odClassDto = new ODClassDto();
 				
-				odClassDto.setClassNo(classNo);
-				odClassDto.setClassName(className);
-				odClassDto.setPrice(price);
-				odClassDto.setClassDesc(classDesc);
-				odClassDto.setInstructor(instructor);
-				odClassDto.setClassLimit(classLimit);
-				odClassDto.setImg(img);
-				odClassDto.setRegion(region);
-				odClassDto.setCategoryNo(categoryNo);
+				odClassDto.setClassNo(rs.getInt("CLASS_NO"));
+				odClassDto.setClassName(rs.getString("CLASS_NAME"));
+				odClassDto.setPrice(rs.getInt("PRICE"));
+				odClassDto.setClassDesc(rs.getString("CLASS_DESC"));
+				odClassDto.setInstructor(rs.getString("INSTRUCTOR"));
+				odClassDto.setCreateAt(rs.getDate("CREATE_AT"));
+				odClassDto.setViews(rs.getInt("VIEWS"));
+				odClassDto.setClassLimit(rs.getInt("CLASS_LIMIT"));
+				odClassDto.setImg(rs.getString("IMG"));
+				odClassDto.setRegion(rs.getString("REGION"));
+				odClassDto.setCategoryNo(rs.getInt("CATEGORY_NO"));
 				
 			} else {
 				throw new Exception("해당 번호의 클래스를 찾을 수 없습니다.");
@@ -333,4 +387,34 @@ public class ODClassDao {
 		return totalCount;
 	}
 	
+	//전체반환되는 클래스의 카운트 
+		public int getTotalBoardCount(String keyword) throws Exception {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int totalRecords = 0;
+
+			String sql = "SELECT COUNT(*) FROM ODCLASS";
+
+			// 🔹 검색어가 있을 경우 WHERE 절 추가
+			if (keyword != null && !keyword.trim().isEmpty()) {
+				sql += " WHERE LOWER(CLASS_NAME) LIKE LOWER(?) ";
+			}
+
+			try {
+				pstmt = connection.prepareStatement(sql);
+				if (keyword != null && !keyword.trim().isEmpty()) {
+					pstmt.setString(1, "%" + keyword.trim() + "%");
+				}
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					totalRecords = rs.getInt(1);
+				}
+			} finally {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+			}
+			return totalRecords;
+		}
 }
