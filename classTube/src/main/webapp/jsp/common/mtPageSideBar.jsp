@@ -17,14 +17,14 @@
         
         <nav class="menu-list">
             <a onclick='location.href="${pageContext.request.contextPath}/main"' class="menu">메인페이지</a>    <!-- 메인페이지 정해지면 주소 수정필요 -->
-            <a href="mypage.jsp" class="menu">마이페이지</a>  <!-- 마이페이지 정해지면 주소 수정필요  -->
+            <a href="mypage.jsp" class="menu">회원정보</a>  <!-- 마이페이지 정해지면 주소 수정필요  -->
             
-            <div class="menu-title">클래스 목록</div>
-            <a href="category.jsp?type=sports" class="menu">레저/스포츠</a>
-            <a href="category.jsp?type=beauty" class="menu">뷰티</a>
-            <a href="category.jsp?type=dev" class="menu">자기개발</a>
-            <a href="category.jsp?type=handmade" class="menu">핸드메이드</a>
-            <a href="category.jsp?type=cooking" class="menu">쿠킹</a>
+           
+            <a href="category.jsp?type=sports" class="menu">회원정보수정</a>
+            <a href="category.jsp?type=beauty" class="menu">회원탈퇴</a>
+             <div class="menu-title">-------------------</div>
+            <a href="category.jsp?type=dev" class="menu">내가 쓴 게시글</a>
+
         </nav>
     </div>
 </body>
