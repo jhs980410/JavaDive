@@ -2,8 +2,8 @@
 .sidebar {
     width: 250px;
     height: 100vh;
-    background-color: #2C3E50;
-    color: white;
+    background-color: white;
+    color: black;
     padding: 20px;
     position: fixed;
     top: 0;
@@ -32,7 +32,7 @@
     font-weight: bold;
     margin: 15px 0 10px;
 	padding-bottom : 15px;
-    color: #ecf0f1;
+    color: #C3C564;
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
     text-align: center;
 }
@@ -40,7 +40,7 @@
 /* 메뉴 스타일 */
 .menu {
     text-decoration: none;
-    color: #ecf0f1;
+    color: #C3C564;
     font-size: 14px;
     padding: 12px;
     margin: 5px 0;
