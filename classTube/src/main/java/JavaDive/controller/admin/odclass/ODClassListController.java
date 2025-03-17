@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 
-@WebServlet("/admin/category/list")
+@WebServlet({"/admin/category/list", "/main"})
 public class ODClassListController  extends HttpServlet {
 
 	@Override
@@ -54,18 +54,10 @@ public class ODClassListController  extends HttpServlet {
 			try {
 				// 🔹 클래스 개수 조회
 				// 클래스의 총 개수 가져오기
-				int totalRecords = odClassDao.getTotalBoardCount(keyword);
+				int totalRecords = odClassDao.getTotalClassCount(keyword);
 				int basePages = 10; // 기본 페이지 그룹 크기 (1~10페이지)
-				int extraPages = 0;
 
-				// 클래스가 6개 이상이면, 추가 페이지 수 계산
-				if (totalRecords > basePages * pageSize) {
-					extraPages = (int) Math.ceil((double) (totalRecords - (basePages * pageSize)) / pageSize);
-				} /*else if (totalRecords < basePages * pageSize) {
-					basePages = (int) Math.ceil(totalRecords / pageSize);
-				}*/
-
-				int totalPage = basePages + extraPages; // 총 페이지 수
+				int totalPage = (int) Math.ceil((double)totalRecords / pageSize); // 총 페이지 수
 
 				System.out.println("📌 totalRecords: " + totalRecords); // 🔍 조회된 개수 확인
 				System.out.println("📌 totalPage 계산 결과: " + totalPage); // 🔍 totalPage 계산 값 확인
@@ -88,7 +80,7 @@ public class ODClassListController  extends HttpServlet {
 		        if (req.getRequestURI().contains("/admin")) { 
 		            path = "/jsp/admin/category/ClassListView.jsp";  // 관리자 검색 결과 페이지
 		        } else {
-		            path = "/jsp/category/ClassList.jsp";  // 일반 사용자 검색 결과 페이지
+		            path = "/jsp/common/classTubeMain.jsp";  // 일반 사용자 검색 결과 페이지
 		        }
 				RequestDispatcher dispatcher = req.getRequestDispatcher(path);
 				dispatcher.forward(req, res);

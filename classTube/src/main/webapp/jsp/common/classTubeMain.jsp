@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8
-	"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -7,19 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title</title>
-
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/category/classList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
 </head>
 
 <body>
-
-	<h2>게시판 페이지로 이동</h2>
+<%@ include file="./commonHeader.jsp"%>
+	
 	<form action="/classTube/boardList" method="get">
 		<button type="submit">게시판 이동</button>
 	</form>
 
 <div class="container">
-	<img class="logo" src="/images/ctube.jpg">
 	
 		<h2>클래스 목록</h2>
 

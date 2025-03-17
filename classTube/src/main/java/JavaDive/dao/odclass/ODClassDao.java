@@ -388,7 +388,7 @@ public class ODClassDao {
 	}
 	
 	//전체반환되는 클래스의 카운트 
-		public int getTotalBoardCount(String keyword) throws Exception {
+		public int getTotalClassCount(String keyword) throws Exception {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			int totalRecords = 0;
