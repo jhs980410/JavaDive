@@ -12,6 +12,15 @@
 
 <div class="frame">
     <h2 class="title">회원가입</h2>
+    
+     <!-- 이메일 중복 확인 여부를 저장하는 hidden input 추가 -->
+    <input type="hidden" id="emailChecked" name="emailChecked" 
+           value="<%= request.getAttribute("emailChecked") != null ? request.getAttribute("emailChecked") : "false" %>">
+           
+           <!-- 서버에서 전달된 에러 메시지 출력 -->
+    <% if (request.getAttribute("errorMessage") != null) { %>
+        <script>alert("<%= request.getAttribute("errorMessage") %>");</script>
+    <% } %>
 
     <form id="signupForm" action="join" method="post">
         <div class="form-container">
@@ -25,6 +34,11 @@
                 <input type="email" id="email" name="email" placeholder="이메일 입력" required>
                 <button type="submit" formaction="checkEmail" formnovalidate class="small-btn">중복확인</button>
             </div>
+            
+            <!-- 이메일 중복 여부 확인 메시지 추가 -->
+            <% if (request.getAttribute("emailExists") != null && (boolean) request.getAttribute("emailExists")) { %>
+                <p style="color: red;">이미 사용 중인 이메일입니다.</p>
+            <% } %>
 
             <div class="input-group">
                 <label for="password">비밀번호</label>
@@ -55,11 +69,34 @@
 
 </div>
 
-<!-- 추가된 JavaScript: 이메일 값을 hidden 필드에 설정 -->
+
 <script>
+	<!-- 추가된 JavaScript: 이메일 값을 hidden 필드에 설정 -->
     function setEmailValue() {
         document.getElementById("emailHidden").value = document.getElementById("email").value;
     }
+    
+    <!-- 이메일 중복 확인 및 비밀번호 검증하는 JavaScript 추가 -->
+    function validateSignup() {
+        var emailChecked = document.getElementById("emailChecked").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("password-confirm").value;
+
+        // 이메일 중복 확인 여부 체크
+        if (emailChecked !== "true") {
+            alert("이메일 중복 확인을 해주세요!");
+            return false;
+        }
+
+        // 비밀번호 일치 확인
+        if (password !== confirmPassword) {
+            alert("비밀번호가 일치하지 않습니다!");
+            return false;
+        }
+
+        return true;
+    }
+    
 </script>
 
 </body>

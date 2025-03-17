@@ -37,8 +37,16 @@
                     for (MemberDto member : memberList) {
             %>
             <tr>
-                <td><%= member.getNo() %></td>
-                <td><%= member.getEmail() %></td>
+            
+				<!-- 회원번호 -->
+				<td><%= member.getNo() %></td>
+        
+				<!-- 이메일 클릭 시 상세 페이지로 이동 -->
+        		<td>
+            		<a href="<%= request.getContextPath() %>/admin/member/info?memberNo=<%= member.getNo() %>">
+                		<%= member.getEmail() %>
+            		</a>
+        		</td>
                 <td><%= member.getTel() %></td>
                 <td><%= member.getPriv() %></td>
                 <td><%= member.getCreate_at() %></td>

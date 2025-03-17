@@ -6,10 +6,10 @@
     </div>
 
   <nav class="nav-menu">
-    <a href="<%= request.getContextPath() %>/admin/member/list" class="nav-link active">회원목록</a>
-    <a href="#" class="nav-link">회원관리</a>
-    <a href="<%= request.getContextPath() %>/admin/category/list" class="nav-link">클래스관리</a>
-    <a href="<%= request.getContextPath() %>/admin/boardList" class="nav-link">게시판관리</a>
+	<a href="<%= request.getContextPath() %>/admin/member/list" class="nav-link" onclick="setActive(this)">회원목록</a>
+	<a href="#" class="nav-link" onclick="setActive(this)">회원관리</a>
+	<a href="<%= request.getContextPath() %>/admin/category/list" class="nav-link" onclick="setActive(this)">클래스관리</a>
+	<a href="<%= request.getContextPath() %>/admin/boardList" class="nav-link" onclick="setActive(this)">게시판관리</a>
 
 </nav>
 

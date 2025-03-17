@@ -1,0 +1,58 @@
+.container {
+    width: 35%;  
+    margin: 0 auto;
+    text-align: center;
+}
+
+h2 {
+    margin: 15px 0; /* 제목 간격 줄이기 */
+}
+
+/* 회원 정보 테이블 스타일 */
+.member-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px; /* 테이블 아래 여백 줄이기 */
+}
+
+/* 왼쪽 컬럼(회원번호~계정 생성일) 크기 조정 */
+.member-info-table th {
+    background-color: #C3C564;
+    color: white;
+    text-align: center;
+    font-size: 12px; /* 헤더 글자 크기 작게 */
+    padding: 4px;  /* 패딩 줄이기 */
+    width: 40%; /* 왼쪽 컬럼 크기 축소 */
+}
+
+/* 오른쪽 컬럼 (데이터) 크기 유지 */
+.member-info-table td {
+    padding: 8px; 
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px; /* 데이터 글자 크기 유지 */
+}
+
+/* 버튼 스타일 */
+.button-group {
+	display: flex;
+    justify-content: center;
+    gap: 15px; /* 버튼 간격 조정 */
+    margin-top: 20px; /* 버튼 그룹 여백 줄이기 */
+   
+}
+
+button {
+    padding: 6px 14px; /* 버튼 크기 줄이기 */
+    background-color: #C3C564;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px; /* 버튼 글자 크기 축소 */
+}
+
+button:hover {
+    background-color: #e0e0e0;
+    color: black;
+}

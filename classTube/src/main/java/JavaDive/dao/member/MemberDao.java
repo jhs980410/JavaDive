@@ -81,7 +81,6 @@ public class MemberDao {
 
 	//회원목록
  	public List<MemberDto> selectList() throws Exception {
- 	    System.out.println("🟢 [DEBUG] DAO: selectList() 실행됨!");
 
  	    PreparedStatement pstmt = null;
  	    ResultSet rs = null;
@@ -92,19 +91,15 @@ public class MemberDao {
  	                 " FROM MEMBER ORDER BY MEMBER_NO ASC";
  	    
  	    try {
- 	        if (connection == null) { // 🔹 connection이 null인지 확인
- 	            System.out.println("❌ [ERROR] DAO: DB Connection이 NULL입니다!");
+ 	        if (connection == null) { // connection이 null인지 확인
  	            return memberList; // 빈 리스트 반환
  	        }
 
  	        pstmt = connection.prepareStatement(sql);
- 	        System.out.println("✅ [DEBUG] DAO: SQL 실행 준비 완료");
 
  	        rs = pstmt.executeQuery();
- 	        System.out.println("✅ [DEBUG] DAO: SQL 실행 완료");
 
  	        while (rs.next()) {
- 	            System.out.println("📌 [DEBUG] 조회된 회원 이메일: " + rs.getString("MEMBER_EMAIL"));
 
  	            MemberDto memberDto = new MemberDto(
  	                rs.getInt("MEMBER_NO"),
@@ -137,31 +132,17 @@ public class MemberDao {
 	public int memberDelete(int no) throws SQLException {
 		int result = 0;
 		
-		PreparedStatement pstmt = null;
-		
 		String sql = "";
-		sql += "DELETE FROM MEMBERS";
-		sql += " WHERE MNO = ?";
+		sql += "DELETE FROM MEMBER";
+		sql += " WHERE MEMBER_NO = ?";
 		
-		try {
-			pstmt = connection.prepareStatement(sql);
-			
+		try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
 			pstmt.setInt(1, no);
-			
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
-		}finally {
-			
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		
 		return result;
@@ -171,20 +152,18 @@ public class MemberDao {
 	public MemberDto memberSelectOne(int no) throws Exception {
 		
 		MemberDto memberDto = null;
-		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		String sql = "";
 		
-		sql += "SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, TEL, CREATE_AT";
-		sql += " FROM MEMBERS";
-		sql += " WHERE MNO =?";
+		sql += "SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, TEL, CREATE_AT, MEMBER_PRIV";
+		sql += " FROM MEMBER";
+		sql += " WHERE MEMBER_NO =?";
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, no);
-			
 			rs = pstmt.executeQuery();
 			
 			String member_email = "";
@@ -193,22 +172,17 @@ public class MemberDao {
 			Date create_at = null;
 			
 			if (rs.next()) {
-				member_email = rs.getString("MEMBER_EMAIL");
-				member_name = rs.getString("MEMBER_NAME");
-				tel = rs.getString("TEL");
-				create_at = rs.getDate("REATE_AT");
-				
 				memberDto = new MemberDto();
 				
-				memberDto.setNo(no);
-				memberDto.setEmail(member_email);
-				memberDto.setName(member_name);
-				memberDto.setTel(tel);
-				memberDto.setCreate_at(create_at);
+				memberDto.setNo(rs.getInt("MEMBER_NO"));
+				memberDto.setEmail(rs.getString("MEMBER_EMAIL"));
+				memberDto.setName(rs.getString("MEMBER_NAME"));
+				memberDto.setTel(rs.getString("TEL"));
+				memberDto.setCreate_at(rs.getDate("CREATE_AT"));
+				memberDto.setPriv(rs.getString("MEMBER_PRIV"));
 			}else {
 				throw new Exception("해당 번호의 회원을 찾을 수 없습니다.");
 			}
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -237,40 +211,61 @@ public class MemberDao {
 		return memberDto;
 	}
 	
-	// 회원 정보 변경
-	public int memberUpdate(MemberDto memberDto) throws SQLException{
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = "";
-		sql += "UPDATE MEMBER";
-		sql += " SET MEMBER_PWD=?, MEMBER_NAME=?, TEL=?,";
-		sql += " WHERE MNO =?";
-		
-		try {
-			pstmt = connection.prepareStatement(sql);
-			
-			pstmt.setString(1, memberDto.getPwd());
-			pstmt.setString(2, memberDto.getName());
-			pstmt.setString(3, memberDto.getTel());
-			pstmt.setInt(4, memberDto.getNo());
-			
-			result = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-			
-		}finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return result;
+	// 회원 정보 변경 (변경된 값만 업데이트, 기존 데이터 유지)
+	public int memberUpdate(MemberDto memberDto) throws SQLException {
+	    int result = 0;
+	    PreparedStatement pstmt = null;
+	    List<Object> params = new ArrayList<>();
+
+	    String sql = "UPDATE MEMBER SET ";
+	    boolean first = true;
+
+	    if (memberDto.getName() != null) {
+	        sql += (first ? "" : ", ") + "MEMBER_NAME = ?";
+	        params.add(memberDto.getName());
+	        first = false;
+	    }
+	    if (memberDto.getTel() != null) {
+	        sql += (first ? "" : ", ") + "TEL = ?";
+	        params.add(memberDto.getTel());
+	        first = false;
+	    }
+	    if (memberDto.getPriv() != null) {
+	        sql += (first ? "" : ", ") + "MEMBER_PRIV = ?";
+	        params.add(memberDto.getPriv());
+	        first = false;
+	    }
+	    if (memberDto.getPwd() != null) {
+	        sql += (first ? "" : ", ") + "MEMBER_PWD = ?";
+	        params.add(memberDto.getPwd());
+	        first = false;
+	    }
+
+	    // 강제 업데이트: 기존 데이터를 유지하도록 기본값 추가!
+	    if (params.isEmpty()) {
+	        sql += "MEMBER_NO = MEMBER_NO"; // 최소한의 업데이트 실행 (트리거 발동)
+	    }
+
+	    sql += " WHERE MEMBER_NO = ?";
+	    params.add(memberDto.getNo());
+
+	    try {
+	        pstmt = connection.prepareStatement(sql);
+	        for (int i = 0; i < params.size(); i++) {
+	            pstmt.setObject(i + 1, params.get(i));
+	        }
+
+	        result = pstmt.executeUpdate();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw e;
+	    } finally {
+	        if (pstmt != null) pstmt.close();
+	    }
+	    return result;
 	}
+
 	
 	// 가입정보 없으면 null 리턴
 	
@@ -295,7 +290,6 @@ public class MemberDao {
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
-			
 
 			pstmt.setString(1, member_email);
 			pstmt.setString(2, member_pwd);

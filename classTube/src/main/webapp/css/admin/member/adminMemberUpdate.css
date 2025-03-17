@@ -1,0 +1,86 @@
+/* 전체 컨테이너 스타일 */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* 제목 스타일 */
+h2 {
+    text-align: center;
+    color: #4a4a4a;
+}
+
+/* 테이블 스타일 */
+.member-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: auto;
+}
+
+.member-info-table th {
+	width: 40%;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.member-info-table td {
+	width: 60%;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.member-info-table th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+
+/* 입력 필드 스타일 */
+input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input:focus, select:focus {
+    border-color: #6aaf08;
+    outline: none;
+}
+
+/* 버튼 스타일 */
+.button-group {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.update-btn, .cancel-btn {
+    background-color: #C3C564;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.update-btn:hover {
+    background-color: #e0e0e0;
+    color: black;
+}
+
+.cancel-btn {
+    background-color: #ccc;
+}
+
+.cancel-btn:hover {
+    background-color: #a9a9a9;
+}
