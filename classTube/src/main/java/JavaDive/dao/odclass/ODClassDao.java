@@ -4,11 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import JavaDive.dto.board.BoardDto;
+import JavaDive.dto.member.MemberDto;
 import JavaDive.dto.odclass.ODClassDto;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 public class ODClassDao {
 
@@ -417,4 +422,80 @@ public class ODClassDao {
 			}
 			return totalRecords;
 		}
+
+		public List<ODClassDto> searchClass(String keyword, int currentPage, int pageSize, HttpServletRequest req) {
+			// TODO Auto-generated method stub
+			PreparedStatement pstmt = null; // 쿼리실행준비
+			ResultSet rs = null; // sql 실행결과 객체담을 그릇 준비
+
+			ArrayList<ODClassDto> odClassList = new ArrayList<ODClassDto>(); //
+			HttpSession session = req.getSession();
+			MemberDto memberDto = (MemberDto) session.getAttribute("member");
+			String sql = "";
+
+			try {
+				sql += "SELECT * FROM ( ";
+				sql += "    SELECT CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, ";
+				sql += "           CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO, ";
+				sql += "           ROW_NUMBER() OVER (ORDER BY CLASS_NO DESC) AS RNUM ";
+				sql += "    FROM ODCLASS ";
+				sql += "    WHERE LOWER(CLASS_NAME) LIKE LOWER(?) ";
+				sql += ") WHERE RNUM BETWEEN ? AND ?";
+				
+				pstmt = connection.prepareStatement(sql);
+
+				if (keyword == null || keyword.trim().isEmpty()) {
+
+					keyword = "%"; // 전체 검색을 위한 기본값
+
+				} else {
+
+					keyword = "%" + keyword.trim() + "%"; // 앞뒤에 % 추가
+
+				}
+				pstmt.setString(1, keyword);
+				int startRow = (currentPage - 1) * pageSize + 1;
+				int endRow = currentPage * pageSize;
+
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					ODClassDto odClassDto = new ODClassDto();
+					odClassDto.setClassNo(rs.getInt("CLASS_NO"));
+					odClassDto.setClassName(rs.getString("CLASS_NAME"));
+					odClassDto.setPrice(rs.getInt("PRICE"));
+					odClassDto.setClassDesc(rs.getString("CLASS_DESC"));
+					odClassDto.setInstructor(rs.getString("INSTRUCTOR"));
+					odClassDto.setCreateAt(rs.getDate("CREATE_AT"));
+					odClassDto.setViews(rs.getInt("VIEWS"));
+					odClassDto.setClassLimit(rs.getInt("CLASS_LIMIT"));
+					odClassDto.setImg(rs.getString("IMG"));
+					odClassDto.setRegion(rs.getString("REGION"));
+					odClassDto.setCategoryNo(rs.getInt("CATEGORY_NO"));
+
+					odClassList.add(odClassDto);
+					// 리스트에 담았음 //
+					// 컨트롤러에서 수신예정//
+
+				}
+
+				return odClassList;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				// 자원 해제 (PreparedStatement가 열려 있다면 닫기)
+				try {
+					if (pstmt != null) {
+						pstmt.close();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}				
+			}
+			return odClassList;
+		}
+		
 }

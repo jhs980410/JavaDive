@@ -16,7 +16,8 @@
 		<br>
 		<br>
 		<div class="addForm">
-		<form action='./update' method='get'>
+		<form action='./update?classNo=${odClassDto.getClassNo()}' method='get'>
+		<input type="hidden" name="classNo" value="${odClassDto.getClassNo()}">
 			<table>
 				<tr>
 					<td class="colsLabel"><label>클래스명</label></td>
@@ -65,7 +66,7 @@
 				</tr>
 				
 				<tr class="btnGroup">
-				<td colspan=8><input type='수정' class="btn" value='추가'> <input type='button' class="btn" value='목록' onclick='location.href="./list";'></td>
+				<td colspan=8><input type='submit' class="btn" value='수정'> <input type='button' class="btn" value='목록' onclick='location.href="./list";'></td>
 				</tr>
 			</table>
 		</form>

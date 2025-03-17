@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 
 import JavaDive.dao.odclass.ODClassDao;
+import JavaDive.dto.member.MemberDto;
 import JavaDive.dto.odclass.ODClassDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
@@ -12,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 
 @WebServlet("/admin/category/add")
@@ -20,9 +22,15 @@ public class ODClassAddController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = req.getSession();
+		MemberDto memberDto = (MemberDto) session.getAttribute("member"); 
+		RequestDispatcher dispatcher = null;
+		if ("ADMIN".equals(memberDto.getPriv())) {
+			dispatcher = req.getRequestDispatcher("/jsp/admin/category/ClassAddForm.jsp");
+		} else {
 		
-		RequestDispatcher dispatcher =
-				req.getRequestDispatcher("/jsp/admin/category/ClassAddForm.jsp");
+		dispatcher = req.getRequestDispatcher("/jsp/common/error.jsp");
+		}
 		
 		dispatcher.forward(req, res);
 	}

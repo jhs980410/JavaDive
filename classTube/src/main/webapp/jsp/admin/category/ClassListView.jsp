@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +22,7 @@
 			</c:if>	
 				<c:forEach var="odClassDto" items="${odClassList}">
 					<div class="classObj">
-						<a href="./update?classNo=${odClassDto.getClassNo()}" style="text-decoration:none;">
+						<a href="./detail?classNo=${odClassDto.getClassNo()}" style="text-decoration:none;">
 							<div class="cssClass">
 								<%-- <img src="${odClassDto.getImg()}"> --%>
 								<img class="classImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ37Yi1ANvy4Ma4F2lnGQvHWi7OmoaAHS9Lg&s">
@@ -37,7 +38,7 @@
 									<p>${odClassDto.getRegion()}</p>
 								</div>
 								<div class="price">
-									<p>${odClassDto.getPrice()}원</p>
+  									<p><fmt:formatNumber type="number" value="${odClassDto.getPrice()}" />원</p>
 								</div>
 							</div>
 						</a>
@@ -49,7 +50,11 @@
 
 		<c:set var="pageGroupSize" value="10" />
 <!-- startPage 계산 -->
-<c:set var="startPage" value="${(((currentPage+10)/10)-1)*10}" />
+<c:set var="step1" value="${currentPage + 9}" />
+<fmt:parseNumber var="step2" value="${step1 / 10}" integerOnly="true" />
+<c:set var="step3" value="${step2 - 1}" />
+<c:set var="startPage" value="${step3 * 10 + 1}" />
+
 <!-- endPage 계산 -->
 <c:set var="endPage" value="${startPage + pageGroupSize - 1}" />
 
@@ -84,6 +89,26 @@
 </ul>
 		
 	</div>
+	
+	<div class="bottom-container">
+			<!-- 검색창 (왼쪽 정렬) -->
+			<form action="/classTube/admin/category/search" method="get"
+				class="search-form">
+				<div class="search-container">
+					<div class="search">
+						<div class="ui icon input">
+							<input class="prompt" type="text" name="keyword" placeholder="검색">
+							<input type="submit" value="검색">
+						</div>
+						<div class="results"></div>
+					</div>
+				</div>
+			</form>
+
+
+
+			<p>
+		</div>
 
 </body>
 
