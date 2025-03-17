@@ -7,17 +7,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>마이페이지 게시물리스트</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/member/memberMyPageMain.css">
 </head>
 <body>
 	<%@ include file="../common/mtPageSideBar.jsp"%>
 	<div class="container">
-		<form action="myPageList" method="get">
-			<h2>내 정보</h2>
+		<form action="/note/myPageList" method="get">
+			<h2>내가 작성한 게시물</h2>
 			<c:if test="${not empty memberInfo}">
-				<p>이름: ${memberInfo.name}</p>
+				<p>글제목: ${memberInfo.name}</p>
 				<p>이메일: ${memberInfo.email}</p>
 				<p>
 					가입일:
@@ -31,7 +31,7 @@
 
 		</form>
      
-    
+
 	</div>
 </body>
 </html>
