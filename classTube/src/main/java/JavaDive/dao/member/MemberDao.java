@@ -50,6 +50,7 @@ public class MemberDao {
             pstmt.setString(5, telStr);
 
             result = pstmt.executeUpdate();
+            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,6 +78,35 @@ public class MemberDao {
  			} 
  		}
  		return false; 
+ 	}
+ 	
+ // 입력된 이메일이 존재하는지 확인하는 메서드(가입되지 않은 이메일 확인)
+ 	public MemberDto getMemberByEmail(String email) throws Exception {
+ 	    MemberDto memberDto = null;
+ 	    PreparedStatement pstmt = null;
+ 	    ResultSet rs = null;
+
+ 	    try {
+ 	        String sql = "SELECT * FROM MEMBER WHERE MEMBER_EMAIL = ?";
+ 	        pstmt = connection.prepareStatement(sql);
+ 	        pstmt.setString(1, email);
+ 	        rs = pstmt.executeQuery();
+
+ 	        if (rs.next()) {
+ 	            memberDto = new MemberDto();
+ 	            memberDto.setNo(rs.getInt("MEMBER_NO"));
+ 	            memberDto.setEmail(rs.getString("MEMBER_EMAIL"));
+ 	            memberDto.setPwd(rs.getString("MEMBER_PWD")); // 비밀번호 비교를 위해 가져옴
+ 	            memberDto.setName(rs.getString("MEMBER_NAME"));
+ 	            memberDto.setTel(rs.getString("TEL"));
+ 	            memberDto.setRrn(rs.getString("RRN"));
+ 	            memberDto.setPriv(rs.getString("MEMBER_PRIV"));
+ 	        }
+ 	    } finally {
+ 	        if (rs != null) rs.close();
+ 	        if (pstmt != null) pstmt.close();
+ 	    }
+ 	    return memberDto;
  	}
 
 	//회원목록
