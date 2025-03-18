@@ -102,14 +102,6 @@ td {
 	width: 100px;
 }
 
-/* 로그아웃 버튼 컨테이너 */
-.logout-container {
-    width: 100%;
-    display: flex;
-    padding: 10px 20px;
-    margin-top: 10px;  /* 헤더와 간격 유지 */
-    margin-left: 1400px; /* 오른쪽으로 이동*/
-}
 
 /* 로그아웃 버튼 스타일 */
 .logout-btn {
@@ -126,4 +118,19 @@ td {
 .logout-btn:hover {
     background-color: #e0e0e0;
     color: black;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    flex-direction: column; /* 요소들을 수직으로 배치 */
+    height: 90vh; /* 화면 전체 높이 */
+    text-align: center; /* 텍스트도 가운데 정렬 */
+    font-size: 30px;
+}
+
+.main-content img {
+    max-width: 100%; /* 화면 크기에 맞게 조절 */
+    height: auto; /* 가로 비율 유지 */
 }

@@ -13,18 +13,11 @@
 <body>
 	<%@ include file="/jsp/admin/common/adminHeader.jsp" %>
 	
-	<!-- 🔹 헤더 외부에 로그아웃 버튼 추가 -->
-    <div class="logout-container">
-        <form id="logoutForm" action="<%= request.getContextPath() %>/logout" method="post">
-            <button type="submit" class="logout-btn">로그아웃</button>
-        </form>
-    </div>
-	
 	<form action="./adminMain" method="get">
 	<div class="main-content">
+	 <img src="<%= request.getContextPath() %>/images/Minions.gif" alt="로딩 이미지" width="1000">
+    	<p>관리자 메인 페이지에 오신것을 환영합니다.</p>
 	
-	
-	본문 내용
 	</div>
 	</form>
 	

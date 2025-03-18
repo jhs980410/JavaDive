@@ -61,7 +61,7 @@ public class MemberAddServlet extends HttpServlet {
         
         if (checkedEmail == null || !checkedEmail.equals(emailStr)) {
         	out.print("<script>alert('이메일 중복 확인을 해주세요.'); history.back();</script>");
-			
+        	return;
 		}
         try {
             // DAO를 사용하여 DB연결 가져오기

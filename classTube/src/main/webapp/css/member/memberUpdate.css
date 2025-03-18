@@ -1,0 +1,89 @@
+.update-container {
+    width: 35%; /* 크기 줄이기 */
+    margin: 60px auto;
+    padding: 25px;
+    background-color: #fdf6e3; /* 부드러운 배경 */
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+/* 개별 정보 입력 필드 스타일 */
+.info-box {
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: flex-start; /* 왼쪽 정렬 */
+    justify-content: space-around;
+    background-color: #f7f7f7;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.info-box label {
+    font-weight: bold;
+    color: #333;
+   	text-align: left; /* 왼쪽 정렬 */
+    width: 100%;
+    margin-bottom: 5px; /* 라벨과 입력 칸 사이 간격 */
+}
+
+.info-box input {
+    width: 90%;
+    padding: 7px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+/* 버튼 컨테이너 */
+.button-container {
+    width: 20%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 정보 수정 버튼 */
+.button-container .update-btn {
+    width: 48%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #C3C564;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.button-container .update-btn:hover {
+    background-color: #e0e0e0;
+    color: black;
+}
+
+/* 취소 버튼 (별도 디자인) */
+.button-container .cancel-btn {
+    width: 48%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #e0e0e0; /* 연한 회색 */
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.button-container .cancel-btn:hover {
+    background-color: #bdbdbd;
+}

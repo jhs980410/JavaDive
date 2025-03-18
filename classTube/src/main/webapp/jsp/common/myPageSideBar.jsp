@@ -17,11 +17,11 @@
         
         <nav class="menu-list">
             <a onclick='location.href="${pageContext.request.contextPath}/main"' class="menu">메인페이지</a>    <!-- 메인페이지 정해지면 주소 수정필요 -->
-            <a href="mypage.jsp" class="menu">회원정보</a>  <!-- 마이페이지 정해지면 주소 수정필요  -->
+            <a href="<%= request.getContextPath() %>/myPageList" class="menu">회원정보</a>  <!-- 마이페이지 정해지면 주소 수정필요  -->
             
             
-            <a href="category.jsp?type=sports" class="menu">회원정보수정</a>
-            <a href="category.jsp?type=beauty" class="menu">회원탈퇴</a>
+            <a href="<%= request.getContextPath() %>/memberUpdate" class="menu">회원정보수정</a>
+            <a href="<%= request.getContextPath() %>/jsp/member/MemberDelete.jsp" class="menu">회원탈퇴</a>
             <div class="menu-title">-------------------</div>
             <a onclick='location.href="${pageContext.request.contextPath}/boardList"' class="menu">게시판으로 이동</a>
             <a onclick='location.href="${pageContext.request.contextPath}/note/myPageList"' class="menu">내가 쓴 게시글</a>
