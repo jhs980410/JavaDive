@@ -10,11 +10,11 @@
 
 .classObj {
 	display: inline-block;
-	width: 280px; height: 400px;
+	width: 280px;
+	height: 400px;
 	min-width: 280px;
-	padding: 20px;	
+	padding: 20px;
 	margin: 5px;
-
 }
 
 .classImg {
@@ -32,7 +32,7 @@ h2 {
 }
 
 .listWrap {
-	margin-left: 150px; 
+	margin-left: 150px;
 }
 
 .cssClass {
@@ -41,7 +41,7 @@ h2 {
 
 .name {
 	height: 50px;
-	font-weight: bold;	
+	font-weight: bold;
 }
 
 .region, .price {
@@ -58,48 +58,72 @@ a {
 	color: black;
 }
 
-.pagination-container {
-    display: flex;
-    justify-content: center;  /* ✅ 중앙 정렬 */
-    align-items: center;      /* ✅ 세로 중앙 정렬 */
-    width: 100%;              /* ✅ 부모 크기에 맞추기 */
-    margin-top: 20px;
+.formlogout {
+	display: inline-flex; /* form을 버튼 크기에 맞춤 */
+	width: 100px; /* 내용물 크기에 맞춤 */
+	height: 40px; /* 내용물 크기에 맞춤 */
+	margin: 0; /* 불필요한 여백 제거 */
+	padding: 0; /* 내부 여백 제거 */
+	align-items: center; /* 버튼이 중앙 정렬되도록 설정 */
+	position: absolute;
+	top: 10px; /* 원하는 위치 조정 */
+	right: 10px; /* 오른쪽 끝으로 정렬 */
+}
+
+.logout {
+	display: inline-block; /* form 크기에 맞춤 */
+	width: 100%; /* 부모(form)의 크기에 맞춤 */
+	height: 100%; /* 부모(form)의 크기에 맞춤 */
+	padding: 10px 20px; /* 버튼 크기 조정 */
+	background-color: #ffffff; /* 버튼 색상 */
+	color: "";
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
 .pagination-container {
-    display: flex;
-    justify-content: center; /* 중앙 정렬 유지 */
-    align-items: center;
-    width: 100%;
-    margin-top: 20px;
-    transform: translateX(-150px); /* ✅ 원하는 위치로 왼쪽 이동 */
+	display: flex;
+	justify-content: center; /* ✅ 중앙 정렬 */
+	align-items: center; /* ✅ 세로 중앙 정렬 */
+	width: 100%; /* ✅ 부모 크기에 맞추기 */
+	margin-top: 20px;
+}
+
+.pagination-container {
+	display: flex;
+	justify-content: center; /* 중앙 정렬 유지 */
+	align-items: center;
+	width: 100%;
+	margin-top: 20px;
+	transform: translateX(-150px); /* ✅ 원하는 위치로 왼쪽 이동 */
 }
 
 .pagination {
-    display: flex;   /* ✅ flex 사용 */
-    justify-content: center;  /* ✅ 내부 요소 중앙 정렬 */
-    list-style: none;
-    padding: 0;
+	display: flex; /* ✅ flex 사용 */
+	justify-content: center; /* ✅ 내부 요소 중앙 정렬 */
+	list-style: none;
+	padding: 0;
 }
 
 .pagination li {
-    display: inline-block;
-    margin: 0 5px;  /* ✅ 좌우 간격 추가 */
+	display: inline-block;
+	margin: 0 5px; /* ✅ 좌우 간격 추가 */
 }
 
 .pagination .page-item.active .page-link {
-    background-color: #C3C564;
-    color: white;
-    font-weight: bold;
-    border-radius: 5px;
+	background-color: #C3C564;
+	color: white;
+	font-weight: bold;
+	border-radius: 5px;
 }
 
 .pagination .page-link {
-    display: block;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    color: #C3C564;
-    text-decoration: none;
-    text-align: center;
-    border-radius: 5px;
+	display: block;
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	color: #C3C564;
+	text-decoration: none;
+	text-align: center;
+	border-radius: 5px;
 }

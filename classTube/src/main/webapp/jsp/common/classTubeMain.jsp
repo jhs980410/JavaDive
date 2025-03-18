@@ -13,8 +13,8 @@
 <body>
 <%@ include file="./commonHeader.jsp"%>
 	
-	<form action="/classTube/boardList" method="get">
-		<button type="submit">게시판 이동</button>
+	<form class= "formlogout" action="/classTube/logout" method="get">
+		<button class= "logout" type="submit">로그아웃</button>
 	</form>
 
 <div class="container">
