@@ -10,10 +10,81 @@
     
 }
 
-/* 📌 전체 레이아웃 조정 */
+/* 마이페이지 전체 레이아웃 */
 .container {
-    width: 75%;
-    margin-left: 20%;  /* 사이드바 고려한 레이아웃 조정 */
-    padding: 30px;
-    background-color: #ffffff; /* 배경색 화이트 */
+    width: 30%;
+    margin-left: 40%;
+    margin-top: 5%;
+    padding: 25px;
+    background-color: #FDF6EC;
+    border-radius: 10px; /* 모서리 둥글게 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
 }
+
+/* 마이페이지 제목 스타일 */
+h2 {
+    text-align: center;
+    font-size: 28px;
+    color: #2C3E50;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* 정보 그룹 스타일 */
+.info-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F8F9FA;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #E0E0E0;
+}
+
+/* 라벨 스타일 (이름, 이메일 등) */
+.info-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #34495E;
+    flex: 1; /* 균형 있게 정렬 */
+}
+
+/* 값 스타일 (유저 데이터) */
+.info-value {
+    font-size: 16px;
+    color: #2C3E50;
+    flex: 2; /* 값이 좀 더 넓게 보이도록 */
+    text-align: right;
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+    width: 250px;
+    background-color: #2C3E50;
+    padding: 20px;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    color: white;
+}
+
+/* 반응형: 모바일 환경 고려 */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        margin-left: 5%;
+        padding: 20px;
+    }
+
+    .info-group {
+        flex-direction: column; /* 작은 화면에서는 위아래 배치 */
+        align-items: flex-start;
+    }
+
+    .info-value {
+        text-align: left;
+    }
+}
+

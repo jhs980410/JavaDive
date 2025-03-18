@@ -17,12 +17,22 @@
 		<form action="myPageList" method="get">
 			<h2>내 정보</h2>
 			<c:if test="${not empty memberInfo}">
-				<p>이름: ${memberInfo.name}</p>
-				<p>이메일: ${memberInfo.email}</p>
-				<p>
-					가입일:
-					<fmt:formatDate value="${memberInfo.create_at}" pattern="yyyy-MM-dd" />
-				</p>
+				<div class="info-group">
+				<span class="info-label">이름:</span> <span class="info-value">${memberInfo.name}</span>
+			</div>
+			<div class="info-group">
+				<span class="info-label">이메일:</span> <span class="info-value">${memberInfo.email}</span>
+			</div>
+			<div class="info-group">
+				<span class="info-label">전화번호:</span> <span class="info-value">${memberInfo.tel}</span>
+			</div>
+			<div class="info-group">
+				<span class="info-label">회원등급:</span> <span class="info-value">${memberInfo.priv}</span>
+			</div>
+			<div class="info-group">
+				<span class="info-label">가입일:</span> 
+				<span class="info-value"><fmt:formatDate value="${memberInfo.create_at}" pattern="yyyy-MM-dd" /></span>
+			</div>
 			</c:if>
 
 			<c:if test="${empty memberInfo}">
