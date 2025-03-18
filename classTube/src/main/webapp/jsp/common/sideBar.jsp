@@ -20,11 +20,11 @@
             <a href="<%= request.getContextPath() %>/myPageList" class="menu" onclick="setActive(this)">마이페이지</a>  <!-- 마이페이지 정해지면 주소 수정필요  -->
             
             <div class="menu-title">클래스 목록</div>
-            <a href="category.jsp?type=sports" class="menu">레저/스포츠</a>
-            <a href="category.jsp?type=beauty" class="menu">뷰티</a>
-            <a href="category.jsp?type=dev" class="menu">자기개발</a>
-            <a href="category.jsp?type=handmade" class="menu">핸드메이드</a>
-            <a href="category.jsp?type=cooking" class="menu">쿠킹</a>
+            <a href="<%= request.getContextPath() %>/category/search?categoryNo=1" class="menu">레저/스포츠</a>
+            <a href="<%= request.getContextPath() %>/category/search?categoryNo=2" class="menu">뷰티</a>
+            <a href="<%= request.getContextPath() %>/category/search?categoryNo=3" class="menu">자기개발</a>
+            <a href="<%= request.getContextPath() %>/category/search?categoryNo=4" class="menu">핸드메이드</a>
+            <a href="<%= request.getContextPath() %>/category/search?categoryNo=5" class="menu">쿠킹</a>
         </nav>
     </div>
 </body>
