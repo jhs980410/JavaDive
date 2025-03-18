@@ -19,7 +19,7 @@ public class BoardCommentDao {
 
 	public void insertComment(int postId, int memberNo, String content) throws SQLException {
 		String sql = "INSERT INTO NOTE_COMMENT (COMMENT_NO, NOTE_NO, MEMBER_NO, COMMENT_CONTENT, CREATE_AT, MODIFY_AT) "
-				+ "VALUES (COMMENT_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, SYSDATE)";
+				+ "VALUES (SEQ_COMMENT_NO.NEXTVAL, ?, ?, ?, SYSDATE, SYSDATE)";
 
 		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, postId);

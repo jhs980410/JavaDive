@@ -12,7 +12,7 @@
 	href="${pageContext.request.contextPath}/css/member/memberMyPageMain.css">
 </head>
 <body>
-	<%@ include file="../common/mtPageSideBar.jsp"%>
+	<%@ include file="../common/myPageSideBar.jsp"%>
 	<div class="container">
 		<form action="myPageList" method="get">
 			<h2>내 정보</h2>
@@ -30,6 +30,8 @@
 			</c:if>
 
 		</form>
+     
+    
 	</div>
 </body>
 </html>

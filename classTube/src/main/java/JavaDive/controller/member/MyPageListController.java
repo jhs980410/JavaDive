@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/myPageList")
+@WebServlet({"/myPageList", "/note/myPageList"})
 public class MyPageListController extends HttpServlet{
 
 	
@@ -61,8 +61,16 @@ public class MyPageListController extends HttpServlet{
         req.setAttribute("memberInfo", memberInfo);  // 사용자 정보
         req.setAttribute("memberNoteList", memberNoteList); // 작성한 글 리스트
         
+        String path;
+        if (req.getRequestURI().contains("/note")) { 
+            path = "/jsp/member/MyPageNoteList.jsp";  // 내가 쓴 게시물조회 페이지 /
+        } else {
+            path = "/jsp/member/memberMyPageMain.jsp";  // 일반 사용자 검색 결과 페이지
+        }
+
+		
         // 🔹 마이페이지 JSP로 forward
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/member/memberMyPageMain.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher(path);
         dispatcher.forward(req, res);
     }
 	
