@@ -1,0 +1,12 @@
+.nav-sub-menu {
+	display: flex;
+    
+    gap: 90px;  /* ✅ 메뉴 간격 조정 */
+	
+}
+
+.nav-link.active {
+    background-color: #C3C564;
+    color: white;
+    font-weight: bold;
+}
