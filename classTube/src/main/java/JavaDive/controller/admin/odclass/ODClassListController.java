@@ -55,8 +55,6 @@ public class ODClassListController  extends HttpServlet {
 				// 🔹 클래스 개수 조회
 				// 클래스의 총 개수 가져오기
 				int totalRecords = odClassDao.getTotalClassCount(keyword);
-				int basePages = 10; // 기본 페이지 그룹 크기 (1~10페이지)
-
 				int totalPage = (int) Math.ceil((double)totalRecords / pageSize); // 총 페이지 수
 
 				System.out.println("📌 totalRecords: " + totalRecords); // 🔍 조회된 개수 확인
