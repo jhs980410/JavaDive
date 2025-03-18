@@ -12,12 +12,12 @@
 
 <div class="frame">
     <h2 class="title">회원가입</h2>
-    
-     <!-- 이메일 중복 확인 여부를 저장하는 hidden input 추가 -->
+
+    <!-- 이메일 중복 확인 여부를 저장하는 hidden input -->
     <input type="hidden" id="emailChecked" name="emailChecked" 
            value="<%= session.getAttribute("emailChecked") != null ? "true" : "false" %>">
-           
-           <!-- 서버에서 전달된 에러 메시지 출력 -->
+    
+    <!-- 서버에서 전달된 에러 메시지 출력 -->
     <% if (request.getAttribute("errorMessage") != null) { %>
         <script>alert("<%= request.getAttribute("errorMessage") %>");</script>
     <% } %>
@@ -29,17 +29,14 @@
                 <input type="text" id="name" name="name" placeholder="이름 입력" required>
             </div>
 
+            <!-- ✅ 중복 확인 버튼을 독립적인 폼으로 분리 -->
             <div class="input-group">
                 <label for="email">이메일</label>
-                <input type="email" id="email" name="email" placeholder="이메일 입력" required
-                oninput="resetEmailCheck()">
-                <button type="button" class="small-btn" onclick="checkEmail()">중복확인</button>
+                <input type="email" id="email" name="email" placeholder="이메일 입력" required oninput="resetEmailCheck()">
+                    <button type="button" class="small-btn" onclick="checkEmail()">중복확인</button>
+                   	<!-- 서버에서 전달되 메시지 표시 -->
+                    <p id="emailMessage" class="message"></p>
             </div>
-            
-			             <!-- ✅ 서버에서 전달된 메시지를 출력하는 부분 -->
-			    <% if (request.getAttribute("message") != null) { %>
-			        <p class="message"><%= request.getAttribute("message") %></p>
-			    <% } %>
 
             <div class="input-group">
                 <label for="password">비밀번호</label>
@@ -70,51 +67,20 @@
 
 </div>
 
-
 <script>
-	<!-- 추가된 JavaScript: 이메일 값을 hidden 필드에 설정 -->
-    function setEmailValue() {
-        document.getElementById("emailHidden").value = document.getElementById("email").value;
-    }
-    
-    <!-- 이메일 중복 확인 및 비밀번호 검증하는 JavaScript 추가 -->
-    function validateSignup() {
-        var emailChecked = document.getElementById("emailChecked").value;
-        var password = document.getElementById("password").value;
-        var confirmPassword = document.getElementById("password-confirm").value;
-
-        // 이메일 중복 확인 여부 체크
-        if (emailChecked !== "true") {
-            alert("이메일 중복 확인을 해주세요!");
-            return false;
-        }
-
-        // 비밀번호 일치 확인
-        if (password !== confirmPassword) {
-            alert("비밀번호가 일치하지 않습니다!");
-            return false;
-        }
-
-        return true;
-    }
-    
-    function resetEmailCheck() {
-    	document.getElementById("emailChecked").value = "false";
-	}
-    
-    function checkEmail() {
-        var email = document.getElementById("email").value;
-
-        // 이메일 입력 여부 확인
-        if (!email.trim()) {
-            alert("이메일을 입력해주세요!");
-            return;
-        }
-
-        // 중복 확인 요청을 직접 폼 제출 방식으로 변경
-        var form = document.createElement("form");
-        form.method = "POST";
+	function checkEmail() {
+	    var email = document.getElementById("email").value;
+	
+	    // 이메일 입력 여부 확인
+	    if (!email.trim()) {
+	        alert("이메일을 입력해주세요!");
+	        return;
+	    }
+	
+	    var form = document.createElement("form");
+        form.method = "post";
         form.action = "checkEmail";
+        form.style.display = "none";
 
         var emailInput = document.createElement("input");
         emailInput.type = "hidden";
@@ -124,9 +90,11 @@
         form.appendChild(emailInput);
         document.body.appendChild(form);
         form.submit();
+	}
+	
+	function resetEmailCheck() {
+        // 이메일이 변경되면, 중복 확인 상태를 초기화
+        document.getElementById("emailChecked").value = "false";
     }
-    
 </script>
 
-</body>
-</html>

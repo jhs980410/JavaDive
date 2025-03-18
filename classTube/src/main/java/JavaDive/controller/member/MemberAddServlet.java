@@ -75,7 +75,6 @@ public class MemberAddServlet extends HttpServlet {
             memberDto.setName(nameStr);
             memberDto.setEmail(emailStr);
             memberDto.setPwd(pwdStr); // 실제 운영 환경에서는 비밀번호 해싱 필요
-            memberDto.setRrn(rrnStr);
             memberDto.setTel(telStr);
 
             int result = memberDao.memberInsert(memberDto);
@@ -83,7 +82,6 @@ public class MemberAddServlet extends HttpServlet {
             if (result > 0) {
             	// 회원가입 후 세션에서 이메일체크 삭제
             	session.removeAttribute("emailChecked");
-            	
                 out.println("<script>alert('회원가입이 완료되었습니다.'); window.location.href='LoginPage.jsp';</script>");
             } else {
                 out.println("<script>alert('사용중인Email입니다. 다시 시도해주세요.'); history.back();</script>");

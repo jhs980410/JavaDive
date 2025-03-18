@@ -1,6 +1,7 @@
 package JavaDive.controller.member;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,16 +39,16 @@ public class CheckEmailServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		res.setContentType("text/plain; charset=UTF-8");
+		res.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = res.getWriter();
 
         // 클라이언트가 입력한 이메일 가져오기
         String emailStr = req.getParameter("email");
         
      // 이메일 입력값이 비어있는 경우, 포워딩 사용
         if (emailStr == null || emailStr.trim().isEmpty()) {
-            req.setAttribute("errorMessage", "이메일을 입력해주세요.");
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
-            dispatcher.forward(req, res);
+        	out.println("<script>alert('이메일을 입력해주세요!'); window.history.back();</script>");
             return;
         }
 
@@ -80,26 +81,20 @@ public class CheckEmailServlet extends HttpServlet {
 
             if (rs.next() && rs.getInt(1) > 0) {
             	// 중복된 이메일일 경우 회원가입 페이지로 포워딩
-                req.setAttribute("errorMessage", "이미 사용 중인 이메일입니다.");
+            	out.println("<script>alert('이미 사용 중인 이메일입니다.'); window.history.back();</script>");
             } else {
-            	
             	//사용 가능 이메일 서버에 저정
             	HttpSession session = req.getSession(); //세션 가져오기
             	session.setAttribute("emailChecked", emailStr); //세션에 이메일 저장
             	
             	// 사용 가능한 이메일일 경우 메시지를 설정하고 회원가입 페이지로 이동
-                req.setAttribute("successMessage", "사용 가능한 이메일입니다.");
+            	out.println("<script>alert('사용 가능한 이메일입니다.'); window.history.back();</script>");
             }
             
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
-            dispatcher.forward(req, res);
-
         } catch (Exception e) {
             e.printStackTrace();
             // 서버 오류 발생 시 회원가입 페이지로 포워딩
-            req.setAttribute("errorMessage", "서버 오류가 발생했습니다. 다시 시도해주세요.");
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/MemberShip.jsp");
-            dispatcher.forward(req, res);
+            out.println("<script>alert('서버 오류가 발생했습니다. 다시 시도해주세요.'); window.history.back();</script>");
         } finally {
         	
             try {
