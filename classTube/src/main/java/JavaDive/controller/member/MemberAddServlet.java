@@ -18,6 +18,24 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/join") // JSP에서 설정한 action 경로 유지
 public class MemberAddServlet extends HttpServlet {
+	
+	// 전화번호 정규식 (010-1234-5678 또는 01012345678 허용)
+    private static final Pattern PHONE_PATTERN =
+            Pattern.compile("^(010-\\d{4}-\\d{4}|010\\d{8})$");
+
+    // 주민등록번호 정규식 (6자리-7자리 형식)
+    private static final Pattern RRN_PATTERN =
+            Pattern.compile("^\\d{6}-\\d{7}$");
+
+    // 전화번호 정규식 검증 메서드
+    private boolean isValidPhoneNumber(String phone) {
+        return PHONE_PATTERN.matcher(phone).matches();
+    }
+
+    // 주민등록번호 정규식 검증 메서드
+    private boolean isValidRrn(String rrn) {
+        return RRN_PATTERN.matcher(rrn).matches();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -59,6 +77,19 @@ public class MemberAddServlet extends HttpServlet {
             return;
         }
         
+        // 주민등록번호 정규식 체크
+        if (!isValidRrn(rrnStr)) {
+            out.println("<script>alert('올바른 주민등록번호 형식을 입력하세요. (예: 990101-1234567)'); history.back();</script>");
+            return;
+        }
+        
+        // 전화번호 정규식 체크
+        if (!isValidPhoneNumber(telStr)) {
+            out.println("<script>alert('올바른 전화번호 형식을 입력하세요. (예: 010-1234-5678 또는 01012345678)'); history.back();</script>");
+            return;
+        }
+        
+        // 이메일 중복 확인 체크
         if (checkedEmail == null || !checkedEmail.equals(emailStr)) {
         	out.print("<script>alert('이메일 중복 확인을 해주세요.'); history.back();</script>");
         	return;
@@ -76,6 +107,7 @@ public class MemberAddServlet extends HttpServlet {
             memberDto.setEmail(emailStr);
             memberDto.setPwd(pwdStr); // 실제 운영 환경에서는 비밀번호 해싱 필요
             memberDto.setTel(telStr);
+            memberDto.setRrn(rrnStr);
 
             int result = memberDao.memberInsert(memberDto);
 
