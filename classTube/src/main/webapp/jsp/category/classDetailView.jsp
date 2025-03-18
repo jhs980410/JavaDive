@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +41,7 @@
 				<tr>
 					<td class="colsLabel"><label>가격</label></td>
 					<td class="colsBlank"></td>
-					<td><input type='text' name='price' value="${odClassDto.getPrice()}" readonly></td>
+					<p><fmt:formatNumber type="number" value="${odClassDto.getPrice()}" readonly/>원</p>
 					<td></td>
 					<td class="colsLabel left-align"><label>정원</label></td>
 					<td class="colsBlank"></td>

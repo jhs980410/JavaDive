@@ -48,8 +48,12 @@ public class ODClassListController  extends HttpServlet {
 				currentPage = Integer.parseInt(pageParam);
 			}
 
-			int pageSize = 6;
+			int pageSize = 12;
 			String keyword = req.getParameter("keyword");
+			
+			 if (req.getRequestURI().contains("/admin")) { 
+		            pageSize = 6;
+		        }
 
 			try {
 				// 🔹 클래스 개수 조회
