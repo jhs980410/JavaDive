@@ -23,6 +23,7 @@
             <a href="category.jsp?type=sports" class="menu">회원정보수정</a>
             <a href="category.jsp?type=beauty" class="menu">회원탈퇴</a>
             <div class="menu-title">-------------------</div>
+            <a onclick='location.href="${pageContext.request.contextPath}/boardList"' class="menu">게시판으로 이동</a>
             <a onclick='location.href="${pageContext.request.contextPath}/note/myPageList"' class="menu">내가 쓴 게시글</a>
 
         </nav>

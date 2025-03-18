@@ -15,7 +15,7 @@
 	
 </head>
 <body>
-	<%@ include file="../common/mtPageSideBar.jsp"%>
+	<%@ include file="../common/myPageSideBar.jsp"%>
 	<div class="container">
 		<form action="/note/myPageList" method="get">
 			<h2>내가 작성한 게시물</h2>
