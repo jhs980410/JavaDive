@@ -68,6 +68,7 @@ public class LoginServlet extends HttpServlet {
 				
 				System.out.println("권한자: " + admin);
 				System.out.println("성공");
+				 session.setAttribute("lastRequestURI", "/adminMain");
 
 				res.sendRedirect("./adminMain");  // 상대 경로
 
@@ -77,7 +78,7 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("로그인 컨트롤러에서 의 memberdto : " + memberDto);
 				System.out.println("권한자: " + admin);
 				System.out.println("성공");
-
+				session.setAttribute("lastRequestURI", "/main");
 				res.sendRedirect("./main");
 			}
 			// 로그인 성공시 세션에 담고 로그인 완료 페이지로 이동

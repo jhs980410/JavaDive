@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <header class="header">
+
     <div class="logo" onclick='location.href="${pageContext.request.contextPath}/main";'>
         <img src="<%= request.getContextPath() %>/images/logo.PNG" alt="로고">
     </div>

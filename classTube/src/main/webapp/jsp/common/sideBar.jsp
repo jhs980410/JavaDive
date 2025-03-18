@@ -9,6 +9,8 @@
 
 </head>
 <body>
+
+
     <div class="sidebar">
         <div class="logo" onclick='location.href="${pageContext.request.contextPath}/main"'>
     	<img src="<%= request.getContextPath() %>/images/logo.PNG" alt="로고" width="150">
