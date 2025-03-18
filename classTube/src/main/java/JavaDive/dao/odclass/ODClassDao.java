@@ -22,7 +22,151 @@ public class ODClassDao {
 	public void setConnection(Connection conn) {
 		this.connection = conn;
 	}
+	
+	public List<ODClassDto> selectClassListForMain() throws Exception {
 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<ODClassDto> odClassList = new ArrayList<ODClassDto>();
+
+		String sql = "";
+
+		sql += "SELECT * FROM ( ";
+		sql += "    SELECT CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, ";
+		sql += "           CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO, ";
+		sql += "           ROW_NUMBER() OVER (ORDER BY CLASS_NO DESC) AS RNUM ";
+		sql += "    FROM ODCLASS ";
+		sql += ") WHERE RNUM BETWEEN ? AND ?";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			int paramIndex = 1;
+			
+			pstmt.setInt(paramIndex++, 1);
+			pstmt.setInt(paramIndex, 12);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				ODClassDto odClassDto = new ODClassDto();
+				odClassDto.setClassNo(rs.getInt("CLASS_NO"));
+				odClassDto.setClassName(rs.getString("CLASS_NAME"));
+				odClassDto.setPrice(rs.getInt("PRICE"));
+				odClassDto.setClassDesc(rs.getString("CLASS_DESC"));
+				odClassDto.setInstructor(rs.getString("INSTRUCTOR"));
+				odClassDto.setCreateAt(rs.getDate("CREATE_AT"));
+				odClassDto.setViews(rs.getInt("VIEWS"));
+				odClassDto.setClassLimit(rs.getInt("CLASS_LIMIT"));
+				odClassDto.setImg(rs.getString("IMG"));
+				odClassDto.setRegion(rs.getString("REGION"));
+				odClassDto.setCategoryNo(rs.getInt("CATEGORY_NO"));
+
+				odClassList.add(odClassDto);
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} // finally end
+
+		return odClassList;
+	}
+	
+	public ArrayList<ODClassDto> selectClassList(Integer categoryNo, String keyword, int currentPage, int pageSize) {
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    ArrayList<ODClassDto> odClassList = new ArrayList<ODClassDto>();
+	    
+	    String sql = "";
+
+	    try {
+	        if (categoryNo == null && (keyword == null || keyword.trim().isEmpty())) {
+	            // 기본 리스트 출력
+	            sql = "SELECT * FROM (SELECT CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, "
+	                + "CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO, "
+	                + "ROW_NUMBER() OVER (ORDER BY CLASS_NO DESC) AS RNUM "
+	                + "FROM ODCLASS) WHERE RNUM BETWEEN ? AND ?";
+	            
+	            pstmt = connection.prepareStatement(sql);
+	            pstmt.setInt(1, (currentPage - 1) * pageSize + 1);
+	            pstmt.setInt(2, currentPage * pageSize);
+	        } else if (categoryNo != null && (keyword == null || keyword.trim().isEmpty())) {
+	            // 카테고리만 선택했을 때
+	            sql = "SELECT * FROM (SELECT CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, "
+	                + "CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO, "
+	                + "ROW_NUMBER() OVER (ORDER BY CLASS_NO DESC) AS RNUM "
+	                + "FROM ODCLASS WHERE CATEGORY_NO = ?) WHERE RNUM BETWEEN ? AND ?";
+	            
+	            pstmt = connection.prepareStatement(sql);
+	            pstmt.setInt(1, categoryNo);
+	            pstmt.setInt(2, (currentPage - 1) * pageSize + 1);
+	            pstmt.setInt(3, currentPage * pageSize);
+	        } else if (categoryNo == null && keyword != null) {
+	            // 검색만 했을 때 (keyword를 사용)
+	            sql = "SELECT * FROM (SELECT CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, "
+	                + "CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO, "
+	                + "ROW_NUMBER() OVER (ORDER BY CLASS_NO DESC) AS RNUM "
+	                + "FROM ODCLASS WHERE LOWER(CLASS_NAME) LIKE LOWER(?)) WHERE RNUM BETWEEN ? AND ?";
+	            
+	            pstmt = connection.prepareStatement(sql);
+	            pstmt.setString(1, "%" + keyword.trim() + "%");
+	            pstmt.setInt(2, (currentPage - 1) * pageSize + 1);
+	            pstmt.setInt(3, currentPage * pageSize);
+	        }
+
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            ODClassDto odClassDto = new ODClassDto();
+	            odClassDto.setClassNo(rs.getInt("CLASS_NO"));
+	            odClassDto.setClassName(rs.getString("CLASS_NAME"));
+	            odClassDto.setPrice(rs.getInt("PRICE"));
+	            odClassDto.setClassDesc(rs.getString("CLASS_DESC"));
+	            odClassDto.setInstructor(rs.getString("INSTRUCTOR"));
+	            odClassDto.setCreateAt(rs.getDate("CREATE_AT"));
+	            odClassDto.setViews(rs.getInt("VIEWS"));
+	            odClassDto.setClassLimit(rs.getInt("CLASS_LIMIT"));
+	            odClassDto.setImg(rs.getString("IMG"));
+	            odClassDto.setRegion(rs.getString("REGION"));
+	            odClassDto.setCategoryNo(rs.getInt("CATEGORY_NO"));
+
+	            odClassList.add(odClassDto);
+	        }
+
+	        return odClassList;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return odClassList;
+	}
+	
 	public List<ODClassDto> selectClassList(String keyword, int page, int pageSize) throws Exception {
 
 		PreparedStatement pstmt = null;
@@ -423,14 +567,13 @@ public class ODClassDao {
 			return totalRecords;
 		}
 
-		public List<ODClassDto> searchClass(String keyword, int currentPage, int pageSize, HttpServletRequest req) {
+		public List<ODClassDto> searchClass(String keyword, int currentPage, int pageSize) {
 			// TODO Auto-generated method stub
 			PreparedStatement pstmt = null; // 쿼리실행준비
 			ResultSet rs = null; // sql 실행결과 객체담을 그릇 준비
 
 			ArrayList<ODClassDto> odClassList = new ArrayList<ODClassDto>(); //
-			HttpSession session = req.getSession();
-			MemberDto memberDto = (MemberDto) session.getAttribute("member");
+			
 			String sql = "";
 
 			try {
@@ -497,5 +640,7 @@ public class ODClassDao {
 			}
 			return odClassList;
 		}
+
+		
 		
 }

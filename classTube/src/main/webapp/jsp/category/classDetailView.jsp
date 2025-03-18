@@ -14,10 +14,10 @@
 <%@ include file="../common/commonHeader.jsp"%>
 <%@ include file="./categoryBtn.jsp"%>
 	<div class="container">
+	<h2>일반 유저가 보는 detail 화면</h2>
 		<br>
 		<br>
-		<div class="addForm">
-		<form action='./update?classNo=${odClassDto.getClassNo()}' method='get'>
+		<div class="classView">
 		<input type="hidden" name="classNo" value="${odClassDto.getClassNo()}">
 			<table>
 				<tr>
@@ -67,10 +67,10 @@
 				</tr>
 				
 				<tr class="btnGroup">
-				<td colspan=8><input type='submit' class="btn" value='수정'> <input type='button' class="btn" value='목록' onclick='location.href="./list";'></td>
+				<td colspan=8><input type='button' class="btn" value='목록' onclick='location.href="./view";'></td>
 				</tr>
 			</table>
-		</form>
+		
 		</div>
 	</div>
 

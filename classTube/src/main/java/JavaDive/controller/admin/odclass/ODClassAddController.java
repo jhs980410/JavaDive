@@ -24,13 +24,8 @@ public class ODClassAddController extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = req.getSession();
 		MemberDto memberDto = (MemberDto) session.getAttribute("member"); 
-		RequestDispatcher dispatcher = null;
-		if ("ADMIN".equals(memberDto.getPriv())) {
-			dispatcher = req.getRequestDispatcher("/jsp/admin/category/ClassAddForm.jsp");
-		} else {
-		
-		dispatcher = req.getRequestDispatcher("/jsp/common/error.jsp");
-		}
+		RequestDispatcher dispatcher = 
+				 req.getRequestDispatcher("/jsp/admin/category/ClassAddForm.jsp");
 		
 		dispatcher.forward(req, res);
 	}

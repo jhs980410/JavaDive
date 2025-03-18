@@ -29,7 +29,7 @@
 				</c:if>	
 				<c:forEach var="odClassDto" items="${odClassList}">
 					<div class="classObj">
-						<a href="./?classNo=${odClassDto.getClassNo()}">
+						<a href="./category/detail?classNo=${odClassDto.getClassNo()}">
 							<div class="cssClass">
 								<%-- <img src="${odClassDto.getImg()}"> --%>
 								<img class="classImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ37Yi1ANvy4Ma4F2lnGQvHWi7OmoaAHS9Lg&s">

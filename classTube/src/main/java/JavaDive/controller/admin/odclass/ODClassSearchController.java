@@ -22,7 +22,7 @@ import JavaDive.dto.odclass.ODClassDto;
 /**
  * Servlet implementation class BoardSearchController
  */
-@WebServlet({"/search", "/admin/category/search"}) 
+@WebServlet({"/category/search", "/admin/category/search"}) 
 public class ODClassSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,24 +40,31 @@ public class ODClassSearchController extends HttpServlet {
 		ArrayList<ODClassDto> odClassList = null; // dao에서 , keyword 입력예정
 		String keyWord = "";
 		
-		 int currentPage = 1;  // 기본 페이지는 1
-		    int pageSize = 6;  // 한 페이지에 6개씩 조회
+		int currentPage = 1;  // 기본 페이지는 1
+		int pageSize = 6;  // 한 페이지에 6개씩 조회
 		    
 		try {
 			System.out.println("Search 컨트롤러진입");
+			int categoryNo = Integer.parseInt(req.getParameter("categoryNo"));
 			String keyword = req.getParameter("keyword");
-			String category = req.getParameter("category");
-			odClassList = (ArrayList<ODClassDto>) odClassDao.searchClass(keyword, currentPage, pageSize, req);
+			odClassList = (ArrayList<ODClassDto>) odClassDao.selectClassList(categoryNo, keyword, currentPage, pageSize);
 	        session.setAttribute("odClassList", odClassList);
+	        
+	        int totalRecords = odClassDao.getTotalClassCount(keyword);
+			int totalPage = (int) Math.ceil((double)totalRecords / pageSize); // 총 페이지 수
 
 	        // 📌 추가: 현재 페이지와 페이지 크기도 세션에 저장 (페이징 유지)
-	        session.setAttribute("currentPage", currentPage);
-	        session.setAttribute("pageSize", pageSize);
+			session.setAttribute("currentPage", currentPage);
+			session.setAttribute("pageSize", pageSize);
+			session.setAttribute("keyword", keyword);
+			session.setAttribute("totalPage", totalPage);
+			
 			String path;
+			
 	        if (req.getRequestURI().contains("/admin")) { 
-	            path = "/jsp/admin/category/ClassListView.jsp";  // 관리자 검색 결과 페이지
+	            path = "/jsp/admin/category/ClassListSearchView.jsp";  // 관리자 검색 결과 페이지
 	        } else {
-	            path = "/jsp/category/ClassListView.jsp";  // 일반 사용자 검색 결과 페이지
+	            path = "/jsp/category/classListCategoryView.jsp";  // 일반 사용자 검색 결과 페이지
 	        }
 
 	        RequestDispatcher dispatcher = req.getRequestDispatcher(path);

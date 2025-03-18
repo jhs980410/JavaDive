@@ -5,6 +5,7 @@ import java.lang.reflect.Member;
 import java.sql.Connection;
 
 import JavaDive.dao.odclass.ODClassDao;
+import JavaDive.dto.member.MemberDto;
 import JavaDive.dto.odclass.ODClassDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
@@ -13,8 +14,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/admin/category/detail")
+@WebServlet({"/admin/category/detail", "/category/detail"})
 public class ODClassDetailController extends HttpServlet {
 	
 	@Override
@@ -36,8 +38,20 @@ public class ODClassDetailController extends HttpServlet {
 			
 			req.setAttribute("odClassDto", odClassDto);
 			
-			RequestDispatcher dispatcher =
-					req.getRequestDispatcher("/jsp/admin/category/ClassDetailView.jsp");
+			HttpSession session = req.getSession();
+			 
+			MemberDto memberDto = (MemberDto) session.getAttribute("member"); 
+			
+			RequestDispatcher dispatcher = null;
+					
+			if ("ADMIN".equals(memberDto.getPriv())) {
+				
+				dispatcher = req.getRequestDispatcher("/jsp/admin/category/ClassDetailView.jsp");
+
+			}else {
+
+				dispatcher = req.getRequestDispatcher("/jsp/category/classDetailView.jsp");
+			}
 			
 			dispatcher.forward(req, res);
 			

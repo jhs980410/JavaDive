@@ -12,8 +12,7 @@
 </head>
 
 <body>
-<%@ include file="../common/commonHeader.jsp"%>
-<%@ include file="./categoryBtn.jsp"%>
+<%@ include file="../common/adminHeader.jsp"%>
 	<div class="container">		
 	<div class="listWrap">
 		<div class="list">
@@ -69,21 +68,21 @@
         <!-- 이전 버튼 -->
         <c:if test="${currentPage > 1}">
             <li class="page-item">
-                <a class="page-link" href="/classTube/category/view?page=${currentPage - 1}${not empty keyword ? '&keyword=' : ''}${keyword}">이전</a>
+                <a class="page-link" href="/classTube/admin/category/search?keyword=${keyword}&page=${currentPage - 1}">이전</a>
             </li>
         </c:if>
 
         <!-- 페이지 숫자 버튼 -->
         <c:forEach var="i" begin="${startPage}" end="${endPage}">
             <li class="page-item ${currentPage == i ? 'active' : ''}">
-                <a class="page-link" href="/classTube/category/view?page=${i}${not empty keyword ? '&keyword=' : ''}${keyword}">${i}</a>
+                <a class="page-link" href="/classTube/admin/category/search?keyword=${keyword}&page=${i}">${i}</a>
             </li>
         </c:forEach>
 
         <!-- 다음 버튼 -->
         <c:if test="${currentPage < totalPage}">
             <li class="page-item">
-                <a class="page-link" href="/classTube/category/view?page=${currentPage + 1}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
+                <a class="page-link" href="/classTube/admin/category/search?keyword=${keyword}&page=${currentPage + 1}"">다음</a>
             </li>
         </c:if>
     </c:if>
@@ -93,7 +92,7 @@
 	
 	<div class="bottom-container">
 			<!-- 검색창 (왼쪽 정렬) -->
-			<form action="/classTube/category/search" method="get"
+			<form action="/classTube/admin/category/search" method="get"
 				class="search-form">
 				<div class="search-container">
 					<div class="search">
