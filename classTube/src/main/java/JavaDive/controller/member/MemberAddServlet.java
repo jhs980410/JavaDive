@@ -108,6 +108,7 @@ public class MemberAddServlet extends HttpServlet {
             memberDto.setPwd(pwdStr); // 실제 운영 환경에서는 비밀번호 해싱 필요
             memberDto.setTel(telStr);
             memberDto.setRrn(rrnStr);
+            memberDto.setPriv("USER");
 
             int result = memberDao.memberInsert(memberDto);
 

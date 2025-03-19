@@ -26,11 +26,11 @@ public class AdminMemberDeleteServlet extends HttpServlet{
 				memberNo = Integer.parseInt(memberNoparam);
 			} catch (NumberFormatException e) {
 				// TODO: handle exception
-				res.sendRedirect(req.getContextPath() + "/error.jsp");
+				res.sendRedirect(req.getContextPath() + "jsp/common/error.jsp");
 				return;
 			}
 		}else {
-			res.sendRedirect(req.getContextPath() + "/error.jsp");
+			res.sendRedirect(req.getContextPath() + "jsp/common/error.jsp");
 			return;
 		}
 		
@@ -49,12 +49,12 @@ public class AdminMemberDeleteServlet extends HttpServlet{
 			if (result > 0) {
 				res.sendRedirect(req.getContextPath() + "/admin/member/list");
 			} else {
-				res.sendRedirect(req.getContextPath() + "/error.jsp");
+				res.sendRedirect(req.getContextPath() + "jsp/common/error.jsp");
 			}
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			res.sendRedirect(req.getContextPath() + "/error.jsp");
+			res.sendRedirect(req.getContextPath() + "jsp/common/error.jsp");
 		}
 	}
 

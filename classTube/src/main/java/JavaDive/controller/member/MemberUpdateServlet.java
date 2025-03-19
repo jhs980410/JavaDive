@@ -53,7 +53,7 @@ public class MemberUpdateServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("error", e);
-            rd = req.getRequestDispatcher("/jsp/error.jsp");
+            rd = req.getRequestDispatcher("/jsp/common/error.jsp");
             rd.forward(req, res);
         }
     }
@@ -116,7 +116,7 @@ public class MemberUpdateServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("error", e);
-            RequestDispatcher rd = req.getRequestDispatcher("/jsp/error.jsp");
+            RequestDispatcher rd = req.getRequestDispatcher("/jsp/common/error.jsp");
             rd.forward(req, res);
         }
     }

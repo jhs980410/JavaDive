@@ -13,7 +13,7 @@ function openEditWindow(commentId, postId) {
 
 	console.log("Final URL:", url);
 
-	let popupOptions = "width=500,height=300,top=200,left=300,resizable=yes,scrollbars=yes";
+	let popupOptions = "width=600,height=300,top=200,left=300,resizable=yes,scrollbars=yes";
 	window.open(url, "editComment", popupOptions);
 }
 
