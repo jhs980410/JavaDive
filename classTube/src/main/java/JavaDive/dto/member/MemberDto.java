@@ -12,7 +12,7 @@ public class MemberDto {
 	private String name;
 	private String rrn;
 	private String tel;
-	private String priv;
+	private String priv = "USER";
 	private Date create_at;
 	
 	
