@@ -1,7 +1,7 @@
 .container {
     width: 75%;
      margin-top: 20px;
-    margin-left: 130px;  /* 사이드바 고려한 레이아웃 조정 */
+    margin-left: 220px;  /* 사이드바 고려한 레이아웃 조정 */
     padding: 30px;
     background-color: #ffffff; /* 배경색 화이트 */
 }
