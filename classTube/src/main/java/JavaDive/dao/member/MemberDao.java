@@ -40,7 +40,8 @@ public class MemberDao {
 
             // 2. 회원 정보 삽입
             String sql = "INSERT INTO MEMBER (MEMBER_NO, MEMBER_EMAIL, MEMBER_PWD, MEMBER_NAME, RRN, TEL, CREATE_AT) ";
-            sql += "VALUES (MEMBER_SEQ.NEXTVAL, ?, ?, ?, ?, ?, SYSDATE)";
+            sql += "VALUES (SEQ_MEMBER_NO.NEXTVAL, ?, ?, ?, ?, ?, SYSDATE)";
+            
 
             pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, emailStr);
