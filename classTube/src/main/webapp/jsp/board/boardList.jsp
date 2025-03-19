@@ -91,9 +91,9 @@
 
 			<!-- ◀ 이전 그룹 버튼 -->
 			<c:if test="${startPage > 1}">
-				<li class="page-item"><a class="page-link"
-					href="boardList?page=${fn:substringBefore((startPage - pageGroupSize), '.')}">이전</a></li>
-			</c:if>
+            <li class="page-item"><a class="page-link"
+               href="boardList?page=${startPage - groupSize}&keyword=${param.keyword}">이전</a></li>
+         </c:if>
 
 			<!-- 페이지 숫자 버튼 -->
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
@@ -103,10 +103,10 @@
 			</c:forEach>
 
 			<!-- ▶ 다음 그룹 버튼 -->
-			<c:if test="${endPage < totalPage}">
-				<li class="page-item"><a class="page-link"
-					href="boardList?page=${fn:substringBefore((startPage + pageGroupSize), '.')}">다음</a></li>
-			</c:if>
+			 <c:if test="${endPage < totalPage}">
+            <li class="page-item"><a class="page-link"
+               href="boardList?page=${startPage + groupSize}&keyword=${param.keyword}"> 다음 </a></li>
+         </c:if>
 
 
 			<!-- ▶▶ 마지막 페이지 버튼 -->
