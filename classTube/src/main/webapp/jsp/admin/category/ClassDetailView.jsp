@@ -42,7 +42,7 @@
 					<td class="colsBlank"></td>
 					<fmt:formatNumber var="formattedPrice" type="number" value="${odClassDto.getPrice()}" />
 					<td>
-  						<input type="text" value="${formattedPrice}" readonly />원
+  						<input type="text" value="${formattedPrice}원" readonly />
 					</td>
 					<td></td>
 					<td class="colsLabel left-align"><label>정원</label></td>

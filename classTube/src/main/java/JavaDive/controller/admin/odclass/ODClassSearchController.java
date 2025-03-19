@@ -38,16 +38,24 @@ public class ODClassSearchController extends HttpServlet {
 		Connection conn = (Connection) sc.getAttribute("conn");
 		odClassDao.setConnection(conn);
 		ArrayList<ODClassDto> odClassList = null; // dao에서 , keyword 입력예정
-		String keyWord = "";
 		
 		int currentPage = 1;  // 기본 페이지는 1
 		int pageSize = 6;  // 한 페이지에 6개씩 조회
 		    
 		try {
 			System.out.println("Search 컨트롤러진입");
-			int categoryNo = Integer.parseInt(req.getParameter("categoryNo"));
+			
 			String keyword = req.getParameter("keyword");
-			odClassList = (ArrayList<ODClassDto>) odClassDao.selectClassList(categoryNo, keyword, currentPage, pageSize);
+			
+			if (req.getParameter("categoryNo") == null) {
+				odClassList = (ArrayList<ODClassDto>) odClassDao.selectClassList(keyword, currentPage, pageSize);
+			} else {
+				Integer categoryNo = Integer.parseInt(req.getParameter("categoryNo"));
+				odClassList = (ArrayList<ODClassDto>) odClassDao.selectClassList(categoryNo, keyword, currentPage, pageSize);
+			}
+			
+			
+			
 	        session.setAttribute("odClassList", odClassList);
 	        
 	        int totalRecords = odClassDao.getTotalClassCount(keyword);

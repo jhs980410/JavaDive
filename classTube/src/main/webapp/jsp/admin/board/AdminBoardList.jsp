@@ -83,8 +83,10 @@
 		<c:set var="pageGroupSize" value="10" />
 
 		<!-- 현재 페이지 그룹의 첫 번째 페이지 계산 (10단위) -->
-		<c:set var="startPage"
-			value="${(((currentPage - 1) div pageGroupSize) * pageGroupSize + 1) div 1}" />
+		<c:set var="step1" value="${currentPage + 9}" />
+		<fmt:parseNumber var="step2" value="${step1 / 10}" integerOnly="true" />
+		<c:set var="step3" value="${step2 - 1}" />
+		<c:set var="startPage" value="${step3 * 10 + 1}" />
 		<c:set var="endPage" value="${(startPage + pageGroupSize - 1) div 1}" />
 
 

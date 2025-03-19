@@ -1,12 +1,46 @@
 .nav-sub-menu {
-	display: flex;
-    
-    gap: 90px;  /* ✅ 메뉴 간격 조정 */
-	
+    background-color: #f8f9fa;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
+.nav-sub-menu form {
+    margin: 0 10px;
+}
+
+.nav-sub-menu button {
+    background-color: #ffffff;
+    border: 2px solid #C3C564;
+    color: #C3C564;
+    padding: 10px 20px;
+    font-size: 13px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-sub-menu button:hover,
 .nav-link.active {
     background-color: #C3C564;
     color: white;
     font-weight: bold;
+}
+
+.nav-sub-menu button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+    .nav-sub-menu {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nav-sub-menu form {
+        margin: 5px 0;
+    }
 }
