@@ -1,129 +1,88 @@
-@charset "UTF-8";
-
-* {
-	font-family: 'Noto Sans KR', sans-serif;
-}
-
-.addClass {
-	text-align: right;
-}
-
-.classObj {
-	display: inline-block;
-	width: 280px;
-	height: 400px;
-	min-width: 280px;
-	padding: 20px;
-	margin: 5px;
-}
-
-.classImg {
-	width: 270px;
-	height: 200px;
-}
-
-h2 {
-	text-align: center;
-}
-
-.logo {
-	width: 250px;
-	height: 200px;
-}
-
 .listWrap {
-	margin-left: 150px;
-}
-
-.cssClass {
-	text-align: center;
-}
-
-.name {
-	height: 50px;
-	font-weight: bold;
-}
-
-.region, .price {
-	text-align: right;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .list {
-	margin-left: 300px;
-	margin-right: 300px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
 }
 
-a {
-	text-decoration: none;
-	color: black;
+.classObj {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 400px;
 }
 
-.formlogout {
-	display: inline-flex; /* form을 버튼 크기에 맞춤 */
-	width: 100px; /* 내용물 크기에 맞춤 */
-	height: 40px; /* 내용물 크기에 맞춤 */
-	margin: 0; /* 불필요한 여백 제거 */
-	padding: 0; /* 내부 여백 제거 */
-	align-items: center; /* 버튼이 중앙 정렬되도록 설정 */
-	position: absolute;
-	top: 10px; /* 원하는 위치 조정 */
-	right: 10px; /* 오른쪽 끝으로 정렬 */
+.classObj:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-.logout {
-	display: inline-block; /* form 크기에 맞춤 */
-	width: 100%; /* 부모(form)의 크기에 맞춤 */
-	height: 100%; /* 부모(form)의 크기에 맞춤 */
-	padding: 10px 20px; /* 버튼 크기 조정 */
-	background-color: #ffffff; /* 버튼 색상 */
-	color: "";
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
+.classObj a {
+    text-decoration: none;
+    color: inherit;
 }
 
-.pagination-container {
-	display: flex;
-	justify-content: center; /* ✅ 중앙 정렬 */
-	align-items: center; /* ✅ 세로 중앙 정렬 */
-	width: 100%; /* ✅ 부모 크기에 맞추기 */
-	margin-top: 20px;
+.cssClass {
+    height: 200px;
+    overflow: hidden;
 }
 
-.pagination-container {
-	display: flex;
-	justify-content: center; /* 중앙 정렬 유지 */
-	align-items: center;
-	width: 100%;
-	margin-top: 20px;
-	transform: translateX(-150px); /* ✅ 원하는 위치로 왼쪽 이동 */
+.classImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.pagination {
-	display: flex; /* ✅ flex 사용 */
-	justify-content: center; /* ✅ 내부 요소 중앙 정렬 */
-	list-style: none;
-	padding: 0;
+.name, .instructor, .region, .price {
+    padding: 5px 10px;
 }
 
-.pagination li {
-	display: inline-block;
-	margin: 0 5px; /* ✅ 좌우 간격 추가 */
+.name p {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0 5px;
 }
 
-.pagination .page-item.active .page-link {
-	background-color: #C3C564;
-	color: white;
-	font-weight: bold;
-	border-radius: 5px;
+.instructor p, .region p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
 }
 
-.pagination .page-link {
-	display: block;
-	padding: 8px 12px;
-	border: 1px solid #ddd;
-	color: #C3C564;
-	text-decoration: none;
-	text-align: center;
-	border-radius: 5px;
+.price p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #C3C564;
+    margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+    .list {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+.addClass {
+    text-align: right; /* 오른쪽 정렬 */
+}
+
+.add-btn {
+    display: inline-block; /* 인라인 블록 요소로 변경 */
+    padding: 10px 20px; /* 패딩 추가 */
+    background-color: #C3C564; /* 배경색 */
+    color: white; /* 글자색 */
+    text-decoration: none; /* 밑줄 제거 */
+    border-radius: 5px; /* 둥근 모서리 */
+    font-weight: bold; /* 굵은 글씨 */
+    transition: background-color 0.3s ease; /* 호버 효과 */
+}
+
+.add-btn:hover {
+    background-color: #a5a752; /* 호버 시 배경색 변경 */
 }

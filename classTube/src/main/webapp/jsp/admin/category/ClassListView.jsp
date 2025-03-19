@@ -9,14 +9,17 @@
 <title>클래스 목록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/category/classList.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/categoryBtn.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/classSearch.css">
 </head>
 
 <body>
 <%@ include file="../common/adminHeader.jsp"%>
-	<div class="container">		
+	<div class="container">
+	<%@ include file="/jsp/category/categoryBtn.jsp"%>		
 	<div class="listWrap">
 		<div class="list">
-			<div class="addClass"><a href="./add">추가</a></div>
+			
 			<c:if test="${empty odClassList}">
 				<p>클래스 목록이 비어 있습니다.</p>
 			</c:if>	
@@ -24,8 +27,8 @@
 					<div class="classObj">
 						<a href="./detail?classNo=${odClassDto.getClassNo()}" style="text-decoration:none;">
 							<div class="cssClass">
-								<%-- <img src="${odClassDto.getImg()}"> --%>
-								<img class="classImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ37Yi1ANvy4Ma4F2lnGQvHWi7OmoaAHS9Lg&s">
+								<img class="classImg" src="${odClassDto.getImg()}">
+								
 							</div>
 							<div>
 							 	<div class="name">
@@ -68,7 +71,14 @@
         <!-- 이전 버튼 -->
         <c:if test="${currentPage > 1}">
             <li class="page-item">
-                <a class="page-link" href="/classTube/admin/category/list?page=${currentPage - 1}${not empty keyword ? '&keyword=' : ''}${keyword}">이전</a>
+				<c:choose>
+				    <c:when test="${currentPage-10 < 1}">
+				        <a class="page-link" href="/classTube/admin/category/list?page=1${not empty keyword ? '&keyword=' : ''}${keyword}">이전</a>
+				    </c:when>
+				    <c:otherwise>
+				        <a class="page-link" href="/classTube/admin/category/list?page=${currentPage - 10}${not empty keyword ? '&keyword=' : ''}${keyword}">이전</a>
+				    </c:otherwise>
+				</c:choose>
             </li>
         </c:if>
 
@@ -82,7 +92,14 @@
         <!-- 다음 버튼 -->
         <c:if test="${currentPage < totalPage}">
             <li class="page-item">
-                <a class="page-link" href="/classTube/admin/category/list?page=${currentPage + 1}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
+	            <c:choose>
+				    <c:when test="${currentPage+10 < totalPage}">
+				        <a class="page-link" href="/classTube/admin/category/list?page="${currentPage+10}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
+				    </c:when>
+				    <c:otherwise>
+				        <a class="page-link" href="/classTube/admin/category/list?page=${totalpage}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
+				    </c:otherwise>
+				</c:choose>
             </li>
         </c:if>
     </c:if>
@@ -106,6 +123,9 @@
 			</form>
 
 
+<div class="addClass">
+        <a href="./add" class="add-btn">클래스 추가</a>
+    </div>
 
 			<p>
 		</div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,7 @@
 <title>Insert title</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/category/classList.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/categoryBtn.css">
 </head>
 
 <body>
@@ -17,13 +19,15 @@
 		<button class= "logout" type="submit">로그아웃</button>
 	</form>
 
+<%@ include file="/jsp/category/categoryBtn.jsp"%>
+
 <div class="container">
 	
-		<h2>클래스 목록</h2>
+		
 
 		<div class="listWrap">
 			<div class="list">
-			
+			<br>
 				<c:if test="${empty odClassList}">
 					<p>클래스 목록이 비어 있습니다.</p>
 				</c:if>	
@@ -45,7 +49,7 @@
 									<p>${odClassDto.getRegion()}</p>
 								</div>
 								<div class="price">
-									<p>${odClassDto.getPrice()}원</p>
+									<p><fmt:formatNumber type="number" value="${odClassDto.getPrice()}" />원</p>
 								</div>
 							</div>
 						</a>

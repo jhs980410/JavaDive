@@ -9,6 +9,8 @@
 <title>클래스 목록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/category/classList.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/categoryBtn.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/classSearch.css">
 </head>
 
 <body>
@@ -17,7 +19,7 @@
 	<div class="container">		
 	<div class="listWrap">
 		<div class="list">
-			<div class="addClass"><a href="./add">추가</a></div>
+		<br>
 			<c:if test="${empty odClassList}">
 				<p>클래스 목록이 비어 있습니다.</p>
 			</c:if>	
@@ -39,6 +41,7 @@
 									<p>${odClassDto.getRegion()}</p>
 								</div>
 								<div class="price">
+  									
   									<p><fmt:formatNumber type="number" value="${odClassDto.getPrice()}" />원</p>
 								</div>
 							</div>

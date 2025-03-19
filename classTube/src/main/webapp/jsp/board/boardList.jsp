@@ -72,7 +72,10 @@
 		<!-- 현재 페이지 그룹의 첫 번째 페이지 계산 (10단위) -->
 		<c:set var="groupSize" value="10" />
 		<c:set var="currentGroup" value="${(currentPage - 1) div groupSize}" />
-		<c:set var="startPage" value="${currentGroup * groupSize + 1}" />
+		<c:set var="step1" value="${currentPage + 9}" />
+		<fmt:parseNumber var="step2" value="${step1 / 10}" integerOnly="true" />
+		<c:set var="step3" value="${step2 - 1}" />
+		<c:set var="startPage" value="${step3 * 10 + 1}" />
 		<c:set var="endPage" value="${startPage + groupSize - 1}" />
 		<!-- 마지막 페이지가 전체 페이지 수보다 크면 조정 -->
 		<c:if test="${endPage > totalPage}">
