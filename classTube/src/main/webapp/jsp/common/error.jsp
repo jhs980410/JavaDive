@@ -23,12 +23,12 @@
 			<c:when test="${fn:contains(sessionScope.lastRequestURI, '/admin')}">
 			
 				<a href="${pageContext.request.contextPath}/admin/category/list"
-					class="btn"> 관리자 클래스목록으로 돌아가기 </a>
+					class="btn"> 관리자 메인페이지으로 돌아가기 </a>
 			</c:when>
 			<c:otherwise>
 				
 				<a href="${pageContext.request.contextPath}/main" class="btn">
-					클래스목록으로 돌아가기 </a>
+					메인페이지으로 돌아가기 </a>
 			</c:otherwise>
 		</c:choose>
 

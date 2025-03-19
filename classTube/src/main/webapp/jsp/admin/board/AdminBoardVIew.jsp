@@ -33,9 +33,12 @@
 							value="${boardDto.createDate}" pattern="yyyy-MM-dd HH:mm:ss" />
 					</span>
 				</c:if>
+				<c:if
+					test="${not empty memberDto and memberDto.no == boardDto.memberNo}">
 				<button class="updatebutton"
 					onclick="location.href='/classTube/admin/boardUpdate?postId=${boardDto.noteNo}'">
 					수정</button>
+					</c:if>
 				<button class="deletebutton"
 						onclick="confirmPostDelete('/classTube/admin/boardDelete?postId=${boardDto.noteNo}')">
 						삭제</button>
