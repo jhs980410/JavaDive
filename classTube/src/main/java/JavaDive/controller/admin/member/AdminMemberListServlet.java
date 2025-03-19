@@ -54,7 +54,7 @@ public class AdminMemberListServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            res.sendRedirect(req.getContextPath() + "/error.jsp"); // 오류 발생 시 에러 페이지 이동
+            res.sendRedirect(req.getContextPath() + "jsp/common/error.jsp"); // 오류 발생 시 에러 페이지 이동
         }
     }
 }
