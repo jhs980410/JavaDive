@@ -9,7 +9,8 @@
 <title>클래스 목록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/category/classList.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/clasSearch.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/categoryBtn.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/classSearch.css">
 </head>
 
 <body>
@@ -17,7 +18,7 @@
 	<div class="container">		
 	<div class="listWrap">
 		<div class="list">
-			<div class="addClass"><a href="./add">추가</a></div>
+			
 			<c:if test="${empty odClassList}">
 				<p>클래스 목록이 비어 있습니다.</p>
 			</c:if>	
@@ -83,7 +84,7 @@
         <!-- 페이지 숫자 버튼 -->
         <c:forEach var="i" begin="${startPage}" end="${endPage}">
             <li class="page-item ${currentPage == i ? 'active' : ''}">
-                <a class="page-link" href="/classTube/admin/category/list?page=${i}${not empty keyword ? '&keyword=' : ''}${keyword}">${i}</a>
+                <a class="page-link" href="/classTube/admin/category/search?page=${i}${not empty keyword ? '&keyword=' : ''}${keyword}">${i}</a>
             </li>
         </c:forEach>
 
@@ -92,10 +93,10 @@
             <li class="page-item">
 	            <c:choose>
 				    <c:when test="${currentPage+pageGroupSize < totalPage}">
-				        <a class="page-link" href="/classTube/admin/category/list?page=${currentPage+pageGroupSize}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
+				        <a class="page-link" href="/classTube/admin/category/list?page=${currentPage+pageGroupSize}${not empty keyword ? '&keyword=${keyword}' : ''}${not empty categoryNo ? '&categoryNo=${categoryNo}' : ''}">다음</a>
 				    </c:when>
 				    <c:otherwise>
-				        <a class="page-link" href="/classTube/admin/category/list?page=${totalPage}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
+				        <a class="page-link" href="/classTube/admin/category/list?page=${totalPage}${not empty keyword ? '&keyword=${keyword}' : ''}${not empty categoryNo ? '&categoryNo=${categoryNo}' : ''}">다음</a>
 				    </c:otherwise>
 				</c:choose>
             </li>
@@ -120,7 +121,9 @@
 				</div>
 			</form>
 
-
+<div class="addClass">
+        <a href="./add" class="add-btn">클래스 추가</a>
+    </div>
 
 			<p>
 		</div>

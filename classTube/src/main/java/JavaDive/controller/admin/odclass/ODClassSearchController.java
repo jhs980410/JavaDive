@@ -46,11 +46,12 @@ public class ODClassSearchController extends HttpServlet {
 			System.out.println("Search 컨트롤러진입");
 			
 			String keyword = req.getParameter("keyword");
+			Integer categoryNo = null;
 			
 			if (req.getParameter("categoryNo") == null) {
 				odClassList = (ArrayList<ODClassDto>) odClassDao.selectClassList(keyword, currentPage, pageSize);
 			} else {
-				Integer categoryNo = Integer.parseInt(req.getParameter("categoryNo"));
+				categoryNo = Integer.parseInt(req.getParameter("categoryNo"));
 				odClassList = (ArrayList<ODClassDto>) odClassDao.selectClassList(categoryNo, keyword, currentPage, pageSize);
 			}
 			
@@ -65,6 +66,7 @@ public class ODClassSearchController extends HttpServlet {
 			session.setAttribute("currentPage", currentPage);
 			session.setAttribute("pageSize", pageSize);
 			session.setAttribute("keyword", keyword);
+			session.setAttribute("categoryNo", categoryNo);
 			session.setAttribute("totalPage", totalPage);
 			
 			String path;
