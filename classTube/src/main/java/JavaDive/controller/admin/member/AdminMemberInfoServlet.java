@@ -44,7 +44,7 @@ public class AdminMemberInfoServlet extends HttpServlet {
             MemberDto member = memberDao.memberSelectOne(memberNo);
 
             if (member == null) {
-                res.sendRedirect(req.getContextPath() + "admin/member/List.jsp");
+                res.sendRedirect(req.getContextPath() + "/jsp/admin/member/adminMemberList.jsp");
                 return;
             }
 
