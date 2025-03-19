@@ -39,8 +39,8 @@ public class MemberDao {
 			}
 
             // 2. 회원 정보 삽입
-            String sql = "INSERT INTO MEMBER (MEMBER_NO, MEMBER_EMAIL, MEMBER_PWD, MEMBER_NAME, RRN, TEL, CREATE_AT) ";
-            sql += "VALUES (SEQ_MEMBER_NO.NEXTVAL, ?, ?, ?, ?, ?, SYSDATE)";
+            String sql = "INSERT INTO MEMBER (MEMBER_NO, MEMBER_EMAIL, MEMBER_PWD, MEMBER_NAME, RRN, TEL, MEMBER_PRIV, CREATE_AT) ";
+            sql += "VALUES (SEQ_MEMBER_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, SYSDATE)";
             
 
             pstmt = connection.prepareStatement(sql);
@@ -49,7 +49,7 @@ public class MemberDao {
             pstmt.setString(3, nameStr);
             pstmt.setString(4, rrnStr);
             pstmt.setString(5, telStr);
-
+            pstmt.setString(6, "USER"); // PRIV 값을 명시되도록 설정
             result = pstmt.executeUpdate();
             
 
