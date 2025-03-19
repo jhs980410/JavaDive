@@ -53,7 +53,7 @@ public class MemberDeleteServlet extends HttpServlet{
 			// TODO: handle exception
 			e.printStackTrace();
 			req.setAttribute("error", e);
-			RequestDispatcher rd = req.getRequestDispatcher("/jsp/error.jsp");
+			RequestDispatcher rd = req.getRequestDispatcher("/jsp/common/error.jsp");
 			rd.forward(req, res);
 		}
 	}

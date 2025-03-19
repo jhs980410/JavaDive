@@ -25,11 +25,11 @@ public class AdminMemberUpdateActionServlet extends HttpServlet {
                 memberNo = Integer.parseInt(memberNoParam);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
-                res.sendRedirect(req.getContextPath() + "/error.jsp");
+                res.sendRedirect(req.getContextPath() + "jsp/common/error.jsp");
                 return;
             }
         } else {
-            res.sendRedirect(req.getContextPath() + "/error.jsp");
+            res.sendRedirect(req.getContextPath() + "jsp/common/error.jsp");
             return;
         }
 
@@ -61,12 +61,12 @@ public class AdminMemberUpdateActionServlet extends HttpServlet {
             if (result > 0) {
                 res.sendRedirect(req.getContextPath() + "/admin/member/info?memberNo=" + memberNo);
             } else {
-                res.sendRedirect(req.getContextPath() + "/error.jsp");
+                res.sendRedirect(req.getContextPath() + "jsp/common/error.jsp");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            res.sendRedirect(req.getContextPath() + "/error.jsp");
+            res.sendRedirect(req.getContextPath() + "jsp/common/error.jsp");
         }
     }
 }
