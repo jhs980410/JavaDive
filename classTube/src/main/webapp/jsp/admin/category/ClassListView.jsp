@@ -72,7 +72,7 @@
         <c:if test="${currentPage > 1}">
             <li class="page-item">
 				<c:choose>
-				    <c:when test="${currentPage-10 < 1}">
+				    <c:when test="${currentPage-pageGroupSize < 1}">
 				        <a class="page-link" href="/classTube/admin/category/list?page=1${not empty keyword ? '&keyword=' : ''}${keyword}">이전</a>
 				    </c:when>
 				    <c:otherwise>
@@ -93,11 +93,11 @@
         <c:if test="${currentPage < totalPage}">
             <li class="page-item">
 	            <c:choose>
-				    <c:when test="${currentPage+10 < totalPage}">
-				        <a class="page-link" href="/classTube/admin/category/list?page="${currentPage+10}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
+				    <c:when test="${currentPage+pageGroupSize < totalPage}">
+				        <a class="page-link" href="/classTube/admin/category/list?page=${currentPage+pageGroupSize}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
 				    </c:when>
 				    <c:otherwise>
-				        <a class="page-link" href="/classTube/admin/category/list?page=${totalpage}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
+				        <a class="page-link" href="/classTube/admin/category/list?page=${totalPage}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
 				    </c:otherwise>
 				</c:choose>
             </li>

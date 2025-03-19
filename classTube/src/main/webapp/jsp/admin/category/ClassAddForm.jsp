@@ -13,8 +13,7 @@
 <body>
 <%@ include file="../common/adminHeader.jsp"%>
 	<div class="container">
-		<br>
-		<br>
+
 		<div class="addForm">
 		<form action='./add' method='post'>
 			<table>

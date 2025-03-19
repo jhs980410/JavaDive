@@ -6,7 +6,7 @@
 
 .list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(3, 1fr); /* 3개의 열로 변경 */
     gap: 20px;
 }
 
@@ -15,7 +15,7 @@
     border-radius: 8px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 400px;
+    /* min-width 제거 */
 }
 
 .classObj:hover {
@@ -62,27 +62,67 @@
     margin: 10px 0;
 }
 
+@media (max-width: 992px) {
+    .list {
+        grid-template-columns: repeat(2, 1fr); /* 태블릿 화면에서 2열로 변경 */
+    }
+}
+
 @media (max-width: 768px) {
     .list {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: 1fr; /* 모바일 화면에서 1열로 변경 */
     }
 }
 
 .addClass {
-    text-align: right; /* 오른쪽 정렬 */
+    text-align: right;
 }
 
 .add-btn {
-    display: inline-block; /* 인라인 블록 요소로 변경 */
-    padding: 10px 20px; /* 패딩 추가 */
-    background-color: #C3C564; /* 배경색 */
-    color: white; /* 글자색 */
-    text-decoration: none; /* 밑줄 제거 */
-    border-radius: 5px; /* 둥근 모서리 */
-    font-weight: bold; /* 굵은 글씨 */
-    transition: background-color 0.3s ease; /* 호버 효과 */
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #C3C564;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
 .add-btn:hover {
-    background-color: #a5a752; /* 호버 시 배경색 변경 */
+    background-color: #a5a752;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-item.active .page-link,
+.page-link:hover {
+    background-color: #C3C564;
+    color: white;
+    border-color: #C3C564;
+}
+
+.page-item:first-child .page-link,
+.page-item:last-child .page-link {
+    font-weight: bold;
 }

@@ -19,7 +19,7 @@
 	<div class="container">		
 	<div class="listWrap">
 		<div class="list">
-		<br>
+		
 			<c:if test="${empty odClassList}">
 				<p>클래스 목록이 비어 있습니다.</p>
 			</c:if>	
