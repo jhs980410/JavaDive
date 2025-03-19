@@ -13,7 +13,8 @@
 <body>
 <%@ include file="../common/adminHeader.jsp"%>
 	<div class="container">
-
+	<br>
+	<br>
 		<div class="addForm">
 		<form action='./add' method='post'>
 			<table>
@@ -32,7 +33,10 @@
 					<td class="colsLabel"><label>호스트</label></td>
 					<td class="colsBlank"></td>
 					<td colspan=2><input type='text' name='instructor'></td>
-					<td colspan=4></td>
+					<td class="colsLabel"><label>지역</label></td>
+					<td class="colsBlank"></td>
+					<td><input type='text' name='region' placeholder="서울/성북구/종암로"></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td class="colsLabel"><label>가격</label></td>
@@ -45,7 +49,6 @@
 					<td></td>
 				</tr>
 				<tr>
-				<tr>
 					<td class="colsLabel"><label>카테고리</label></td>
 					<td class="colsBlank"></td>
 					<td><select name="categoryNo" class="select">
@@ -56,10 +59,9 @@
                     		<option value="5">쿠킹</option>
             		    </select> </td>
             		<td></td>
-					<td class="colsLabel"><label>지역</label></td>
+					<td class="colsLabel"><label>이미지</label></td>
 					<td class="colsBlank"></td>
-					<td><input type='text' name='region' placeholder="서울/성북구/종암로"></td>
-					<td></td>
+					<td colspan=2><input type='text' name='img' value="${odClassDto.getImg()}"></td>
 				</tr>
 				
 				<tr class="btnGroup">
