@@ -354,7 +354,7 @@ INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE
 VALUES(SEQ_CLASS_NO.NEXTVAL, '요가와 명상 워크숍', 60000, '요가와 명상을 통해 몸과 마음을 힐링하는 워크숍입니다.', '달담', SYSDATE, 0, 10, 'https://img.freepik.com/premium-vector/vector-illustration-woman-doing-yoga-exercise-stretching-meditation-isolated-background_403715-428.jpg', '경기/성남시/판교', 1);
 
 INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
-VALUES(SEQ_CLASS_NO.NEXTVAL, '메이크업 기초반', 50000, '메이크업의 기초부터 작품 제작까지 배우는 클래스입니다.', '뷰티어학원', SYSDATE, 0, 8, 'https://www.perplexity.ai/search/c-users-a-sqlplus-as-sys-dba-s-.sX.zJdQT8WW7v5N1JUQcA', '부산/부산진구/서전동', 2);
+VALUES(SEQ_CLASS_NO.NEXTVAL, '메이크업 기초반', 50000, '메이크업의 기초부터 작품 제작까지 배우는 클래스입니다.', '뷰티어학원', SYSDATE, 0, 8, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOKxHhYYQ8D1rGKCe6JXlQsyBKZUJJ8Flw-A&s', '부산/부산진구/서전동', 2);
 
 INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
 VALUES(SEQ_CLASS_NO.NEXTVAL, '리더십 개발 워크숍', 100000, '리더십을 개발하기 위한 다양한 워크숍 프로그램을 제공합니다.', '지도자양성교육', SYSDATE, 0, 6, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC6ytvLwHMVjLjJGF5J9ZmVE53A5MiJeri2g&s', '대전/유성구/도안동', 3);

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>InsertTitle</title>
+<title>관리자 상세 보기</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/category/classAdd.css">
 </head>
@@ -73,7 +73,7 @@
 				</tr>
 				
 				<tr class="btnGroup">
-				<td colspan=8><input type='submit' class="btn" value='수정'> <input type='button' class="btn" value='목록' onclick='location.href="./list";'></td>
+				<td colspan=8><input type='submit' class="btn" value='수정'> <input type='button' class="btn" value='삭제' onclick='location.href="./delete?classNo=${odClassDto.getClassNo()}";'> <input type='button' class="btn" value='목록' onclick='location.href="./list";'></td>
 				</tr>
 			</table>
 		</form>
