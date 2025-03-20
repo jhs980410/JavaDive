@@ -61,7 +61,8 @@ body {
 }
 
 .login-button-text:hover {
-    background-color: #C3C564;
+    background-color: #e0e0e0;
+    color: black;
 }
 
 /* ✅ 아이디/비밀번호 찾기 & 회원가입 버튼 가로 정렬 */
@@ -87,7 +88,8 @@ body {
 }
 
 .find-id-password:hover, .signup:hover {
-    background-color: #C3C564;
+    background-color: #e0e0e0;
+    color: black;
 }
 
 /* ✅ 소셜 로그인 버튼 */

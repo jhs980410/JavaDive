@@ -59,7 +59,8 @@ body {
 }
 
 .small-btn:hover {
-    background: #1e4ea0;
+    background-color: #e0e0e0;
+    color: black;
 }
 
 /* 버튼 그룹 */
@@ -87,4 +88,6 @@ body {
 
 .main-btn:hover {
     opacity: 0.8;
+    background-color: #e0e0e0;
+    color: black;
 }
