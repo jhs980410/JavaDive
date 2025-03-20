@@ -55,7 +55,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-
+<%-- 
 		<c:set var="pageGroupSize" value="10" />
 		<!-- startPage 계산: currentPage가 10보다 크면 그룹이 바뀌어야 함 -->
 		<c:set var="startPage"
@@ -93,7 +93,7 @@
 			</c:if>
 		</ul>
 
-
+ --%><%-- 
 
 		<form action="boardList" method="get">
 			<div class="search-container">
@@ -106,7 +106,7 @@
 				</div>
 			</div>
 		</form>
-
+ --%>
 	</div>
 
 	<script src="${pageContext.request.contextPath}/js/board/boardList.js"></script>
