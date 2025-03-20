@@ -34,7 +34,11 @@
 				<tr>
 					<td class="colsLabel"><label>호스트</label></td>
 					<td class="colsBlank"></td>
-					<td colspan=2><input type='text' name='instructor'  value="${odClassDto.getInstructor()}"></td>				<td colspan=4></td>
+					<td colspan=2><input type='text' name='instructor'  value="${odClassDto.getInstructor()}"></td>				
+					<td class="colsLabel"><label>지역</label></td>
+					<td class="colsBlank"></td>
+					<td><input type='text' name='region' value="${odClassDto.getRegion()}"></td>
+					<td></td>	
 				</tr>
 				<tr>
 					<td class="colsLabel"><label>가격</label></td>
@@ -57,10 +61,9 @@
   						<option value="4" ${odClassDto.getCategoryNo() == '4' ? 'selected' : ''}>핸드메이드</option>
   						<option value="5" ${odClassDto.getCategoryNo() == '5' ? 'selected' : ''}>쿠킹</option> </select></td>
             		<td></td>
-					<td class="colsLabel"><label>지역</label></td>
+					<td class="colsLabel"><label>이미지</label></td>
 					<td class="colsBlank"></td>
-					<td><input type='text' name='region' value="${odClassDto.getRegion()}"></td>
-					<td></td>
+					<td colspan=2><input type='text' name='img' value="${odClassDto.getImg()}"></td>
 				</tr>
 				<tr class="btnGroup">
 				<td colspan=8><input type='submit' class="btn" value='수정'> <input type='reset' class="btn" value='취소' onclick='location.href="./list";'></td>

@@ -15,8 +15,9 @@
 
 <body>
 <%@ include file="../common/adminHeader.jsp"%>
+<%@ include file="/jsp/admin/category/categoryBtn.jsp"%>	
 	<div class="container">
-	<%@ include file="/jsp/category/categoryBtn.jsp"%>		
+		
 	<div class="listWrap">
 		<div class="list">
 			

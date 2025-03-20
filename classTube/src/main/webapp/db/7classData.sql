@@ -334,3 +334,65 @@ INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE
 VALUES(SEQ_CLASS_NO.NEXTVAL, '', , 
 '',
 '', SYSDATE, 0, , '', '', );
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '주말 사이클링 투어', 50000, '주말에 건강한 사이클링을 즐기는 투어 클래스입니다. 초보자도 참여 가능합니다.', '김강태', SYSDATE, 0, 8, 'https://www.urbanbrush.net/web/wp-content/uploads/edd/2020/05/urbanbrush-20200528060521973440.jpg', '서울/강남구/삼성동', 1);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '네일 아트 기초반', 60000, '네일 아트의 기초부터 작품 제작까지 배우는 클래스입니다.', '꽃피우다', SYSDATE, 0, 6, 'https://img.pikbest.com/png-images/qianku/pink-cute-nail-art_2410590.png!sw800', '부산/해운대구/중동', 2);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '자기계발 워크숍', 80000, '자기계발을 위한 다양한 워크숍 프로그램을 제공합니다.', '자기계발', SYSDATE, 0, 10, 'https://previews.123rf.com/images/leberus/leberus2008/leberus200800039/153554903-%EB%B9%84%EC%A6%88%EB%8B%88%EC%8A%A4-%EA%B4%80%EB%A6%AC-%EC%BD%94%EC%B9%AD-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EA%B3%BC%EC%A0%95-%EA%B8%B0%EC%88%A0-%EC%A7%80%EC%9B%90-%EC%98%A8%EB%9D%BC%EC%9D%B8-%EA%B5%90%EC%9C%A1-%EA%B4%80%EB%A6%AC%EC%9E%90-%EC%9B%8C%ED%81%AC%EC%83%B5-%EC%BD%94%EB%94%A9-%EC%9B%8C%ED%81%AC%EC%83%B5-%EB%B2%A1%ED%84%B0.jpg', '대구/수성구/황금동', 3);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '목공예 기초반', 70000, '목공예의 기초부터 작품 제작까지 배우는 클래스입니다.', '박진욱', SYSDATE, 0, 8, 'https://www.urbanbrush.net/web/wp-content/uploads/edd/2022/08/urbanbrush-20220822143326330886.jpg', '인천/남동구/구월동', 4);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '이탈리아 요리 클래스', 90000, '이탈리아 현지 셰프에게 배우는 정통 이탈리아 요리 클래스입니다.', 'yawn', SYSDATE, 0, 6, 'https://img.freepik.com/free-vector/spaghetti-carbonara-sticker-white_1308-60931.jpg', '서울/마포구/홍대입구', 5);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '요가와 명상 워크숍', 60000, '요가와 명상을 통해 몸과 마음을 힐링하는 워크숍입니다.', '달담', SYSDATE, 0, 10, 'https://img.freepik.com/premium-vector/vector-illustration-woman-doing-yoga-exercise-stretching-meditation-isolated-background_403715-428.jpg', '경기/성남시/판교', 1);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '메이크업 기초반', 50000, '메이크업의 기초부터 작품 제작까지 배우는 클래스입니다.', '뷰티어학원', SYSDATE, 0, 8, 'https://www.perplexity.ai/search/c-users-a-sqlplus-as-sys-dba-s-.sX.zJdQT8WW7v5N1JUQcA', '부산/부산진구/서전동', 2);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '리더십 개발 워크숍', 100000, '리더십을 개발하기 위한 다양한 워크숍 프로그램을 제공합니다.', '지도자양성교육', SYSDATE, 0, 6, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC6ytvLwHMVjLjJGF5J9ZmVE53A5MiJeri2g&s', '대전/유성구/도안동', 3);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '천연비누 만들기', 40000, '천연 재료로 비누를 만드는 클래스입니다.', '김다영', SYSDATE, 0, 10, 'https://media.istockphoto.com/id/2148898620/ko/%EB%B2%A1%ED%84%B0/soap-bar-simple-flat-illustration-in-isometric-view.jpg?s=612x612&w=0&k=20&c=Zvk5yxeJjIgxoIqm00b397SNr5OaoBlkPR2tBhHnUq0=', '인천/남동구/간석동', 4);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '중국 요리 클래스', 80000, '중국 현지 셰프에게 배우는 정통 중국 요리 클래스입니다.', '澎湃', SYSDATE, 0, 8, 'https://media.istockphoto.com/id/1244901221/ko/%EB%B2%A1%ED%84%B0/%EA%B7%80%EC%97%AC%EC%9A%B4-%EC%95%84%EC%9D%B4-%EC%A0%84%EB%AC%B8-%EC%9A%94%EB%A6%AC%EC%82%AC-%EC%96%B4%EB%A6%B0%EC%9D%B4-%EC%9A%94%EB%A6%AC-%EC%9A%94%EB%A6%AC%EC%82%AC-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8-%EB%A0%88%EC%9D%B4%EC%85%98-%ED%9D%B0%EC%83%89-%EB%B0%B0%EA%B2%BD%EC%97%90-%EA%B3%A0%EB%A6%BD.jpg?s=170667a&w=0&k=20&c=Lv-hq9RQOca1zEBu7Akd_FwmAwLvxHlrEyTqW7uk57k=', '서울/용산구/이태원동', 5);
+
+
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '산악 자전거 투어', 80000, '자연 속에서 즐기는 산악 자전거 투어 클래스입니다. 초보자도 환영합니다.', '마운틴라이더스', SYSDATE, 0, 10, 'https://img.freepik.com/premium-vector/mountain-biker-nature-background-illustration-vector_51549-24.jpg', '강원도/춘천시/소양로', 1);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '헤어 스타일링 클래스', 70000, '전문 헤어 디자이너와 함께하는 헤어 스타일링 클래스입니다.', '헤어아티스트', SYSDATE, 0, 8, 'https://www.urbanbrush.net/web/wp-content/uploads/edd/2022/07/urbanbrush-20220719163650536415.jpg', '서울/강남구/압구정동', 2);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '시간 관리 워크숍', 60000, '효율적인 시간 관리를 배우는 자기계발 워크숍입니다.', '타임매니저', SYSDATE, 0, 12, 'https://vrthumb.imagetoday.co.kr/2023/09/19/ta0173t000424.jpg', '부산/수영구/광안리', 3);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '캔들 만들기 클래스', 50000, '나만의 향기로 캔들을 만들어보는 핸드메이드 클래스입니다.', '캔들하우스', SYSDATE, 0, 10, 'https://media.istockphoto.com/id/1390339328/ko/%EB%B2%A1%ED%84%B0/%ED%9D%B0%EC%83%89-%EB%B0%B0%EA%B2%BD%EC%97%90-%EC%BA%94%EB%93%A4-%EC%95%84%EC%9D%B4%EC%BD%98-%ED%94%8C%EB%9E%AB-%EB%94%94%EC%9E%90%EC%9D%B8.jpg?s=612x612&w=0&k=20&c=-QKHoNk70dtNTqVk3Uw0DLafUVU4CicQThepwYv5rOM=', '서울/종로구/삼청동', 4);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL, '프렌치 디저트 클래스', 75000, '프랑스 정통 디저트를 직접 만들어보는 쿠킹 클래스입니다.', '파리지앵베이커리', SYSDATE, 0, 6, 'https://img.freepik.com/premium-vector/series-strawberry-flavored-dessert-illustration-vector-flat-design-style_474216-60.jpg', '서울/서초구/양재동', 5);
+
+INSERT INTO ODCLASS (CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION,CATEGORY_NO)
+VALUES(SEQ_CLASS_NO.NEXTVAL,'클라이밍 초급반',65000,'실내 클라이밍의 기본부터 배우는 초급반 클래스입니다.','클라임업센터',SYSDATE ,0 ,8 ,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCgpk3j-AK7_Y4EdpXp5O5AkVUZd8WWoMa2A&s','경기/용인시/기흥구' ,1);
+
+INSERT INTO ODCLASS (CLASS_NO ,CLASS_NAME ,PRICE ,CLASS_DESC ,INSTRUCTOR ,CREATE_AT ,VIEWS ,CLASS_LIMIT ,IMG ,REGION ,CATEGORY_NO )
+VALUES(SEQ_CLASS_NO.NEXTVAL,'메이크업 아티스트 워크숍' ,85000 ,'전문 메이크업 아티스트에게 배우는 메이크업 심화 과정입니다.' ,'글램뷰티' ,SYSDATE ,0 ,8 ,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiPwAOpasrP35KWX4PWfxqII-5icCz5pvCuA&s','대구/중구/동성로' ,2);
+
+INSERT INTO ODCLASS (CLASS_NO ,CLASS_NAME ,PRICE ,CLASS_DESC ,INSTRUCTOR ,CREATE_AT ,VIEWS ,CLASS_LIMIT ,IMG ,REGION ,CATEGORY_NO )
+VALUES(SEQ_CLASS_NO.NEXTVAL,'프레젠테이션 스킬 향상' ,95000 ,'효과적인 프레젠테이션 스킬을 배우고 실습하는 자기계발 클래스입니다.' ,'PT마스터' ,SYSDATE ,0 ,10 ,'https://img.freepik.com/free-vector/people-business-presentation-illustration_33099-492.jpg?t=st=1732349962~exp=1732353562~hmac=9d54f571f5de25d1dfc61b41a3ef8341b6835e14b0b92735a3b83709d73c4973','서울/중구/을지로' ,3);
+
+INSERT INTO ODCLASS (CLASS_NO ,CLASS_NAME ,PRICE ,CLASS_DESC ,INSTRUCTOR ,CREATE_AT ,VIEWS ,CLASS_LIMIT ,IMG ,REGION,CATEGORY_NO )
+VALUES(SEQ_CLASS_NO.NEXTVAL,'비누 공예 클래스' ,55000 ,'천연 재료를 사용하여 비누를 만드는 핸드메이드 클래스입니다.' ,'솝아트워크샵' ,SYSDATE ,0 ,12 ,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTryhG2mLo26jruIMi2x6Q0Iuyaxr0xTxroSw&s','광주광역시/북구/운암동' ,4);
+
+
+commit;

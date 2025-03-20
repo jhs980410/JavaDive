@@ -68,6 +68,7 @@ public class ODClassUpdateController extends HttpServlet {
 		String descStr = req.getParameter("classDesc");
 		String instructorStr  = req.getParameter("instructor");
 		int classLimitStr = Integer.parseInt(req.getParameter("classLimit"));
+		String imgStr = req.getParameter("img");
 		String regionStr = req.getParameter("region");
 		int categoryNoStr = Integer.parseInt(req.getParameter("categoryNo"));
 		
@@ -79,6 +80,7 @@ public class ODClassUpdateController extends HttpServlet {
 		odClassDto.setClassDesc(descStr);
 		odClassDto.setInstructor(instructorStr);
 		odClassDto.setClassLimit(classLimitStr);
+		odClassDto.setImg(imgStr);
 		odClassDto.setRegion(regionStr);
 		odClassDto.setCategoryNo(categoryNoStr);
 		

@@ -9,15 +9,17 @@
 <title>클래스 목록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/category/classList.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/clasSearch.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/categoryBtn.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/classSearch.css">
 </head>
 
 <body>
 <%@ include file="../common/adminHeader.jsp"%>
 	<div class="container">		
+	<%@ include file="/jsp/admin/category/categoryBtn.jsp"%>	
 	<div class="listWrap">
 		<div class="list">
-			<div class="addClass"><a href="./add">추가</a></div>
+			
 			<c:if test="${empty odClassList}">
 				<p>클래스 목록이 비어 있습니다.</p>
 			</c:if>	
@@ -25,8 +27,7 @@
 					<div class="classObj">
 						<a href="./detail?classNo=${odClassDto.getClassNo()}" style="text-decoration:none;">
 							<div class="cssClass">
-								<%-- <img src="${odClassDto.getImg()}"> --%>
-								<img class="classImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ37Yi1ANvy4Ma4F2lnGQvHWi7OmoaAHS9Lg&s">
+								<img class="classImg" src="${odClassDto.getImg()}">
 							</div>
 							<div>
 							 	<div class="name">
@@ -71,10 +72,10 @@
             <li class="page-item">
 				<c:choose>
 				    <c:when test="${currentPage-pageGroupSize < 1}">
-				        <a class="page-link" href="/classTube/admin/category/list?page=1${not empty keyword ? '&keyword=' : ''}${keyword}">이전</a>
+				        <a class="page-link" href="/classTube/admin/category/list?page=1${not empty keyword ? '&keyword=${keyword}' : ''}${not empty categoryNo ? '&categoryNo=${categoryNo}' : ''}">이전</a>
 				    </c:when>
 				    <c:otherwise>
-				        <a class="page-link" href="/classTube/admin/category/list?page=${currentPage - 10}${not empty keyword ? '&keyword=' : ''}${keyword}">이전</a>
+				        <a class="page-link" href="/classTube/admin/category/list?page=${currentPage - 10}${not empty keyword ? '&keyword=${keyword}' : ''}${not empty categoryNo ? '&categoryNo=${categoryNo}' : ''}">이전</a>
 				    </c:otherwise>
 				</c:choose>
             </li>
@@ -82,20 +83,28 @@
 
         <!-- 페이지 숫자 버튼 -->
         <c:forEach var="i" begin="${startPage}" end="${endPage}">
-            <li class="page-item ${currentPage == i ? 'active' : ''}">
-                <a class="page-link" href="/classTube/admin/category/list?page=${i}${not empty keyword ? '&keyword=' : ''}${keyword}">${i}</a>
-            </li>
-        </c:forEach>
+		    <li class="page-item ${currentPage == i ? 'active' : ''}">
+		        <a class="page-link" href="<c:url value='/admin/category/search'>
+		            <c:param name='page' value='${i}'/>
+		            <c:if test='${not empty param.keyword}'>
+		                <c:param name='keyword' value='${param.keyword}'/>
+		            </c:if>
+		            <c:if test='${not empty param.categoryNo}'>
+		                <c:param name='categoryNo' value='${param.categoryNo}'/>
+		            </c:if>
+		        </c:url>">${i}</a>
+		    </li>
+		</c:forEach>
 
         <!-- 다음 버튼 -->
         <c:if test="${currentPage < totalPage}">
             <li class="page-item">
 	            <c:choose>
 				    <c:when test="${currentPage+pageGroupSize < totalPage}">
-				        <a class="page-link" href="/classTube/admin/category/list?page=${currentPage+pageGroupSize}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
+				        <a class="page-link" href="/classTube/admin/category/list?page=${currentPage+pageGroupSize}${not empty keyword ? '&keyword=${keyword}' : ''}${not empty categoryNo ? '&categoryNo=${categoryNo}' : ''}">다음</a>
 				    </c:when>
 				    <c:otherwise>
-				        <a class="page-link" href="/classTube/admin/category/list?page=${totalPage}${not empty keyword ? '&keyword=' : ''}${keyword}">다음</a>
+				        <a class="page-link" href="/classTube/admin/category/list?page=${totalPage}${not empty keyword ? '&keyword=${keyword}' : ''}${not empty categoryNo ? '&categoryNo=${categoryNo}' : ''}">다음</a>
 				    </c:otherwise>
 				</c:choose>
             </li>
@@ -120,7 +129,9 @@
 				</div>
 			</form>
 
-
+<div class="addClass">
+        <a href="./add" class="add-btn">클래스 추가</a>
+    </div>
 
 			<p>
 		</div>

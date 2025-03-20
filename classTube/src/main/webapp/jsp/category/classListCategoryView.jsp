@@ -27,8 +27,7 @@
 					<div class="classObj">
 						<a href="./detail?classNo=${odClassDto.getClassNo()}" style="text-decoration:none;">
 							<div class="cssClass">
-								<%-- <img src="${odClassDto.getImg()}"> --%>
-								<img class="classImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ37Yi1ANvy4Ma4F2lnGQvHWi7OmoaAHS9Lg&s">
+								<img class="classImg" src="${odClassDto.getImg()}">
 							</div>
 							<div>
 							 	<div class="name">
