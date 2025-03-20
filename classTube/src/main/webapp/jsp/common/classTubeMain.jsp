@@ -16,9 +16,6 @@
 <body>
 <%@ include file="./commonHeader.jsp"%>
 	
-	<form class= "formlogout" action="/classTube/logout" method="get">
-		<button class= "logout" type="submit">로그아웃</button>
-	</form>
 
 <%@ include file="/jsp/category/categoryBtn.jsp"%>
 
