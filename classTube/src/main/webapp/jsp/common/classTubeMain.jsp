@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/category/classList.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/categoryBtn.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/classTubeMain.css">
 </head>
 
 <body>

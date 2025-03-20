@@ -1,0 +1,21 @@
+/* 로그아웃 버튼 스타일 */
+.logout {
+    color: #C3C564; /* 기본 글자색 */
+    background-color: white; /* 기본 배경색 */
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    cursor: pointer;
+    
+}
+
+/* 마우스 오버 시 효과 */
+.logout:hover {
+    background-color: #e0e0e0;
+    color: black;
+}
+
+.formlogout {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
