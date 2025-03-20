@@ -26,5 +26,3 @@
 		    <button type="submit">쿠킹</button>
 		</form>
 </nav>
-
-</header>

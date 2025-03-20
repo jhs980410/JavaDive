@@ -374,7 +374,7 @@ public class ODClassDao {
 
 		sql = "SELECT CLASS_NO, CLASS_NAME, PRICE, CLASS_DESC, INSTRUCTOR, CREATE_AT, VIEWS, CLASS_LIMIT, IMG, REGION, CATEGORY_NO";
 		sql += " FROM ODCLASS";
-		sql += " WHERE CLASS_NO =?";
+		sql += " WHERE CLASS_NO=?";
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -537,7 +537,7 @@ public class ODClassDao {
 	}
 	
 	//전체반환되는 클래스의 카운트 
-		public int getTotalClassCount(String keyword) throws Exception {
+		public int getTotalClassCount(String keyword, Integer categoryNo) throws Exception {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			int totalRecords = 0;
@@ -545,15 +545,25 @@ public class ODClassDao {
 			String sql = "SELECT COUNT(*) FROM ODCLASS";
 
 			// 🔹 검색어가 있을 경우 WHERE 절 추가
-			if (keyword != null && !keyword.trim().isEmpty()) {
+			if ((keyword != null && !keyword.trim().isEmpty()) && categoryNo == null) {
 				sql += " WHERE LOWER(CLASS_NAME) LIKE LOWER(?) ";
+			} else if ((keyword == null || keyword.trim().isEmpty()) && categoryNo != null) {
+				sql += " WHERE CATEGORY_NO=?";
+			} else if ((keyword != null && !keyword.trim().isEmpty()) && categoryNo != null) {
+				sql += " WHERE LOWER(CLASS_NAME) LIKE LOWER(?) AND CATEGORY_NO=?";
 			}
 
 			try {
 				pstmt = connection.prepareStatement(sql);
-				if (keyword != null && !keyword.trim().isEmpty()) {
+				if ((keyword != null && !keyword.trim().isEmpty()) && categoryNo == null) {
 					pstmt.setString(1, "%" + keyword.trim() + "%");
+				} else if ((keyword == null || keyword.trim().isEmpty()) && categoryNo != null) {
+					pstmt.setInt(1, categoryNo);
+				}else if ((keyword != null && !keyword.trim().isEmpty()) && categoryNo != null) {
+					pstmt.setString(1, "%" + keyword.trim() + "%");
+					pstmt.setInt(2, categoryNo);
 				}
+				
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
 					totalRecords = rs.getInt(1);

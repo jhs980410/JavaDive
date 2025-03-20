@@ -33,17 +33,27 @@ public class ODClassSearchController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		ODClassDao odClassDao = new ODClassDao();
 		ServletContext sc = this.getServletContext();
 		Connection conn = (Connection) sc.getAttribute("conn");
+		ODClassDao odClassDao = new ODClassDao();
 		odClassDao.setConnection(conn);
 		ArrayList<ODClassDto> odClassList = null; // dao에서 , keyword 입력예정
 		
-		int currentPage = 1;  // 기본 페이지는 1
-		int pageSize = 6;  // 한 페이지에 6개씩 조회
-		    
 		try {
+			
+			
 			System.out.println("Search 컨트롤러진입");
+		
+			// 🔹 현재 페이지 가져오기 (없으면 기본값 1)
+			int currentPage = 1;  // 기본 페이지는 1
+			String pageParam = req.getParameter("page");
+			
+			if (pageParam != null && pageParam.matches("\\d+")) { // 숫자인지 확인
+				currentPage = Integer.parseInt(pageParam);
+			}
+			
+			int pageSize = 6;  // 한 페이지에 6개씩 조회
+			
 			
 			String keyword = req.getParameter("keyword");
 			Integer categoryNo = null;
@@ -55,11 +65,10 @@ public class ODClassSearchController extends HttpServlet {
 				odClassList = (ArrayList<ODClassDto>) odClassDao.selectClassList(categoryNo, keyword, currentPage, pageSize);
 			}
 			
-			
-			
+
 	        session.setAttribute("odClassList", odClassList);
 	        
-	        int totalRecords = odClassDao.getTotalClassCount(keyword);
+	        int totalRecords = odClassDao.getTotalClassCount(keyword, categoryNo);
 			int totalPage = (int) Math.ceil((double)totalRecords / pageSize); // 총 페이지 수
 
 	        // 📌 추가: 현재 페이지와 페이지 크기도 세션에 저장 (페이징 유지)

@@ -49,27 +49,31 @@ public class ODClassListController  extends HttpServlet {
 			}
 
 			int pageSize = 12;
-			String keyword = req.getParameter("keyword");
 			
 			 if (req.getRequestURI().contains("/admin")) { 
 		            pageSize = 6;
 		        }
 
 			try {
+				
+
+				String keyword = req.getParameter("keyword");
+				Integer categoryNo = null;
+				
+				if (req.getParameter("categoryNo") == null) {
+					odClassList = (ArrayList<ODClassDto>) odClassDao.selectClassList(keyword, currentPage, pageSize);
+				} else {
+					categoryNo = Integer.parseInt(req.getParameter("categoryNo"));
+					odClassList = (ArrayList<ODClassDto>) odClassDao.selectClassList(categoryNo, keyword, currentPage, pageSize);
+				}
+				
 				// 🔹 클래스 개수 조회
 				// 클래스의 총 개수 가져오기
-				int totalRecords = odClassDao.getTotalClassCount(keyword);
+				int totalRecords = odClassDao.getTotalClassCount(keyword, categoryNo);
 				int totalPage = (int) Math.ceil((double)totalRecords / pageSize); // 총 페이지 수
 
 				System.out.println("📌 totalRecords: " + totalRecords); // 🔍 조회된 개수 확인
 				System.out.println("📌 totalPage 계산 결과: " + totalPage); // 🔍 totalPage 계산 값 확인
-				if (keyword == null || keyword.trim().isEmpty()) {
-					// 검색어가 없을 때 일반 리스트 출력
-					odClassList = (ArrayList<ODClassDto>) odClassDao.selectClassList(currentPage, pageSize);
-				} else {
-					// 검색 시 공지사항 제외하고 검색 리스트 가져오기
-					odClassList = (ArrayList<ODClassDto>) odClassDao.selectClassList(keyword, currentPage, pageSize);
-				}
 
 				// 🔹 session에 저장
 				session.setAttribute("odClassList", odClassList);

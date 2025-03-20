@@ -43,13 +43,23 @@ public class ODClassListViewController extends HttpServlet {
 				currentPage = Integer.parseInt(pageParam);
 			}
 
-			int pageSize = 6;
-			String keyword = req.getParameter("keyword");	
+			int pageSize = 6;	
 			
 			try {
+				
+				String keyword = req.getParameter("keyword");
+				Integer categoryNo = null;
+				
+				if (req.getParameter("categoryNo") == null) {
+					odClassList = (ArrayList<ODClassDto>) odClassDao.selectClassList(keyword, currentPage, pageSize);
+				} else {
+					categoryNo = Integer.parseInt(req.getParameter("categoryNo"));
+					odClassList = (ArrayList<ODClassDto>) odClassDao.selectClassList(categoryNo, keyword, currentPage, pageSize);
+				}
+				
 				// 🔹 클래스 개수 조회
 				// 클래스의 총 개수 가져오기
-				int totalRecords = odClassDao.getTotalClassCount(keyword);
+				int totalRecords = odClassDao.getTotalClassCount(keyword, categoryNo);
 				int totalPage = (int) Math.ceil((double)totalRecords / pageSize); // 총 페이지 수
 
 				System.out.println("📌 totalRecords: " + totalRecords); // 🔍 조회된 개수 확인
