@@ -27,8 +27,7 @@
 					<div class="classObj">
 						<a href="./detail?classNo=${odClassDto.getClassNo()}" style="text-decoration:none;">
 							<div class="cssClass">
-								<%-- <img src="${odClassDto.getImg()}"> --%>
-								<img class="classImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ37Yi1ANvy4Ma4F2lnGQvHWi7OmoaAHS9Lg&s">
+								<img class="classImg" src="${odClassDto.getImg()}">
 							</div>
 							<div>
 							 	<div class="name">
@@ -73,10 +72,10 @@
             <li class="page-item">
 				<c:choose>
 				    <c:when test="${currentPage-pageGroupSize < 1}">
-				        <a class="page-link" href="/classTube/admin/category/list?page=1${not empty keyword ? '&keyword=' : ''}${keyword}">이전</a>
+				        <a class="page-link" href="/classTube/admin/category/list?page=1${not empty keyword ? '&keyword=${keyword}' : ''}${not empty categoryNo ? '&categoryNo=${categoryNo}' : ''}">이전</a>
 				    </c:when>
 				    <c:otherwise>
-				        <a class="page-link" href="/classTube/admin/category/list?page=${currentPage - 10}${not empty keyword ? '&keyword=' : ''}${keyword}">이전</a>
+				        <a class="page-link" href="/classTube/admin/category/list?page=${currentPage - 10}${not empty keyword ? '&keyword=${keyword}' : ''}${not empty categoryNo ? '&categoryNo=${categoryNo}' : ''}">이전</a>
 				    </c:otherwise>
 				</c:choose>
             </li>
@@ -84,10 +83,18 @@
 
         <!-- 페이지 숫자 버튼 -->
         <c:forEach var="i" begin="${startPage}" end="${endPage}">
-            <li class="page-item ${currentPage == i ? 'active' : ''}">
-                <a class="page-link" href="/classTube/admin/category/search?page=${i}${not empty keyword ? '&keyword=' : ''}${keyword}">${i}</a>
-            </li>
-        </c:forEach>
+		    <li class="page-item ${currentPage == i ? 'active' : ''}">
+		        <a class="page-link" href="<c:url value='/admin/category/search'>
+		            <c:param name='page' value='${i}'/>
+		            <c:if test='${not empty param.keyword}'>
+		                <c:param name='keyword' value='${param.keyword}'/>
+		            </c:if>
+		            <c:if test='${not empty param.categoryNo}'>
+		                <c:param name='categoryNo' value='${param.categoryNo}'/>
+		            </c:if>
+		        </c:url>">${i}</a>
+		    </li>
+		</c:forEach>
 
         <!-- 다음 버튼 -->
         <c:if test="${currentPage < totalPage}">
