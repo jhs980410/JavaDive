@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>클래스 목록</title>
+<title>클래스 검색 목록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/category/classList.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/categoryBtn.css">
