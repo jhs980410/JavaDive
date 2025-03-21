@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>InsertTitle</title>
+<title>${odClassDto.getClassName()}</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/classDetail.css">
 </head>
@@ -14,11 +14,12 @@
     <%@ include file="../common/commonHeader.jsp"%>
     <div class="container">
         <div class="class-detail">
-            <h2>${odClassDto.getClassName()}</h2>
+            
             <div class="class-image">
                 <!-- 이미지 자리 -->
                 <img class="classImg" src="${odClassDto.getImg()}">
             </div>
+            <h2>${odClassDto.getClassName()}</h2>
             <div class="detail-grid">
                 <div class="detail-row">
                     <div class="detail-label">강사</div>

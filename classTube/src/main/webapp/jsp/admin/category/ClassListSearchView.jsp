@@ -6,7 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>클래스 검색 목록</title>
+<title><c:if test="${member.getPriv()}=='ADMIN'">
+				관리자 
+			</c:if>클래스 찾아보기</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/category/classList.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/category/categoryBtn.css">
