@@ -70,7 +70,7 @@
 				</tbody>
 			</table>
 		</form>
-		<c:set var="pageGroupSize" value="10" />
+<%-- 		<c:set var="pageGroupSize" value="10" />
 		<!-- startPage 계산: currentPage가 10보다 크면 그룹이 바뀌어야 함 -->
 		<c:set var="startPage"
 			value="${(currentPage - 1) / pageGroupSize * pageGroupSize + 1}" />
@@ -125,7 +125,7 @@
 					</div>
 				</div>
 			</form>
-
+ --%>
 
 
 			<p>
