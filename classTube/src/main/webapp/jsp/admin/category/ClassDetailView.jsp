@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 상세 보기</title>
+<title>관리자 상세 보기: </title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/common/adminHeader.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/category/classAdd.css">
 </head>
